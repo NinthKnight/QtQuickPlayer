@@ -1,0 +1,189 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Generated Files">
+      <UniqueIdentifier>{71ED8ED8-ACB9-4CE9-BBE1-E00B30144E11}</UniqueIdentifier>
+      <Extensions>cpp;c;cxx;moc;h;def;odl;idl;res;</Extensions>
+    </Filter>
+    <Filter Include="Generated Files">
+      <UniqueIdentifier>{71ED8ED8-ACB9-4CE9-BBE1-E00B30144E11}</UniqueIdentifier>
+      <Extensions>cpp;c;cxx;moc;h;def;odl;idl;res;</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{D9D6E242-F8AF-46E4-B9FD-80ECBC20BA3E}</UniqueIdentifier>
+      <Extensions>qrc;*</Extensions>
+      <ParseFiles>false</ParseFiles>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{D9D6E242-F8AF-46E4-B9FD-80ECBC20BA3E}</UniqueIdentifier>
+      <Extensions>qrc;*</Extensions>
+      <ParseFiles>false</ParseFiles>
+    </Filter>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="model.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="netWork\mynetwork.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayCore\FFmpegPlayer.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="QuickLayer.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="debug\moc_predefs.h.cbt">
+      <Filter>Generated Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="release\moc_predefs.h.cbt">
+      <Filter>Generated Files</Filter>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ContactModel.qml">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="XButton.qml">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="XSlider.qml">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\trayMenu\ad.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\trayMenu\btn_next_normal.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\trayMenu\btn_next_pressed.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\trayMenu\btn_next_tray_menu.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\trayMenu\btn_pause_normal.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\trayMenu\btn_pause_pressed.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\trayMenu\btn_pause_tray_menu.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\trayMenu\btn_play_normal.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\trayMenu\btn_play_pressed.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\trayMenu\btn_play_tray_menu.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\trayMenu\btn_prev_normal.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\trayMenu\btn_prev_pressed.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\trayMenu\btn_prev_tray_menu.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\trayMenu\btn_search_normal.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\trayMenu\btn_search_pressed.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\buttonImage\close_disable.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\buttonImage\close_down.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\buttonImage\close_hover.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\buttonImage\close_normal.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\trayMenu\list_type_icon1.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\trayMenu\list_type_icon2.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\trayMenu\list_type_icon3.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\trayMenu\list_type_icon4.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\trayMenu\list_type_icon5.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\trayMenu\list_type_icon6.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\trayMenu\list_type_icon7.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="main.qml">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\buttonImage\menu_down.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\buttonImage\menu_hover.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\buttonImage\menu_normal.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\buttonImage\min_down.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\buttonImage\min_hover.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\buttonImage\min_normal.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <QtRcc Include="qml.qrc">
+      <Filter>Resource Files</Filter>
+    </QtRcc>
+    <None Include="res\title.png">
+      <Filter>Resource Files</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <QtMoc Include="PlayCore\FFmpegPlayer.h">
+      <Filter>Generated Files</Filter>
+    </QtMoc>
+    <QtMoc Include="netWork\mynetwork.h">
+      <Filter>Generated Files</Filter>
+    </QtMoc>
+    <QtMoc Include="QuickLayer.h">
+      <Filter>Generated Files</Filter>
+    </QtMoc>
+    <QtMoc Include="model.h">
+      <Filter>Generated Files</Filter>
+    </QtMoc>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="myapp.rc" />
+  </ItemGroup>
+</Project>
