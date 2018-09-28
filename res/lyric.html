@@ -1,0 +1,163 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8" />
+	<title>网易云音乐</title>
+	<link rel="icon" type="image/ico" href="./src/images/format.ico" />
+	<link rel="stylesheet" type="text/css" href="./src/css/font-awesome.min.css" />
+	<link rel="stylesheet" type="text/css" href="./src/css/index.css" />
+	<script type="text/javascript" src="./src/libs/jquery-3.1.1.min.js"></script>
+	<script type="text/javascript" src="./src/js/index.js"></script>
+	<script type="text/javascript" src="./src/js/lyricScroll.js"></script>
+        <script type="text/javascript" src="./src/js/qwebchannel.js"></script>
+
+        <script type="text/javascript">
+
+        //网页需要和C++交互 服务端需要导入qwebchannel.js 这个js文件
+        window.onload = function() {
+            //初始化时候需要实例QWebChannel，
+            if (typeof qt != 'undefined') new QWebChannel(qt.webChannelTransport, function(channel) {
+                window.mPlayer = channel.objects.mPlayer;
+                showLyricInfo();
+
+                // 接受来自mPlayer的信号连上本地的一个方法进行信息输出
+                window.mPlayer.signal_setScorll.connect(function (message) {
+                    SetScroll();
+                });
+            });
+        }
+        
+        //滚动初始化
+        function SetScroll() {
+
+        }
+        //滚动初始化
+        function InitLyricScorll() {
+            var lrcContainer = document.getElementById("lrcContainer");
+            var lrcBox = document.getElementById("lrcBox");
+            var output = document.getElementById("output");
+
+            var cls = "lrc";
+            var cls_active = "current";
+
+            // srcoll
+            var isScroll = true; // 是否允许滚动
+            var curIndex = -1; // flag
+            sessionStorage.setItem("curLine", 0); // 存储当前行
+
+            /**
+             * @Theme: 歌词滚动
+             * @Param: i: 当前滚动行
+             * @Memo: 
+             *
+             */
+            var jQ_moveLrc = function (i) {
+                var top = $("#lrcBox").find(".lrc").get(i).dataset.top;
+                if (!!isScroll) {
+                    // 如果当前行与curIndex不等则滚动
+                    if (i !== curIndex) {
+                        $("#lrcContainer").stop(true).animate({
+                            "scrollTop": top
+                        }, 300);
+                        curIndex = i;
+                    }
+                }
+            }
+
+            // 限制滚动范围
+            var minHeight = lrcContainer.height / 2;
+            var maxHeight = lrcBox.height - lrcContainer.height;
+
+            // 存入各行滚动值
+            $("#lrcBox").find(".lrc").each(function (index, item) {
+                //console.log("minHeight: %s maxHeight:%s");
+                var offsetTop = item.offsetTop;
+                offsetTop = (offsetTop <= minHeight) ? 0 : offsetTop - minHeight;
+                offsetTop = (offsetTop >= maxHeight) ? maxHeight : offsetTop;
+                item.dataset.top = offsetTop;
+
+            });
+            // 默认第一行歌词高亮
+            $("#lrcBox").find(".lrc").eq(0).addClass("current");
+        }
+
+        function showLyricInfo()
+        {
+            //设置歌词
+            window.mPlayer.getLyric(function (message) {
+                // 格式化歌词
+                var arrLrc=formatLyric(message);
+                // 创建歌词DOM
+                createLyricDOM(arrLrc, $("#lrcBox"), InitLyricScorll)
+            });
+
+            //设置歌手
+            window.mPlayer.getSonger(function(message){
+             document.getElementById("singersname").innerHTML = message;
+            });
+
+            //设置专辑
+            window.mPlayer.getAlbumName(function (message) {
+             document.getElementById("albumname").innerHTML = message;
+            });
+
+            //设置歌曲名
+            window.mPlayer.getSongName(function (message) {
+                document.getElementById("songname").innerHTML = message;
+            });
+        }
+
+        </script>
+
+</head>
+
+<body>
+	
+	<!-- page_lyric 歌曲详情页 -->
+	<!-- page_lyric 歌曲详情页 -->
+	<div class="page_songdetail" id="pageSongDetail">
+		<!-- 模糊背景 -->
+		<div class="g_blurbg" id="bgBlur" style="background-image:url('./src/images/al8.png');"></div>
+		<div class="maincontainer clearfix">
+			<div class="compressbtn" id="btnCompressPlayBox" title="收起音乐详情页">
+				<i class="fa fa-compress" aria-hidden="true"></i>
+			</div>
+			<div class="discsection">
+				<div class="disc_needle" id="discNeedle"><img src="./src/images/needle.png" alt=""></div>
+				<div class="disc_arc" id="bgDisc" style="background-image:url('./src/images/al8.png');">
+					<div class="poster"><img src="./src/images/disc-o.png" alt=""></div>
+				</div>
+				<div class="disc_btns">
+					<span class="btn playall"><i class="fa fa-heart-o" aria-hidden="true"></i>&nbsp;&nbsp;喜欢</span>
+					<span class="btn playall"><i class="fa fa-folder" aria-hidden="true"></i>&nbsp;&nbsp;收藏</span>
+					<span class="btn playall"><i class="fa fa-download" aria-hidden="true"></i>&nbsp;&nbsp;下载</span>
+					<span class="btn playall"><i class="fa fa-share-square-o" aria-hidden="true"></i>&nbsp;&nbsp;分享</span>
+				</div>
+			</div>
+			<div class="lyricsection">
+				<div class="lrcinfo" id="songDetail">
+					<p class="info_song"><span class="songname" id="songname"></span><span class="label quality">320k</span></p>
+					<p class="info_album">
+						<span class="album">专辑：<span class="albumname" id="albumname"></span>
+						</span>
+						<span class="singer">歌手：<span class="singersname" id="singersname"></span>
+						</span>
+					</p>
+				</div>
+				<div class="lrccontainer" id="lrcContainer">
+
+					<div class="lrcbox" id="lrcBox">
+                        
+                                                <!-- <p>暂无歌词</p> 
+                                                    <input type="button" class="button" value="清除文本框内容" onclick="test()" />
+                                                     -->
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+</body>
+
+</html>

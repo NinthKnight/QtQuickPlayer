@@ -1,4 +1,5 @@
 #include "model.h"
+#include "LyricModel.h"
 
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
@@ -8,11 +9,14 @@
 #include <qqml.h>
 #include <QtQuick/qquickitem.h>
 #include <QtQuick/qquickview.h>
+#include <QtWebEngine/qtwebengineglobal.h>
 
 #include "QuickLayer.h"
 
 SongModel model;
 PlayListModel playModel;
+CLyricModel lyricModel;
+
 
 int main(int argc, char *argv[])
 {
@@ -22,8 +26,11 @@ int main(int argc, char *argv[])
 
 	qsrand(QTime(0, 0, 0).secsTo(QTime::currentTime()));
 
+	QtWebEngine::initialize();
+
 	//register C++ type CQuickLayer
 	qmlRegisterType<CQuickLayer>("com.mplayer", 1, 0, "Mplayer");
+	qmlRegisterType<CLyricLayer>("com.mplayer", 1, 0, "MLyric");
 	//qmlRegisterType<SongModel>("com.mplayer", 1, 0, "MySongModel");
 
 	//QQuickView view;
@@ -41,6 +48,7 @@ int main(int argc, char *argv[])
 	QQmlContext *ctxt = engine.rootContext();
 	ctxt->setContextProperty("myModel", &model);
 	ctxt->setContextProperty("playModel", &playModel);
+	ctxt->setContextProperty("lyricModel", &lyricModel);
 
     engine.load(QUrl(QStringLiteral("qrc:/main.qml")));
     if (engine.rootObjects().isEmpty())

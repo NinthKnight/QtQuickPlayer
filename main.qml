@@ -5,6 +5,7 @@ import QtQuick.Controls.Styles 1.4
 import QtQuick.Dialogs 1.1
 import QtQuick.Layouts 1.3
 import QtGraphicalEffects 1.0
+import QtWebEngine 1.0
 
 import com.mplayer 1.0
 
@@ -24,6 +25,15 @@ Window {
     Mplayer{
         id:quickLayer;   //Instance of CQuickLayer
     }
+
+
+//    //监听C++的信号
+//    Connections {
+//            target: quickLayer;
+//            onSetLyrics:{
+//                console.log(strLyrics);
+//            }
+//    }
 
     onClosing:{
         quickLayer.close();
@@ -232,481 +242,261 @@ Window {
     Rectangle{
         id:mainUIRectangle;
         anchors.top: titleRectangle.bottom;
-        width:mainWindow.width;
+        anchors.left: titleRectangle.left;
+        width:titleRectangle.width;
         height: parent.height - titleRectangle.height - buttomRect.height;
-        color: "black";
         visible: true;
 
-        //左边是List
-        Component{
-                id: listDelegate
+        //使用StackView来显示主界面区
+         StackView {
+             id: stackView
+             //anchors.centerIn: parent;
+             anchors.top: mainUIRectangle.top;
+             anchors.left: mainUIRectangle.left;
+             width:parent.width;
+             height: parent.height;
+             visible: true;
 
-                Item {
-                    id: wrapper
-                    width: parent.width
-                    height: 30
-                    ListView.onAdd: console.log("count:", ListView.view.count)
+             initialItem: "qrc:/MainWindow.qml";
+         }
 
-                    MouseArea{
-                        anchors.fill: parent
-                        onClicked: wrapper.ListView.view.currentIndex = index
-                    }
+    }
 
-                    RowLayout{
-                        anchors.left: parent.left
-                        anchors.verticalCenter: parent.verticalCenter
-                        spacing: 8
+    //播放列表
+    Window{
+        id: playListWindow;
+        //anchors.right:  parent.right;
+        //anchors.bottom:  parent.bottom;
 
-                        Rectangle{
-                            id: headBlock;
-                            visible: wrapper.ListView.isCurrentItem ? true : false;
-                            color: "#C62F2F";
-                            width: 5;
-                            height: 30;
-                        }
+        flags: Qt.FramelessWindowHint;
+        visible: false;
+        width: 351;
+        height: 441;
+        color:"#FAFAFA";
+        x : mainUIRectangle.x + mainUIRectangle.width - width + mainWindow.x;
+        y : mainUIRectangle.y + mainUIRectangle.height - height + mainWindow.y;
 
-                        Image{
-                            id:iconImg1;
-                            anchors.left:  headBlock.right;
-                            anchors.leftMargin: 10;
-                            source: srcImg;
-                            width: 24;
-                            height: 22;
+        DropShadow {
+            anchors.fill: playListRect
+            horizontalOffset: -1
+            verticalOffset: -1
+            samples: 12;
+            source: playListRect;
+            color: "#C4C4C5"
+            radius: 3;
+        }
 
-                        }
+
+         Rectangle{
+
+             id: playListRect;
+             anchors.right:  parent.right;
+             anchors.bottom:  parent.bottom;
+
+             visible: true;
+             width: 350;
+             height: 440;
+             color:"#FAFAFA";
+
+             //响应播放列表歌曲被选中
+             Connections {
+                     target: quickLayer;
+                     onSetPlayList:{
+                          playListTable.nSelIndex = nIndex;
+                          console.log("123" + nIndex);
+                     }
+                 }
+
+            Rectangle{
+                id: playListHead;
+                anchors.left:  parent.left;
+                anchors.top:  parent.top;
+                //visible: true;
+                width: parent.width;
+                height: 42;
+                color:"#F0F0F2";
+
+                Rectangle{
+                    id: playHeadLabel;
+                    radius: 8;
+                    anchors.centerIn: parent;
+                    //visible: true;
+                    width: 180;
+                    height: 26;
+                    color:"#7C7D85";
+
+                    Rectangle{
+                        id: playHeadLeftLabel;
+                        width: parent.width/2;
+                        height: parent.height;
+                        //visible: true;
+                        anchors.left:  parent.left;
+                        anchors.top:  parent.top;
+                        color: "#7C7D85";
 
                         Text{
-                            id: listName;
-                            anchors.left:  iconImg1.right;
-                            anchors.leftMargin: 10;
-                            text: name
-                            color: wrapper.ListView.isCurrentItem ? "black" : "#707070";
+                            text: "播放列表"
+                            color: "white"
+                            font.pixelSize: 13
+                            Layout.preferredWidth: 120
+                            anchors.centerIn: parent;
+                        }
+                    }
+
+                    Rectangle{
+                        id: playHeadRightLabel;
+                        width: parent.width/2;
+                        height: parent.height;
+                        //visible: true;
+                        anchors.right:  parent.right;
+                        anchors.top:  parent.top;
+                        color: "#F5F5F7";
+
+                        Text{
+                            text: "历史记录"
+                            color: "#7C7D85"
+                            font.pixelSize: 13
+                            Layout.preferredWidth: 120
+                            anchors.centerIn: parent;
+                        }
+                    }
+                }
+
+            }
+
+
+            //最左边面有一根线
+            Rectangle{
+                id:topLine;
+                width: parent.width;
+                height: 1;
+                anchors.left:  playListHead.left;
+                anchors.top: playListHead.bottom;
+                color: "#E1E1E2";
+                //visible: true;
+            }
+
+
+            TableView{
+                    property int nSelIndex: -1;
+
+                    id: playListTable;
+                    anchors.left:  topLine.left;
+                    anchors.top: topLine.bottom;
+                    width: parent.width;
+                    height: parent.height - playListHead.height - topLine.height;
+
+                    headerVisible: false;
+                    backgroundVisible: false;
+                    frameVisible: false;
+
+                    //响应双击
+                    onDoubleClicked:{
+                         quickLayer.playListSong(playListTable.currentRow);
+                    }
+
+                    //TableViewColumn 描述表格的每一列
+
+                    TableViewColumn{
+                        role: "11";
+                        title: "id";
+                        width: 10;
+                        elideMode: Text.ElideRight;
+                    }
+
+                    TableViewColumn{
+                        delegate: Image{
+                            source: styleData.value === 1 ? "qrc:/res/playList/playing_list_icon.png" : "";
+                            width:19;
+                            height:18;
+                        }
+
+                        role: "image";
+                        title: "id";
+                        width: 30;
+                        elideMode: Text.ElideRight;
+                    }
+
+                    TableViewColumn{
+                        role: "22";
+                        title: "id";
+                        width: 20;
+                        elideMode: Text.ElideRight;
+                    }
+
+                    TableViewColumn{
+                        role: "songName";
+                        title: "音乐标题";
+                        width: 120;
+                        elideMode: Text.ElideRight;
+
+                    }
+
+                    TableViewColumn{
+                        role: "songer";
+                        title: "歌手";
+                        width: 80;
+                        elideMode: Text.ElideRight;
+                    }
+
+                    TableViewColumn{
+                        role: "Duration";
+                        title: "时长";
+                        width: 50;
+                        elideMode: Text.ElideRight;
+                    }
+
+                    itemDelegate:Item {
+                            Text{
+                            text: styleData.value
+                            color: "#333333"
+                            elide: Text.ElideRight;//styleData.elideMode;
+                            font.pixelSize: 13
+                            //Layout.preferredWidth: 120
+                            anchors.verticalCenter: parent.verticalCenter;
+                            width:80;
+                            }
+                    }
+
+                    rowDelegate :Rectangle{//设置行的背景色
+                        color: styleData.selected ?  "#E3E3E5" : (styleData.alternate?"#F5F5F7":"#FAFAFA")
+                        visible: true
+                        height: 28;
+
+                        Rectangle{
+                            width: parent.width;
+                            height: 1;
+
+                            color: "#E1E1E2";
+                            visible: true;
+                        }
+                    }
+
+                    headerDelegate :Rectangle{//设置表头的样式
+                        implicitWidth: 10
+                        implicitHeight: 24
+
+
+                        border.color: "#707070"
+                        color: "#FAFAFA";
+                        Text{
+                            anchors.verticalCenter: parent.verticalCenter
+                            anchors.left: parent.left
+                            anchors.leftMargin: 4
+                            anchors.right: parent.right
+                            anchors.rightMargin: 4
+                            text: styleData.value
+                            color: "#707070"
                             font.pixelSize: 13
                             Layout.preferredWidth: 120
                         }
-
                     }
+
+                    model: playModel
+                    focus: true
                 }
-            }
-
-        Rectangle{
-           id:left_mainUIRectangle;
-           color: "#F5F5F7";
-           visible: true;
-           width: 200;
-           height: parent.height;
-
-
-           Rectangle{
-               id: itemHead1;
-               width: parent.width;
-               height: 20;
-               visible: true;
-               anchors.left:  parent.left;
-               anchors.leftMargin: 5;
-               anchors.top:  parent.top;
-               anchors.topMargin: 10;
-               color: "#F5F5F7";
-
-               Text{
-                   text: "我的音乐"
-                   color: "#707070"
-                   font.pixelSize: 13
-                   Layout.preferredWidth: 120
-               }
-           }
-
-           ListView{
-                   anchors.top:  itemHead1.bottom;
-                   anchors.topMargin: 30;
-                   anchors.left:  parent.left;
-                   anchors.leftMargin: 5;
-
-                   width: 200;
-                   height: parent.height;
-
-                   id: listView
-                   anchors.fill: parent
-                   delegate: listDelegate
-                   model: ContactModel {}
-                   focus: true
-                   highlight: Rectangle{
-                       color: "#E6E7EA"
-                   }
-
-               }
-        }
-
-        //右边是table
-        Rectangle{
-           id:right_mainUIRectangle;
-
-           anchors.top:  titleRectangle.bottom;
-           anchors.topMargin: 30;
-           anchors.left:  left_mainUIRectangle.right;
-
-           visible: true;
-           width: mainUIRectangle.width - left_mainUIRectangle.width;
-           height: parent.height;
-
-           color: "#FAFAFA";
-
-           //最左边面有一根线
-           Rectangle{
-               id:rightLine;
-               width: 1;
-               height: parent.height;
-               anchors.left:  parent.left;
-               anchors.top: parent.top;
-               color: "#E1E1E2";
-               visible: true;
-           }
-
-
-           Rectangle{
-               anchors.left:  rightLine.right;
-               anchors.top: parent.top;
-               visible: true;
-               width:right_mainUIRectangle.width - rightLine.width;
-               height: parent.height;
-               color:"#FAFAFA";
-
-               TableView{
-                       id: songTable;
-                       anchors.left:  parent.left;
-                       anchors.top: parent.top;
-                       anchors.fill: parent;
-
-                       width: parent.width;
-                       height: parent.height;
-
-                       backgroundVisible: false;
-                       frameVisible: false;
-
-                       //响应双击
-                       onDoubleClicked:{
-                            quickLayer.playSong(songTable.currentRow);
-                       }
-
-                       //TableViewColumn 描述表格的每一列
-                       TableViewColumn{
-                           role: "songId";
-                           title: "";
-                           width: 50;
-                           elideMode: Text.ElideRight;
-
-                       }
-
-                       TableViewColumn{
-                           role: "songName";
-                           title: "音乐标题";
-                           width: 150;
-                           elideMode: Text.ElideLeft;
-
-                       }
-
-                       TableViewColumn{
-                           role: "songer";
-                           title: "歌手";
-                           width: 100;
-                           elideMode: Text.ElideLeft;
-                       }
-
-                       TableViewColumn{
-                           role: "AlbumName";
-                           title: "专辑";
-                           width: 100;
-                           elideMode: Text.ElideLeft;
-                       }
-
-                       TableViewColumn{
-                           role: "Duration";
-                           title: "时长";
-                           width: 50;
-                           elideMode: Text.ElideLeft;
-                       }
-
-
-
-                       itemDelegate:Text{//设置每个单元格的字体样式
-                           text: styleData.value
-                           color: styleData.selected? "balck" : styleData.textColor
-                           elide: styleData.elideMode;
-                           font.pixelSize: 14
-                           Layout.preferredWidth: 120
-                       }
-
-                       rowDelegate :Rectangle{//设置行的背景色
-                           color: styleData.selected ? "#E6E7EA" : "#FAFAFA";
-                           visible: true
-                       }
-
-                       headerDelegate :Rectangle{//设置表头的样式
-                           implicitWidth: 10
-                           implicitHeight: 24
-
-
-                           border.color: "#707070"
-                           color: "#FAFAFA";
-                           Text{
-                               anchors.verticalCenter: parent.verticalCenter
-                               anchors.left: parent.left
-                               anchors.leftMargin: 4
-                               anchors.right: parent.right
-                               anchors.rightMargin: 4
-                               text: styleData.value
-                               color: "#707070"
-                               font.pixelSize: 14
-                               Layout.preferredWidth: 120
-                           }
-                       }
-
-                       model: myModel
-                       focus: true
-                   }
-               }
-
-
-
-
-           //播放列表
-           Window{
-               id: playListWindow;
-               //anchors.right:  parent.right;
-               //anchors.bottom:  parent.bottom;
-
-               flags: Qt.FramelessWindowHint;
-               visible: false;
-               width: 351;
-               height: 441;
-               color:"#FAFAFA";
-               x : mainUIRectangle.x + mainUIRectangle.width - width + mainWindow.x;
-               y : mainUIRectangle.y + mainUIRectangle.height - height + mainWindow.y;
-
-               DropShadow {
-                   anchors.fill: playListRect
-                   horizontalOffset: -1
-                   verticalOffset: -1
-                   samples: 12;
-                   source: playListRect;
-                   color: "#C4C4C5"
-                   radius: 3;
-               }
-
-
-                Rectangle{
-
-                    id: playListRect;
-                    anchors.right:  parent.right;
-                    anchors.bottom:  parent.bottom;
-
-                    visible: true;
-                    width: 350;
-                    height: 440;
-                    color:"#FAFAFA";
-
-                    //响应播放列表歌曲被选中
-                    Connections {
-                            target: quickLayer;
-                            onSetPlayList:{
-                                 playListTable.nSelIndex = nIndex;
-                                 console.log("123" + nIndex);
-                            }
-                        }
-
-                   Rectangle{
-                       id: playListHead;
-                       anchors.left:  parent.left;
-                       anchors.top:  parent.top;
-                       //visible: true;
-                       width: parent.width;
-                       height: 42;
-                       color:"#F0F0F2";
-
-                       Rectangle{
-                           id: playHeadLabel;
-                           radius: 8;
-                           anchors.centerIn: parent;
-                           //visible: true;
-                           width: 180;
-                           height: 26;
-                           color:"#7C7D85";
-
-                           Rectangle{
-                               id: playHeadLeftLabel;
-                               width: parent.width/2;
-                               height: parent.height;
-                               //visible: true;
-                               anchors.left:  parent.left;
-                               anchors.top:  parent.top;
-                               color: "#7C7D85";
-
-                               Text{
-                                   text: "播放列表"
-                                   color: "white"
-                                   font.pixelSize: 13
-                                   Layout.preferredWidth: 120
-                                   anchors.centerIn: parent;
-                               }
-                           }
-
-                           Rectangle{
-                               id: playHeadRightLabel;
-                               width: parent.width/2;
-                               height: parent.height;
-                               //visible: true;
-                               anchors.right:  parent.right;
-                               anchors.top:  parent.top;
-                               color: "#F5F5F7";
-
-                               Text{
-                                   text: "历史记录"
-                                   color: "#7C7D85"
-                                   font.pixelSize: 13
-                                   Layout.preferredWidth: 120
-                                   anchors.centerIn: parent;
-                               }
-                           }
-                       }
-
-                   }
-
-
-                   //最左边面有一根线
-                   Rectangle{
-                       id:topLine;
-                       width: parent.width;
-                       height: 1;
-                       anchors.left:  playListHead.left;
-                       anchors.top: playListHead.bottom;
-                       color: "#E1E1E2";
-                       //visible: true;
-                   }
-
-
-                   TableView{
-                           property int nSelIndex: -1;
-
-                           id: playListTable;
-                           anchors.left:  topLine.left;
-                           anchors.top: topLine.bottom;
-                           width: parent.width;
-                           height: parent.height - playListHead.height - topLine.height;
-
-                           headerVisible: false;
-                           backgroundVisible: false;
-                           frameVisible: false;
-
-                           //响应双击
-                           onDoubleClicked:{
-                                quickLayer.playListSong(playListTable.currentRow);
-                           }
-
-                           //TableViewColumn 描述表格的每一列
-
-                           TableViewColumn{
-                               role: "11";
-                               title: "id";
-                               width: 10;
-                               elideMode: Text.ElideRight;
-                           }
-
-                           TableViewColumn{
-                               delegate: Image{
-                                   source: styleData.value === 1 ? "qrc:/res/playList/playing_list_icon.png" : "";
-                                   width:19;
-                                   height:18;
-                               }
-
-                               role: "image";
-                               title: "id";
-                               width: 30;
-                               elideMode: Text.ElideRight;
-                           }
-
-                           TableViewColumn{
-                               role: "22";
-                               title: "id";
-                               width: 20;
-                               elideMode: Text.ElideRight;
-                           }
-
-                           TableViewColumn{
-                               role: "songName";
-                               title: "音乐标题";
-                               width: 120;
-                               elideMode: Text.ElideRight;
-
-                           }
-
-                           TableViewColumn{
-                               role: "songer";
-                               title: "歌手";
-                               width: 80;
-                               elideMode: Text.ElideRight;
-                           }
-
-                           TableViewColumn{
-                               role: "Duration";
-                               title: "时长";
-                               width: 50;
-                               elideMode: Text.ElideRight;
-                           }
-
-                           itemDelegate:Item {
-                                   Text{
-                                   text: styleData.value
-                                   color: "#333333"
-                                   elide: Text.ElideRight;//styleData.elideMode;
-                                   font.pixelSize: 13
-                                   //Layout.preferredWidth: 120
-                                   anchors.verticalCenter: parent.verticalCenter;
-                                   width:80;
-                                   }
-                           }
-
-                           rowDelegate :Rectangle{//设置行的背景色
-                               color: styleData.selected ?  "#E3E3E5" : (styleData.alternate?"#F5F5F7":"#FAFAFA")
-                               visible: true
-                               height: 28;
-
-                               Rectangle{
-                                   width: parent.width;
-                                   height: 1;
-
-                                   color: "#E1E1E2";
-                                   visible: true;
-                               }
-                           }
-
-                           headerDelegate :Rectangle{//设置表头的样式
-                               implicitWidth: 10
-                               implicitHeight: 24
-
-
-                               border.color: "#707070"
-                               color: "#FAFAFA";
-                               Text{
-                                   anchors.verticalCenter: parent.verticalCenter
-                                   anchors.left: parent.left
-                                   anchors.leftMargin: 4
-                                   anchors.right: parent.right
-                                   anchors.rightMargin: 4
-                                   text: styleData.value
-                                   color: "#707070"
-                                   font.pixelSize: 13
-                                   Layout.preferredWidth: 120
-                               }
-                           }
-
-                           model: playModel
-                           focus: true
-                       }
-                }
-              }
-        }
-
-    }
+         }
+       }
 
     Rectangle{
         id:buttomRect;
@@ -980,6 +770,7 @@ Window {
             color: "#F6F6F8";
             width: 30;
             height: 42;
+            property bool bLyric: true;
 
             Loader {
                 id: lyricLoader;
@@ -997,6 +788,23 @@ Window {
                     item.buttonDisableImage = "qrc:/res/playMode/btn_lyric_normal.png";
                     item.width = 22;
                     item.height = 22;
+                }
+
+                Connections {
+                    target: lyricLoader.item;
+                    onClicked: {
+                        if (lyricControl.bLyric){
+                            stackView.clear()
+                            stackView.push("qrc:/LyricWindow.qml")
+                            lyricControl.bLyric = false;
+                        }
+                        else{
+                            stackView.clear()
+                            stackView.push("qrc:/MainWindow.qml")
+                            lyricControl.bLyric = true;
+                        }
+
+                    }
                 }
             }
          }

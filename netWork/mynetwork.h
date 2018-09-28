@@ -19,6 +19,7 @@ struct ItemResult
    QString strHash;
    QString strDur;
    QString strMvHash;
+   QString strSongLyric;
 };
 enum SearchStatus{Started=0x00,Searching,Finished};
 
@@ -52,6 +53,8 @@ public slots:
     void requestSongNextPage();
     void requestlrc(const QString &name,qint64 totaltime,const QString &saveloaction,const QString &strHash="");
     void requestBgPic(const QString &author);
+
+	QString requestLyric(const QString &strSongHash);
 
 	void slot_ReplyRead();
 	void slot_ReplyFinished();

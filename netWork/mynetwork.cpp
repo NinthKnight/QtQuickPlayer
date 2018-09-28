@@ -30,6 +30,8 @@
 
 #define MV_URL "http://m.kugou.com/app/i/mv.php?cmd=100&hash=%1&ismp3=1&ext=mp4"
 
+
+#define LRYIC_URL "http://www.kugou.com/yy/index.php?r=play/getdata&hash=%1"
 /*
  *  a new API =====>    http://s.music.163.com/search/get/?type=1&s=  ∏Ë«˙√˚/∏Ë ÷√˚  &limit=5000
  *  a new API too-----> http://api.itwusun.com/music/search/wy/2?format=json&keyword=≥¬ﬁ»—∏&sign=a5cc0a8797539d3a1a4f7aeca5b695b9
@@ -200,77 +202,109 @@ void MyNetWork::requestalbum(const QString &name,const QString &savelocal)
 
 }
 
+//Õ®π˝∏Ë«˙hashªÒ»°∏Ë¥ 
+QString MyNetWork::requestLyric(const QString &strSongHash)
+{
+
+	ItemResult Item = { 0 };
+	QString strTemp(LRYIC_URL);
+	strTemp = strTemp.arg(strSongHash);
+
+	QNetworkRequest request;
+	QNetworkAccessManager manger;
+	request.setUrl(strTemp);
+	QNetworkReply *reply = manger.get(request);
+
+	QEventLoop loop;
+	connect(&manger, SIGNAL(finished(QNetworkReply*)), &loop, SLOT(quit()));
+	loop.exec();
+
+	if (reply->error() == QNetworkReply::NoError)
+	{
+		QByteArray bytTemp = reply->readAll();
+		QJsonDocument doc0 = QJsonDocument::fromJson(bytTemp);
+		QJsonObject objTemp = doc0.object();
+
+		objTemp = doc0.object();
+		objTemp = objTemp.value("data").toObject();
+		Item.strSongLyric = objTemp.value("lyrics").toString();
+	}
+	reply->deleteLater();
+
+	return Item.strSongLyric;
+}
+
 
 ///////////////////////////////////////////////////////////////////////////////////////
 void MyNetWork::requestSong(const QString &strReq)//«Î«Û∏Ë«˙
 {
-/**
-  @brief:kuGou API search£¨hash
-*/
+	/**
+	@brief:kuGou API search£¨hash
+	*/
 
-    ItemResult Item={0};
-     emit sig_reqSongStatus(Item,SearchStatus::Started);
+	ItemResult Item = { 0 };
+	emit sig_reqSongStatus(Item, SearchStatus::Started);
 
-    QString strTemp(KGLrcPart0);
-    strTemp=strTemp.arg(strReq);
+	QString strTemp(KGLrcPart0);
+	strTemp = strTemp.arg(strReq);
 
-    QNetworkRequest request;
-    QNetworkAccessManager manger;
-    request.setUrl(strTemp);
-    QNetworkReply *reply=manger.get(request);
+	QNetworkRequest request;
+	QNetworkAccessManager manger;
+	request.setUrl(strTemp);
+	QNetworkReply *reply = manger.get(request);
 
-    QEventLoop loop;
-    connect(&manger,SIGNAL(finished(QNetworkReply*)),&loop,SLOT(quit()));
-    loop.exec();
+	QEventLoop loop;
+	connect(&manger, SIGNAL(finished(QNetworkReply*)), &loop, SLOT(quit()));
+	loop.exec();
 
-    if(reply->error() == QNetworkReply::NoError)
-    {
-        QByteArray bytTemp= reply->readAll();
-        reply->deleteLater();
-        QJsonDocument doc0=QJsonDocument::fromJson(bytTemp);
-        QJsonObject objTemp=doc0.object();
-        objTemp= objTemp.value("data").toObject();
-        QJsonArray array0= objTemp.value("lists").toArray();
-        for(int i=0;i<array0.size();++i)
-        {
-            objTemp= array0.at(i).toObject();
+	if (reply->error() == QNetworkReply::NoError)
+	{
+		QByteArray bytTemp = reply->readAll();
+		reply->deleteLater();
+		QJsonDocument doc0 = QJsonDocument::fromJson(bytTemp);
+		QJsonObject objTemp = doc0.object();
+		objTemp = objTemp.value("data").toObject();
+		QJsonArray array0 = objTemp.value("lists").toArray();
+		for (int i = 0; i<array0.size(); ++i)
+		{
+			objTemp = array0.at(i).toObject();
 
-            Item.strFullName=objTemp.value("FileName").toString();
-            Item.strHash= objTemp.value("FileHash").toString();
-            Item.strMusicName= objTemp.value("SongName").toString();
-            Item.strSinger=objTemp.value("SingerName").toString();
-            Item.strAlbum=objTemp.value("AlbumName").toString();
-            int ndur=objTemp.value("Duration").toInt();
-            QTime time(0, ndur/60, ndur%60);
-            Item.strDur= time.toString("mm:ss");
+			Item.strFullName = objTemp.value("FileName").toString();
+			Item.strHash = objTemp.value("FileHash").toString();
+			Item.strMusicName = objTemp.value("SongName").toString();
+			Item.strSinger = objTemp.value("SingerName").toString();
+			Item.strAlbum = objTemp.value("AlbumName").toString();
+			int ndur = objTemp.value("Duration").toInt();
+			QTime time(0, ndur / 60, ndur % 60);
+			Item.strDur = time.toString("mm:ss");
 
-            strTemp=URL_KGPLAY;
-            strTemp=strTemp.arg(Item.strHash);
-            request.setUrl(strTemp);
+			strTemp = URL_KGPLAY;
+			strTemp = strTemp.arg(Item.strHash);
+			request.setUrl(strTemp);
 
-            QNetworkReply *reply=manger.get(request);
-            loop.exec();
-            if(reply->error()==QNetworkReply::NoError)
-            {
-                 bytTemp= reply->readAll();
-                 QJsonDocument doc0=QJsonDocument::fromJson(bytTemp);
-                 objTemp=doc0.object();
-                 Item.strUrl="";
-                 Item.strUrl= objTemp.value("url").toString();
-                 emit sig_reqSongStatus(Item,SearchStatus::Searching);
-            }
-            reply->deleteLater();
-        }
-    }
-    emit sig_reqSongStatus(Item,SearchStatus::Finished);
-    reply->deleteLater();
+			QNetworkReply *reply = manger.get(request);
+			loop.exec();
+			if (reply->error() == QNetworkReply::NoError)
+			{
+				bytTemp = reply->readAll();
+				QJsonDocument doc0 = QJsonDocument::fromJson(bytTemp);
+				objTemp = doc0.object();
+				Item.strUrl = "";
+				Item.strUrl = objTemp.value("url").toString();
+				emit sig_reqSongStatus(Item, SearchStatus::Searching);
+			}
+			reply->deleteLater();
+		}
+	}
+	emit sig_reqSongStatus(Item, SearchStatus::Finished);
+	reply->deleteLater();
 
-/* QJsonDocument doc0=QJsonDocument::fromJson(byt0);
-    QJsonObject obj0=doc0.object();
-    QJsonObject obj01= obj0.value("data").toObject();
-    QJsonArray array0= obj01.value("lists").toArray();
-    QJsonObject obj02= array0.at(0).toObject();
-    QString hash= obj02.value("FileHash").toString();*/
+	/* QJsonDocument doc0=QJsonDocument::fromJson(byt0);
+	QJsonObject obj0=doc0.object();
+	QJsonObject obj01= obj0.value("data").toObject();
+	QJsonArray array0= obj01.value("lists").toArray();
+	QJsonObject obj02= array0.at(0).toObject();
+	QString hash= obj02.value("FileHash").toString();*/
 }
 
 void MyNetWork::requestNewMv(const QString &mvname)//«Î«ÛMv

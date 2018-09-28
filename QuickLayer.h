@@ -9,9 +9,11 @@
 #include "PlayCore\FFmpegPlayer.h"
 #include "netWork\mynetwork.h"
 #include "model.h"
+#include "LyricModel.h"
 
 extern SongModel model;
 extern PlayListModel playModel;
+extern CLyricModel lyricModel;
 
 class CQuickLayer : public QObject
 {
@@ -160,6 +162,8 @@ signals:
 	void setPlayMode(int nMode);
 
 	void setPlayList(int nIndex);
+
+	void setLyrics(const QString &strLyrics);
 
 public slots:
 

@@ -19,7 +19,6 @@ CQuickLayer::CQuickLayer()
 	connect(&playModel, SIGNAL(setPlayList(int)), this, SLOT(slot_setPlayList(int)));
 	
 
-
 	m_playStatus = PLAYSTATUS_START;
 }
 
@@ -116,6 +115,7 @@ void CQuickLayer::slot_playSong() {
 	//获取对应的歌曲的url，然后播放即可。
 	m_ffplayer.stop();
 	QString url;
+	QString hash;
 
 	int nPlayListIndex = playModel.getCurentSongIndex();
 
@@ -132,6 +132,20 @@ void CQuickLayer::slot_playSong() {
 		//通知修改界面的播放按钮
 		m_playStatus = PLAYSTATUS_PLAYING;
 		emit setPlayButton(m_playStatus);
+
+		//获取lyric.html，拿歌词并显示
+		hash = playModel.GetSongHash(nPlayListIndex);
+
+		if (!hash.isEmpty()) {
+			//获取歌词
+			QString lyrics = m_net.requestLyric(hash);
+			lyricModel.setLyric(lyrics);
+			lyricModel.setSonger(playModel.GetSonger(nPlayListIndex));
+			lyricModel.setAlbumName(playModel.GetAlbumName(nPlayListIndex));
+			lyricModel.setSongName(playModel.GetSongName(nPlayListIndex));
+
+			lyricModel.sig_SendToQml();
+		}
 	}
 }
 

@@ -131,6 +131,34 @@ public:
 		return "";
 	}
 
+	QString GetSongHash(int nIndex) {
+
+		if (nIndex >= 0 && nIndex < m_Lst.count())
+			return m_Lst[nIndex].SongHash();
+		return "";
+	}
+
+	QString GetSonger(int nIndex) {
+
+		if (nIndex >= 0 && nIndex < m_Lst.count())
+			return m_Lst[nIndex].songer();
+		return "";
+	}
+
+	QString GetSongName(int nIndex) {
+
+		if (nIndex >= 0 && nIndex < m_Lst.count())
+			return m_Lst[nIndex].songName();
+		return "";
+	}
+
+	QString GetAlbumName(int nIndex) {
+
+		if (nIndex >= 0 && nIndex < m_Lst.count())
+			return m_Lst[nIndex].AlbumName();
+		return "";
+	}
+
 	int getCurentSongIndex() {
 		return m_nCurPlayIndex;
 	}

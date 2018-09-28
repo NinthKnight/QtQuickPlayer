@@ -39,7 +39,7 @@ QString Song::Duration() const {
 }
 
 QString Song::SongHash() const {
-	return m_Duration;
+	return m_SongHash;
 }
 
 QString Song::SongUrl() const {

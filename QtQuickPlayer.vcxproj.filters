@@ -44,6 +44,9 @@
     <ClCompile Include="QuickLayer.cpp">
       <Filter>Generated Files</Filter>
     </ClCompile>
+    <ClCompile Include="LyricModel.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="debug\moc_predefs.h.cbt">
@@ -180,6 +183,9 @@
       <Filter>Generated Files</Filter>
     </QtMoc>
     <QtMoc Include="model.h">
+      <Filter>Generated Files</Filter>
+    </QtMoc>
+    <QtMoc Include="LyricModel.h">
       <Filter>Generated Files</Filter>
     </QtMoc>
   </ItemGroup>
