@@ -1,7 +1,10 @@
 #include "QuickLayer.h"
 #include <QQuickView>
 #include <qqmlcontext.h>
+#include <SongListModel.h>
+#include <QJsonDocument>
 
+extern CSongLstModel songLstModel;
 
 CQuickLayer::CQuickLayer()
 {
@@ -17,6 +20,9 @@ CQuickLayer::CQuickLayer()
 
 	//音乐播放完了
 	connect(&playModel, SIGNAL(setPlayList(int)), this, SLOT(slot_setPlayList(int)));
+
+	//播放音乐
+	connect(&songLstModel, SIGNAL(sig_PlaySong(int)), this, SLOT(playSong(int)));
 	
 
 	m_playStatus = PLAYSTATUS_START;
@@ -50,23 +56,36 @@ void CQuickLayer::slot_requestSong(const ItemResult &result, SearchStatus status
 		m_hashmap.insert(m_nSongId, result.strHash);
 		m_MvHashmap.insert(m_nSongId, result.strMvHash);
 
-		//QJSValue item = m_JS.newObject();
-		//item.setProperty("songId",  QString::number(m_nSongId));
-		//item.setProperty("songName", result.strMusicName);
-		//item.setProperty("songer", result.strSinger);
-		//item.setProperty("AlbumName", result.strAlbum);
-		//item.setProperty("Duration", result.strDur);
-		//m_jsArray.setProperty(m_nSongId, item);
-		model.addSong(Song(QString::number(m_nSongId), result.strMusicName, result.strSinger, result.strAlbum, result.strDur, result.strHash, result.strUrl));
+		model.addSong(Song(QString::number(m_nSongId), result.strMusicName, result.strSinger, result.strAlbum, result.strDur, result.strHash, result.strUrl));	
 	}
 	else if (SearchStatus::Finished == status)
 	{
-		//m_maskwid.hide();
+		int nCount = m_songlist.count();
+		if (nCount > 0)
+		{
+			QJSEngine JS;
+			QJSValue array = JS.newArray(nCount);
 
-		//QQuickView view;
-		//view.rootContext()->setContextProperty("songModel", m_jsArray.toVariant());
-		
-		//view.rootContext()->setProperty("songModel", m_jsArray.toVariant());
+			for (int i = 0; i < nCount; i++) {
+				QJSValue item = JS.newObject();
+
+
+				item.setProperty("songId", QString::number(i));
+				item.setProperty("songName", m_songlist[i].strMusicName);
+				item.setProperty("songer", m_songlist[i].strSinger);
+				item.setProperty("AlbumName", m_songlist[i].strAlbum);
+				item.setProperty("Duration", m_songlist[i].strDur);
+				item.setProperty("songHash", m_songlist[i].strHash);
+
+				array.setProperty(i, item);
+				
+			}
+			
+			QJsonDocument jsonDoc = QJsonDocument::fromVariant(array.toVariant());
+			//qDebug() << "json[" << jsonDoc.toJson() << "]";
+
+			songLstModel.sig_SendToQml(jsonDoc.toJson());
+		}
 	}
 }
 
@@ -85,6 +104,8 @@ void CQuickLayer::slot_positionChange(qint64 length)
 	emit beginTime(posstr);
 	emit endTime(durstr);
 	emit setTimeSlider(0, dur, pos);
+
+	emit lyricModel.sig_SendToQml(length);
 }
 
 void CQuickLayer::slot_setVolumn(int nValue) {
@@ -143,8 +164,6 @@ void CQuickLayer::slot_playSong() {
 			lyricModel.setSonger(playModel.GetSonger(nPlayListIndex));
 			lyricModel.setAlbumName(playModel.GetAlbumName(nPlayListIndex));
 			lyricModel.setSongName(playModel.GetSongName(nPlayListIndex));
-
-			lyricModel.sig_SendToQml();
 		}
 	}
 }

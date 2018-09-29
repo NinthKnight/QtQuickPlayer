@@ -194,6 +194,7 @@
     <ClCompile Include="netWork\mynetwork.cpp" />
     <ClCompile Include="PlayCore\FFmpegPlayer.cpp" />
     <ClCompile Include="QuickLayer.cpp" />
+    <ClCompile Include="SongListModel.cpp" />
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="debug\moc_predefs.h.cbt">
@@ -274,6 +275,12 @@
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="LyricModel.h">
+      <Define Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">SDL_MAIN_HANDLED;_WINDOWS;UNICODE;_UNICODE;WIN32;QT_DEPRECATED_WARNINGS;QT_QUICK_LIB;QT_GUI_LIB;QT_QML_LIB;QT_NETWORK_LIB;QT_CORE_LIB</Define>
+      <Define Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">SDL_MAIN_HANDLED;_WINDOWS;UNICODE;_UNICODE;WIN32;QT_DEPRECATED_WARNINGS;QT_NO_DEBUG;QT_QUICK_LIB;QT_GUI_LIB;QT_QML_LIB;QT_NETWORK_LIB;QT_CORE_LIB;NDEBUG</Define>
+    </QtMoc>
+  </ItemGroup>
+  <ItemGroup>
+    <QtMoc Include="SongListModel.h">
       <Define Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">SDL_MAIN_HANDLED;_WINDOWS;UNICODE;_UNICODE;WIN32;QT_DEPRECATED_WARNINGS;QT_QUICK_LIB;QT_GUI_LIB;QT_QML_LIB;QT_NETWORK_LIB;QT_CORE_LIB</Define>
       <Define Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">SDL_MAIN_HANDLED;_WINDOWS;UNICODE;_UNICODE;WIN32;QT_DEPRECATED_WARNINGS;QT_NO_DEBUG;QT_QUICK_LIB;QT_GUI_LIB;QT_QML_LIB;QT_NETWORK_LIB;QT_CORE_LIB;NDEBUG</Define>
     </QtMoc>

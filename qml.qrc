@@ -262,5 +262,7 @@
         <file>QuickLayer.cpp</file>
         <file>QuickLayer.h</file>
         <file>res/src/js/qwebchannel.js</file>
+        <file>SearchWindow.qml</file>
+        <file>res/index.html</file>
     </qresource>
 </RCC>

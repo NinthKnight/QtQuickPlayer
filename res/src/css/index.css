@@ -273,7 +273,7 @@ table,td,th{
 	top:0;left:0;
 	width:220px;
 	height:100%;
-	padding:60px 0 120px 0;
+	padding:0px 0 0px 0;
 	border-right:1px solid #dadadc;
 	background-color:#f5f5f7;
 	box-sizing:border-box;
@@ -402,7 +402,7 @@ table,td,th{
 }
 .listcontainer{
 	width:100%;
-	overflow:hidden;
+	/*overflow:hidden;*/
 }
 .listcontainer>.listinfo{
 	padding:20px 40px;

@@ -123,7 +123,9 @@ signals:
     void sig_CurrentMediaError();
 
 public slots:
-    void slot_timerWork(){emit sig_PositionChange(getCurrentTime());}
+    void slot_timerWork(){
+		emit sig_PositionChange(getCurrentTime());
+	}
 
     void setVol(int vol){g_nVol=vol;}
 

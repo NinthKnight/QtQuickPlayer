@@ -12,7 +12,7 @@ public:
 	~CLyricModel();
 
 signals:
-	void sig_SendToQml();
+	void sig_SendToQml(int nTime);
 
 public:
 
@@ -67,17 +67,17 @@ class CLyricLayer : public QObject
 public:
 	CLyricLayer() {
 	
-		connect(&lyricModel, SIGNAL(sig_SendToQml()), this, SLOT(slotSendToQml()));
+		connect(&lyricModel, SIGNAL(sig_SendToQml(int)), this, SLOT(slotSendToQml(int)));
 	};
 
 	~CLyricLayer() {};
 
 signals:
-	void signalSendToQml();
+	void signalSendToQml(int nTime);
 
 	public slots:
-	void slotSendToQml() {
-		emit signalSendToQml();
+	void slotSendToQml(int nTime) {
+		emit signalSendToQml(nTime);
 	}
 
 };

@@ -68,9 +68,9 @@ void SongModel::clearData() {
 
 void SongModel::addSong(const Song &s)
 {
-	beginInsertRows(QModelIndex(), rowCount(), rowCount());
+	//beginInsertRows(QModelIndex(), rowCount(), rowCount());
 	m_Lst << s;
-	endInsertRows();
+	//endInsertRows();
 }
 
 int SongModel::rowCount(const QModelIndex & parent) const {
@@ -134,9 +134,9 @@ void PlayListModel::clearData() {
 
 void PlayListModel::addSong(const Song &s)
 {
-	beginInsertRows(QModelIndex(), rowCount(), rowCount());
+	//beginInsertRows(QModelIndex(), rowCount(), rowCount());
 	m_Lst << s;
-	endInsertRows();
+	//endInsertRows();
 }
 
 int PlayListModel::rowCount(const QModelIndex & parent) const {

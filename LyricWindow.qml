@@ -33,11 +33,12 @@ Rectangle {
         id: myObject
         WebChannel.id: "mPlayer" //这个id可在html中使用
 
-        signal signal_setScorll();
+        signal signal_setScorll(int time);
 
         //c++ -->Qml
         onSignalSendToQml: {
-            signal_setScorll();
+            //console.log("onSignalSendToQml" + nTime);
+            signal_setScorll(nTime);
         }
 
         //扩展的函数

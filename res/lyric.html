@@ -10,7 +10,7 @@
 	<script type="text/javascript" src="./src/libs/jquery-3.1.1.min.js"></script>
 	<script type="text/javascript" src="./src/js/index.js"></script>
 	<script type="text/javascript" src="./src/js/lyricScroll.js"></script>
-        <script type="text/javascript" src="./src/js/qwebchannel.js"></script>
+    <script type="text/javascript" src="./src/js/qwebchannel.js"></script>
 
         <script type="text/javascript">
 
@@ -23,15 +23,52 @@
 
                 // 接受来自mPlayer的信号连上本地的一个方法进行信息输出
                 window.mPlayer.signal_setScorll.connect(function (message) {
-                    SetScroll();
+                    SetScroll(message);
                 });
             });
         }
         
         //滚动初始化
-        function SetScroll() {
+        function SetScroll(currentTime) {
+            //console.log("SetScroll");
+            // srcoll
+            var isScroll = true; // 是否允许滚动
+            var curIndex = -1; // flag
 
+            $("#lrcBox").find(".lrc").each(function (index, item) {
+                //console.log("SetScroll");
+
+                /**
+                * @Theme: 歌词滚动
+                * @Param: i: 当前滚动行
+                * @Memo: 
+                *
+                */
+                var jQ_moveLrc = function (i) {
+                    var top = $("#lrcBox").find(".lrc").get(i).dataset.top;
+                    if (!!isScroll) {
+                        // 如果当前行与curIndex不等则滚动
+                        if (i !== curIndex) {
+                            //console.log("i !== curIndex");
+                            
+                            $("#lrcContainer").stop(true).animate({
+                                "scrollTop": top
+                            }, 300);
+                            curIndex = i;
+                        }
+                    }
+                }
+
+                if (Math.abs(currentTime - item.dataset.timepoint * 1000) <= 1000) {
+                    $(item).addClass("current").siblings().removeClass("current");
+                    jQ_moveLrc(index);
+                    sessionStorage.setItem("curLine", index);
+                }
+            }
+        )
         }
+
+
         //滚动初始化
         function InitLyricScorll() {
             var lrcContainer = document.getElementById("lrcContainer");
@@ -41,42 +78,25 @@
             var cls = "lrc";
             var cls_active = "current";
 
-            // srcoll
-            var isScroll = true; // 是否允许滚动
-            var curIndex = -1; // flag
+
+            
             sessionStorage.setItem("curLine", 0); // 存储当前行
 
-            /**
-             * @Theme: 歌词滚动
-             * @Param: i: 当前滚动行
-             * @Memo: 
-             *
-             */
-            var jQ_moveLrc = function (i) {
-                var top = $("#lrcBox").find(".lrc").get(i).dataset.top;
-                if (!!isScroll) {
-                    // 如果当前行与curIndex不等则滚动
-                    if (i !== curIndex) {
-                        $("#lrcContainer").stop(true).animate({
-                            "scrollTop": top
-                        }, 300);
-                        curIndex = i;
-                    }
-                }
-            }
-
             // 限制滚动范围
-            var minHeight = lrcContainer.height / 2;
-            var maxHeight = lrcBox.height - lrcContainer.height;
+            var minHeight = $("#lrcContainer").height() / 2;
+            var maxHeight = $("#lrcBox").height() - $("#lrcContainer").height();
 
             // 存入各行滚动值
             $("#lrcBox").find(".lrc").each(function (index, item) {
                 //console.log("minHeight: %s maxHeight:%s");
                 var offsetTop = item.offsetTop;
+
                 offsetTop = (offsetTop <= minHeight) ? 0 : offsetTop - minHeight;
                 offsetTop = (offsetTop >= maxHeight) ? maxHeight : offsetTop;
                 item.dataset.top = offsetTop;
 
+                //console.log(item.dataset.top);
+                
             });
             // 默认第一行歌词高亮
             $("#lrcBox").find(".lrc").eq(0).addClass("current");

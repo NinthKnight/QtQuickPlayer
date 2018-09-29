@@ -1,5 +1,6 @@
 #include "model.h"
 #include "LyricModel.h"
+#include "SongListModel.h"
 
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
@@ -16,6 +17,7 @@
 SongModel model;
 PlayListModel playModel;
 CLyricModel lyricModel;
+CSongLstModel songLstModel;
 
 
 int main(int argc, char *argv[])
@@ -31,7 +33,9 @@ int main(int argc, char *argv[])
 	//register C++ type CQuickLayer
 	qmlRegisterType<CQuickLayer>("com.mplayer", 1, 0, "Mplayer");
 	qmlRegisterType<CLyricLayer>("com.mplayer", 1, 0, "MLyric");
-	//qmlRegisterType<SongModel>("com.mplayer", 1, 0, "MySongModel");
+	qmlRegisterType<CSongLstLayer>("com.mplayer", 1, 0, "MSonglst");
+
+
 
 	//QQuickView view;
 	//view.setResizeMode(QQuickView::SizeRootObjectToView);
@@ -49,6 +53,7 @@ int main(int argc, char *argv[])
 	ctxt->setContextProperty("myModel", &model);
 	ctxt->setContextProperty("playModel", &playModel);
 	ctxt->setContextProperty("lyricModel", &lyricModel);
+	ctxt->setContextProperty("songLstModel", &songLstModel);
 
     engine.load(QUrl(QStringLiteral("qrc:/main.qml")));
     if (engine.rootObjects().isEmpty())

@@ -40,6 +40,7 @@ public:
 
 	const ItemResult& GetItemByIndex(int index) { return m_songlist.at(index); }
 
+	public slots:
 	Q_INVOKABLE  void searchSong(QString songName)
 	{
 		qDebug() << "slot_searchSong:" << songName << endl;

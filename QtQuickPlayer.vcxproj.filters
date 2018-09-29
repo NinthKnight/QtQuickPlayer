@@ -32,6 +32,9 @@
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="LyricModel.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
     <ClCompile Include="model.cpp">
       <Filter>Generated Files</Filter>
     </ClCompile>
@@ -44,7 +47,7 @@
     <ClCompile Include="QuickLayer.cpp">
       <Filter>Generated Files</Filter>
     </ClCompile>
-    <ClCompile Include="LyricModel.cpp">
+    <ClCompile Include="SongListModel.cpp">
       <Filter>Generated Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -173,6 +176,9 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <ResourceCompile Include="myapp.rc" />
+  </ItemGroup>
+  <ItemGroup>
     <QtMoc Include="PlayCore\FFmpegPlayer.h">
       <Filter>Generated Files</Filter>
     </QtMoc>
@@ -188,8 +194,8 @@
     <QtMoc Include="LyricModel.h">
       <Filter>Generated Files</Filter>
     </QtMoc>
-  </ItemGroup>
-  <ItemGroup>
-    <ResourceCompile Include="myapp.rc" />
+    <QtMoc Include="SongListModel.h">
+      <Filter>Generated Files</Filter>
+    </QtMoc>
   </ItemGroup>
 </Project>

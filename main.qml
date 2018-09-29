@@ -257,7 +257,7 @@ Window {
              height: parent.height;
              visible: true;
 
-             initialItem: "qrc:/MainWindow.qml";
+             initialItem: "qrc:/SearchWindow.qml";
          }
 
     }
@@ -800,7 +800,7 @@ Window {
                         }
                         else{
                             stackView.clear()
-                            stackView.push("qrc:/MainWindow.qml")
+                            stackView.push("qrc:/SearchWindow.qml")
                             lyricControl.bLyric = true;
                         }
 
