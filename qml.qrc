@@ -264,5 +264,16 @@
         <file>res/src/js/qwebchannel.js</file>
         <file>SearchWindow.qml</file>
         <file>res/index.html</file>
+        <file>res/src/images/arrow-next.png</file>
+        <file>res/src/images/arrow-prev.png</file>
+        <file>res/src/images/pic_01.png</file>
+        <file>res/src/images/pic_02.png</file>
+        <file>res/src/images/pic_03.png</file>
+        <file>res/src/images/pic_04.png</file>
+        <file>res/src/images/pic_05.png</file>
+        <file>res/src/js/slide.min.js</file>
+        <file>res/src/css/reset.css</file>
+        <file>res/src/css/scorll.css</file>
+        <file>res/src/css/slide.css</file>
     </qresource>
 </RCC>

@@ -32,24 +32,6 @@
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="LyricModel.cpp">
-      <Filter>Generated Files</Filter>
-    </ClCompile>
-    <ClCompile Include="model.cpp">
-      <Filter>Generated Files</Filter>
-    </ClCompile>
-    <ClCompile Include="netWork\mynetwork.cpp">
-      <Filter>Generated Files</Filter>
-    </ClCompile>
-    <ClCompile Include="PlayCore\FFmpegPlayer.cpp">
-      <Filter>Generated Files</Filter>
-    </ClCompile>
-    <ClCompile Include="QuickLayer.cpp">
-      <Filter>Generated Files</Filter>
-    </ClCompile>
-    <ClCompile Include="SongListModel.cpp">
-      <Filter>Generated Files</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="debug\moc_predefs.h.cbt">
@@ -58,9 +40,224 @@
     <CustomBuild Include="release\moc_predefs.h.cbt">
       <Filter>Generated Files</Filter>
     </CustomBuild>
+    
+    
   </ItemGroup>
   <ItemGroup>
     <None Include="ContactModel.qml">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="PlayCore\FFmpegPlayer.cpp">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="PlayCore\FFmpegPlayer.h">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\src\fonts\FontAwesome.otf">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="LyricWindow.qml">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="MainWindow.qml">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="PlayList.qml">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="QuickLayer.cpp">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="QuickLayer.h">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="PlayCore\include\SDL2\SDL.h">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="PlayCore\include\SDL2\SDL_assert.h">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="PlayCore\include\SDL2\SDL_atomic.h">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="PlayCore\include\SDL2\SDL_audio.h">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="PlayCore\include\SDL2\SDL_bits.h">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="PlayCore\include\SDL2\SDL_blendmode.h">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="PlayCore\include\SDL2\SDL_clipboard.h">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="PlayCore\include\SDL2\SDL_config.h">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="PlayCore\include\SDL2\SDL_cpuinfo.h">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="PlayCore\include\SDL2\SDL_endian.h">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="PlayCore\include\SDL2\SDL_error.h">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="PlayCore\include\SDL2\SDL_events.h">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="PlayCore\include\SDL2\SDL_filesystem.h">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="PlayCore\include\SDL2\SDL_gamecontroller.h">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="PlayCore\include\SDL2\SDL_gesture.h">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="PlayCore\include\SDL2\SDL_haptic.h">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="PlayCore\include\SDL2\SDL_hints.h">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="PlayCore\include\SDL2\SDL_joystick.h">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="PlayCore\include\SDL2\SDL_keyboard.h">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="PlayCore\include\SDL2\SDL_keycode.h">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="PlayCore\include\SDL2\SDL_loadso.h">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="PlayCore\include\SDL2\SDL_log.h">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="PlayCore\include\SDL2\SDL_main.h">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="PlayCore\include\SDL2\SDL_messagebox.h">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="PlayCore\include\SDL2\SDL_mouse.h">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="PlayCore\include\SDL2\SDL_mutex.h">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="PlayCore\include\SDL2\SDL_name.h">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="PlayCore\include\SDL2\SDL_opengl.h">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="PlayCore\include\SDL2\SDL_opengles.h">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="PlayCore\include\SDL2\SDL_opengles2.h">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="PlayCore\include\SDL2\SDL_pixels.h">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="PlayCore\include\SDL2\SDL_platform.h">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="PlayCore\include\SDL2\SDL_power.h">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="PlayCore\include\SDL2\SDL_quit.h">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="PlayCore\include\SDL2\SDL_rect.h">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="PlayCore\include\SDL2\SDL_render.h">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="PlayCore\include\SDL2\SDL_revision.h">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="PlayCore\include\SDL2\SDL_rwops.h">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="PlayCore\include\SDL2\SDL_scancode.h">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="PlayCore\include\SDL2\SDL_shape.h">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="PlayCore\include\SDL2\SDL_stdinc.h">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="PlayCore\include\SDL2\SDL_surface.h">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="PlayCore\include\SDL2\SDL_system.h">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="PlayCore\include\SDL2\SDL_syswm.h">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="PlayCore\include\SDL2\SDL_test.h">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="PlayCore\include\SDL2\SDL_test_assert.h">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="PlayCore\include\SDL2\SDL_test_common.h">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="PlayCore\include\SDL2\SDL_test_compare.h">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="PlayCore\include\SDL2\SDL_test_crc32.h">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="PlayCore\include\SDL2\SDL_test_font.h">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="PlayCore\include\SDL2\SDL_test_fuzzer.h">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="PlayCore\include\SDL2\SDL_test_harness.h">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="PlayCore\include\SDL2\SDL_test_images.h">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="PlayCore\include\SDL2\SDL_test_log.h">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="PlayCore\include\SDL2\SDL_test_md5.h">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="PlayCore\include\SDL2\SDL_test_random.h">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="PlayCore\include\SDL2\SDL_thread.h">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="PlayCore\include\SDL2\SDL_timer.h">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="PlayCore\include\SDL2\SDL_touch.h">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="PlayCore\include\SDL2\SDL_types.h">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="PlayCore\include\SDL2\SDL_version.h">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="PlayCore\include\SDL2\SDL_video.h">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="SearchWindow.qml">
       <Filter>Resource Files</Filter>
     </None>
     <None Include="XButton.qml">
@@ -70,6 +267,84 @@
       <Filter>Resource Files</Filter>
     </None>
     <None Include="res\trayMenu\ad.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="PlayCore\include\libavutil\adler32.h">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="PlayCore\include\libavutil\aes.h">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="PlayCore\include\libavutil\aes_ctr.h">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\src\images\al8.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\src\images\alq.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="PlayCore\include\libavutil\attributes.h">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="PlayCore\include\libavutil\audio_fifo.h">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="PlayCore\include\libavutil\avassert.h">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="PlayCore\include\libavcodec\avcodec.h">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="PlayCore\include\libavutil\avconfig.h">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="PlayCore\include\libavcodec\avdct.h">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="PlayCore\include\libavdevice\avdevice.h">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="PlayCore\include\libavcodec\avfft.h">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="PlayCore\include\libavfilter\avfilter.h">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="PlayCore\include\libavfilter\avfiltergraph.h">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="PlayCore\include\libavformat\avformat.h">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="PlayCore\include\libavformat\avio.h">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="PlayCore\include\libavutil\avstring.h">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="PlayCore\include\libavutil\avutil.h">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="PlayCore\include\libavutil\base64.h">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="PlayCore\include\SDL2\begin_code.h">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="PlayCore\include\libavutil\blowfish.h">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="PlayCore\include\libavutil\bprint.h">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="PlayCore\include\libavutil\bswap.h">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\playMode\btn_lyric_normal.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\playMode\btn_lyric_pressed.png">
       <Filter>Resource Files</Filter>
     </None>
     <None Include="res\trayMenu\btn_next_normal.png">
@@ -90,6 +365,30 @@
     <None Include="res\trayMenu\btn_pause_tray_menu.png">
       <Filter>Resource Files</Filter>
     </None>
+    <None Include="res\playMode\btn_play_mode_circle_normal.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\playMode\btn_play_mode_circle_pressed.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\playMode\btn_play_mode_next_normal.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\playMode\btn_play_mode_next_pressed.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\playMode\btn_play_mode_rand_normal.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\playMode\btn_play_mode_rand_pressed.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\playMode\btn_play_mode_single_circle_normal.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\playMode\btn_play_mode_single_circle_pressed.png">
+      <Filter>Resource Files</Filter>
+    </None>
     <None Include="res\trayMenu\btn_play_normal.png">
       <Filter>Resource Files</Filter>
     </None>
@@ -97,6 +396,12 @@
       <Filter>Resource Files</Filter>
     </None>
     <None Include="res\trayMenu\btn_play_tray_menu.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\playMode\btn_playing_list_normal.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\playMode\btn_playing_list_pressed.png">
       <Filter>Resource Files</Filter>
     </None>
     <None Include="res\trayMenu\btn_prev_normal.png">
@@ -114,6 +419,27 @@
     <None Include="res\trayMenu\btn_search_pressed.png">
       <Filter>Resource Files</Filter>
     </None>
+    <None Include="PlayCore\include\libavutil\buffer.h">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="PlayCore\include\libavfilter\buffersink.h">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="PlayCore\include\libavfilter\buffersrc.h">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="PlayCore\include\libavutil\camellia.h">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="PlayCore\include\libavutil\cast5.h">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="PlayCore\include\libavutil\channel_layout.h">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="PlayCore\include\SDL2\close_code.h">
+      <Filter>Resource Files</Filter>
+    </None>
     <None Include="res\buttonImage\close_disable.png">
       <Filter>Resource Files</Filter>
     </None>
@@ -124,6 +450,138 @@
       <Filter>Resource Files</Filter>
     </None>
     <None Include="res\buttonImage\close_normal.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="PlayCore\include\libavutil\common.h">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="PlayCore\include\libavformat\config.h">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="PlayCore\include\libavutil\cpu.h">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="PlayCore\include\libavutil\crc.h">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="PlayCore\include\libavcodec\d3d11va.h">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="PlayCore\include\libavutil\des.h">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="PlayCore\include\libavutil\dict.h">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="PlayCore\include\libavcodec\dirac.h">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\src\images\disc-o.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\src\images\disc.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="PlayCore\include\libavutil\display.h">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="PlayCore\include\libavutil\downmix_info.h">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="PlayCore\include\libavcodec\dv_profile.h">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="PlayCore\include\libavcodec\dxva2.h">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="PlayCore\include\libavutil\error.h">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="PlayCore\include\libavutil\eval.h">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="PlayCore\include\libavutil\ffversion.h">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="PlayCore\include\libavutil\fifo.h">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="PlayCore\include\libavutil\file.h">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\src\css\font-awesome.min.css">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\src\fonts\fontawesome-webfont.eot">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\src\fonts\fontawesome-webfont.svg">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\src\fonts\fontawesome-webfont.ttf">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\src\fonts\fontawesome-webfont.woff2">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\src\fonts\fontawesome-webfont.woff">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\src\images\format.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="PlayCore\include\libavutil\frame.h">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="PlayCore\include\libavutil\hash.h">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="PlayCore\include\libavutil\hmac.h">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="PlayCore\include\libavutil\hwcontext.h">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="PlayCore\include\libavutil\hwcontext_cuda.h">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="PlayCore\include\libavutil\hwcontext_dxva2.h">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="PlayCore\include\libavutil\hwcontext_qsv.h">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="PlayCore\include\libavutil\hwcontext_vaapi.h">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="PlayCore\include\libavutil\hwcontext_vdpau.h">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="PlayCore\include\libavutil\imgutils.h">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\src\css\index.css">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\index.html">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\src\js\index.js">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="PlayCore\include\libavutil\intfloat.h">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="PlayCore\include\libavutil\intreadwrite.h">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="PlayCore\include\libavcodec\jni.h">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\src\libs\jquery-3.1.1.min.js">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="PlayCore\include\libavutil\lfg.h">
       <Filter>Resource Files</Filter>
     </None>
     <None Include="res\trayMenu\list_type_icon1.png">
@@ -147,7 +605,40 @@
     <None Include="res\trayMenu\list_type_icon7.png">
       <Filter>Resource Files</Filter>
     </None>
+    <None Include="PlayCore\include\libavutil\log.h">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\lyric.html">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\src\js\lyricScroll.js">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="PlayCore\include\libavutil\lzo.h">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="PlayCore\include\libavutil\macros.h">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="main.cpp">
+      <Filter>Resource Files</Filter>
+    </None>
     <None Include="main.qml">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="PlayCore\include\libavutil\mastering_display_metadata.h">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="PlayCore\include\libavutil\mathematics.h">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="PlayCore\include\libavutil\md5.h">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="PlayCore\include\libavcodec\mediacodec.h">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="PlayCore\include\libavutil\mem.h">
       <Filter>Resource Files</Filter>
     </None>
     <None Include="res\buttonImage\menu_down.png">
@@ -168,34 +659,188 @@
     <None Include="res\buttonImage\min_normal.png">
       <Filter>Resource Files</Filter>
     </None>
+    <None Include="model.cpp">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="model.h">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="PlayCore\include\libavutil\motion_vector.h">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="PlayCore\include\libavutil\murmur3.h">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="PlayCore\myMediaList.cpp">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="PlayCore\myMediaList.h">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="PlayCore\myPlayer.cpp">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="PlayCore\myPlayer.h">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="netWork\mynetwork.cpp">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="netWork\mynetwork.h">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\src\images\needle.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\src\images\netease-logo.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="PlayCore\include\libavutil\opt.h">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="PlayCore\include\libavutil\parseutils.h">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="PlayCore\include\libavutil\pixdesc.h">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="PlayCore\include\libavutil\pixelutils.h">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="PlayCore\include\libavutil\pixfmt.h">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\src\js\player.js">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\playList\playing_list_icon.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="PlayCore\include\libpostproc\postprocess.h">
+      <Filter>Resource Files</Filter>
+    </None>
     <QtRcc Include="qml.qrc">
       <Filter>Resource Files</Filter>
     </QtRcc>
+    <None Include="PlayCore\include\libavcodec\qsv.h">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\src\js\qwebchannel.js">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="PlayCore\include\libavutil\random_seed.h">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="PlayCore\include\libavutil\rational.h">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="PlayCore\include\libavutil\rc4.h">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="PlayCore\include\libavutil\replaygain.h">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\src\js\request.js">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="PlayCore\include\libavutil\ripemd.h">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="PlayCore\include\libavutil\samplefmt.h">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="PlayCore\include\libavutil\sha.h">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="PlayCore\include\libavutil\sha512.h">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="PlayCore\include\libavutil\stereo3d.h">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="PlayCore\include\libswresample\swresample.h">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="PlayCore\include\libswscale\swscale.h">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="PlayCore\include\libavutil\tea.h">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\src\images\temp_pic001.jpg">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="PlayCore\include\libavutil\threadmessage.h">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="PlayCore\include\libavutil\time.h">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="PlayCore\include\libavutil\timecode.h">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="PlayCore\include\libavutil\timestamp.h">
+      <Filter>Resource Files</Filter>
+    </None>
     <None Include="res\title.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="PlayCore\include\libavutil\tree.h">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="PlayCore\include\libavutil\twofish.h">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\src\images\user_face.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="PlayCore\include\libavcodec\vaapi.h">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="PlayCore\include\libavcodec\vda.h">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="PlayCore\include\libavcodec\vdpau.h">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="PlayCore\include\libavcodec\version.h">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="PlayCore\include\libavdevice\version.h">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="PlayCore\include\libavfilter\version.h">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="PlayCore\include\libavformat\version.h">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="PlayCore\include\libavutil\version.h">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="PlayCore\include\libpostproc\version.h">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="PlayCore\include\libswresample\version.h">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="PlayCore\include\libswscale\version.h">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="PlayCore\include\libavcodec\videotoolbox.h">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="PlayCore\include\libavcodec\vorbis_parser.h">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="PlayCore\include\libavutil\xtea.h">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="PlayCore\include\libavcodec\xvmc.h">
       <Filter>Resource Files</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="myapp.rc" />
-  </ItemGroup>
-  <ItemGroup>
-    <QtMoc Include="PlayCore\FFmpegPlayer.h">
-      <Filter>Generated Files</Filter>
-    </QtMoc>
-    <QtMoc Include="netWork\mynetwork.h">
-      <Filter>Generated Files</Filter>
-    </QtMoc>
-    <QtMoc Include="QuickLayer.h">
-      <Filter>Generated Files</Filter>
-    </QtMoc>
-    <QtMoc Include="model.h">
-      <Filter>Generated Files</Filter>
-    </QtMoc>
-    <QtMoc Include="LyricModel.h">
-      <Filter>Generated Files</Filter>
-    </QtMoc>
-    <QtMoc Include="SongListModel.h">
-      <Filter>Generated Files</Filter>
-    </QtMoc>
   </ItemGroup>
 </Project>

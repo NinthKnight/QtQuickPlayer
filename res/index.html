@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -7,12 +7,22 @@
 	<link rel="icon" type="image/ico" href="./src/images/format.ico" />
 	<link rel="stylesheet" type="text/css" href="./src/css/font-awesome.min.css" />
 	<link rel="stylesheet" type="text/css" href="./src/css/index.css" />
+    <link rel="stylesheet" type="text/css" href="./src/css/reset.css" />
+    <link rel="stylesheet" type="text/css" href="./src/css/scorll.css" />
+    <link rel="stylesheet" type="text/css" href="./src/css/slide.css" />
+
+   
 	<script type="text/javascript" src="./src/libs/jquery-3.1.1.min.js"></script>
+    <script type="text/javascript" src="./src/js/slide.min.js"></script>
 	<script type="text/javascript" src="./src/js/index.js"></script>
 	<script type="text/javascript" src="./src/js/lyricScroll.js"></script>
     <script type="text/javascript" src="./src/js/qwebchannel.js"></script>
+    
 
-        <script type="text/javascript">
+   
+
+
+     <script type="text/javascript">
 
         //网页需要和C++交互 服务端需要导入qwebchannel.js 这个js文件
         window.onload = function() {
@@ -72,6 +82,23 @@
             $("#search_count").find(".count").html(listLen);
         }
        
+        //scorll img
+        $(function () {
+            //3d
+            $('#slide3d').slideCarsousel({ slideType: '3d', indicatorEvent: 'mouseover' });
+            //2d
+            var sliderDescArr = [], i = 0, len = 10;
+            for (; i < len; i++) {
+                sliderDescArr.push(new Array(10).join('' + i));
+            }
+            $('#sliderDesc').text(sliderDescArr[0]);
+            $('#slide2d').slideCarsousel({
+                callbackFunc: function (index) {
+                    $('#sliderDesc1').text(sliderDescArr[index]);
+                }
+            });
+        });
+
 
         </script>
 
@@ -102,114 +129,152 @@
 					<p class="btn me_fm"><i class="fa fa-bullseye" aria-hidden="true"></i>&nbsp;&nbsp;我的电台</p>
 				</div>
 			</div>
-<!--			<div class="list list_create">
-				<p class="title">创建的歌单
-					<span class="title_btngroups">
-						<a href="javascript:void(0);" class="btn addlist" id="addList"><i class="fa fa-plus-circle" aria-hidden="true"></i></a>
-						<a href="javascript:void(0);" class="btn unfoldlist"><i class="fa fa-angle-down" aria-hidden="true"></i></a>
-					</span>
-				</p>
-				<div class="btngroups">
-					<p class="btn list_create_like active" id="list_create_like"><i class="fa fa-heart-o" aria-hidden="true"></i>&nbsp;&nbsp;我喜欢的音乐</p>
-					<p class="btn list_create_001"><i class="fa fa-music" aria-hidden="true"></i>&nbsp;&nbsp;歌单001</p>
-				</div>
-			</div>
-			<div class="list list_collect">
-				<p class="title">收藏的歌单
-					<span class="title_btngroups">
-						<a href="javascript:void(0);" class="btn unfoldlist"><i class="fa fa-angle-down" aria-hidden="true"></i></a>
-					</span>
-				</p>
-				<div class="btngroups">
-					<p class="btn list_collect_id001"><i class="fa fa-music" aria-hidden="true"></i>&nbsp;&nbsp;当年烂大街的舞曲</p>
-				</div>
-			</div>-->
+
 		</div>
     </div>
-    <!-- page_search 搜索页 -->
-	<div class="page_search R_page" id="pageSearch" <!--style="display:none;-->">
-		<div class="main_container">
-			<div class="listcontainer">
-				<p style="margin:0px 40px;color:#bbb;" id="search_count"><!--搜索 "<span class="input" style="color:#0b75c3;">STRING</span>"-->共搜到
-					<span class="count">0</span> 条结果，本页最多显示 40 条结果</p>
-				<div class="listtab">
-					<div class="tabbtns clearfix">
-						<label class="label_btn active" for="song">单曲</label>
-						<label class="label_btn" for="singer">歌手</label>
-						<label class="label_btn" for="album">专辑</label>
-						<label class="label_btn" for="musicvideo">MV</label>
-						<label class="label_btn" for="playlist">歌单</label>
-						<label class="label_btn" for="songlrc">歌词</label>
-						<label class="label_btn" for="user">用户</label>
-					</div>
-					<!-- song -->
-					<input type="radio" id="song" name="tablist_s" checked="" />
-					<div class="tabitem musiclist">
-						<table>
-							<thead>
-								<tr>
-									<th>&nbsp;&nbsp;</th>
-									<th>操作</th>
-									<th>音乐标题</th>
-									<th>歌手</th>
-									<th>专辑</th>
-									<th>时长</th>
-								</tr>
-							</thead>
-							<tbody class="infolist" id="infoList_search">
-<!--								<tr>
-									<td class="index">01</td>
-									<td><i class="fa fa-heart-o" aria-hidden="true"></i>&nbsp;
-										<i class="fa fa-download" aria-hidden="true"></i>
-									</td>
-									<td>-SONGNAME-</td>
-									<td>-SINGER-</td>
-									<td>-ALBUM-</td>
-									<td>00:00</td>
-								</tr>-->
-							</tbody>
-							</tfoot>
-						</table>
-					</div>
-					<!-- singer -->
-					<input type="radio" id="singer" name="tablist_s" />
-					<div class="tabitem singerlist">
-						<p style="margin:100px 0;text-align:center;color:#bbb;font-size:1rem;">--分类功能暂未上线--</p>
-					</div>
-					<!-- album -->
-					<input type="radio" id="album" name="tablist_s" />
-					<div class="tabitem albumlist">
-						<p style="margin:100px 0;text-align:center;color:#bbb;font-size:1rem;">--分类功能暂未上线--</p>
-					</div>
-					<!-- musicvideo -->
-					<input type="radio" id="musicvideo" name="tablist_s" />
-					<div class="tabitem musicvideolist">
-						<p style="margin:100px 0;text-align:center;color:#bbb;font-size:1rem;">--分类功能暂未上线--</p>
-					</div>
-					<!-- playlist -->
-					<input type="radio" id="playlist" name="tablist_s" />
-					<div class="tabitem playlist">
-						<p style="margin:100px 0;text-align:center;color:#bbb;font-size:1rem;">--分类功能暂未上线--</p>
-					</div>
-					<!-- songlrc -->
-					<input type="radio" id="songlrc" name="tablist_s" />
-					<div class="tabitem songlrclist">
-						<p style="margin:100px 0;text-align:center;color:#bbb;font-size:1rem;">--分类功能暂未上线--</p>
-					</div>
-					<!-- fm -->
-					<input type="radio" id="fm" name="tablist_s" />
-					<div class="tabitem fmlist">
-						<p style="margin:100px 0;text-align:center;color:#bbb;font-size:1rem;">--分类功能暂未上线--</p>
-					</div>
-					<!-- user -->
-					<input type="radio" id="user" name="tablist_s" />
-					<div class="tabitem userlist">
-						<p style="margin:100px 0;text-align:center;color:#bbb;font-size:1rem;">--分类功能暂未上线--</p>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
+    <!-- page_main 主页 -->
+    <div class="page_main R_page" id="pageMain">
+        <!--首先是滚动窗口-->
+            <div id="slide3d" class="slide-carousel slide-3d">
+                <ul class="item-list clearfix">
+                    <li class="item0">
+                        <div class="item-content">
+                            <a href="javascript:void(0);">
+                                <img class="cover-img" src="./src/images/pic_01.png" alt="">
+                            </a>
+                        </div>
+                    </li>
+                    <li class="item1">
+                        <div class="item-content">
+                            <a href="javascript:void(0);">
+                                <img class="cover-img" src="./src/images/pic_02.png" alt="">
+                            </a>
+                        </div>
+                    </li>
+                    <li class="item2">
+                        <div class="item-content">
+                            <a href="javascript:void(0);">
+                                <img class="cover-img" src="./src/images/pic_03.png" alt="">
+                            </a>
+                        </div>
+                    </li>
+                    <li class="item3">
+                        <div class="item-content">
+                            <a href="javascript:void(0);">
+                                <img class="cover-img" src="./src/images/pic_04.png" alt="">
+                            </a>
+                        </div>
+                    </li>
+                    <li class="item4">
+                        <div class="item-content">
+                            <a href="javascript:void(0);">
+                                <img class="cover-img" src="./src/images/pic_05.png" alt="">
+                            </a>
+                        </div>
+                    </li>
+                </ul>
+                <div class="indicator-list">
+                    <a href="javascript:void(0);" data-slide-index="0" class="selected"></a>
+                    <a href="javascript:void(0);" data-slide-index="1" class=""></a>
+                    <a href="javascript:void(0);" data-slide-index="2" class=""></a>
+                    <a href="javascript:void(0);" data-slide-index="3" class=""></a>
+                    <a href="javascript:void(0);" data-slide-index="4" class=""></a>
+                </div>
+                <div class="controls">
+                    <a class="item-prev glyphicon glyphicon-menu-left" href="javascript:void(0);"></a>
+                    <a class="item-next glyphicon glyphicon-menu-right" href="javascript:void(0);"></a>
+                </div>
+            </div>
+
+     </div>
+
+
+        <!-- page_search 搜索页 -->
+        <div class="page_search R_page" id="pageSearch" style="display:none;">
+            <div class="main_container">
+                <div class="listcontainer">
+                    <p style="margin:0px 40px;color:#bbb;" id="search_count">
+                        <!--搜索 "<span class="input" style="color:#0b75c3;">STRING</span>"-->共搜到
+                        <span class="count">0</span> 条结果，本页最多显示 40 条结果
+                    </p>
+                    <div class="listtab">
+                        <div class="tabbtns clearfix">
+                            <label class="label_btn active" for="song">单曲</label>
+                            <label class="label_btn" for="singer">歌手</label>
+                            <label class="label_btn" for="album">专辑</label>
+                            <label class="label_btn" for="musicvideo">MV</label>
+                            <label class="label_btn" for="playlist">歌单</label>
+                            <label class="label_btn" for="songlrc">歌词</label>
+                            <label class="label_btn" for="user">用户</label>
+                        </div>
+                        <!-- song -->
+                        <input type="radio" id="song" name="tablist_s" checked="" />
+                        <div class="tabitem musiclist">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>&nbsp;&nbsp;</th>
+                                        <th>操作</th>
+                                        <th>音乐标题</th>
+                                        <th>歌手</th>
+                                        <th>专辑</th>
+                                        <th>时长</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="infolist" id="infoList_search">
+                                    <!--								<tr>
+                                                                        <td class="index">01</td>
+                                                                        <td><i class="fa fa-heart-o" aria-hidden="true"></i>&nbsp;
+                                                                            <i class="fa fa-download" aria-hidden="true"></i>
+                                                                        </td>
+                                                                        <td>-SONGNAME-</td>
+                                                                        <td>-SINGER-</td>
+                                                                        <td>-ALBUM-</td>
+                                                                        <td>00:00</td>
+                                                                    </tr>-->
+                                </tbody>
+                                </tfoot>
+                            </table>
+                        </div>
+                        <!-- singer -->
+                        <input type="radio" id="singer" name="tablist_s" />
+                        <div class="tabitem singerlist">
+                            <p style="margin:100px 0;text-align:center;color:#bbb;font-size:1rem;">--分类功能暂未上线--</p>
+                        </div>
+                        <!-- album -->
+                        <input type="radio" id="album" name="tablist_s" />
+                        <div class="tabitem albumlist">
+                            <p style="margin:100px 0;text-align:center;color:#bbb;font-size:1rem;">--分类功能暂未上线--</p>
+                        </div>
+                        <!-- musicvideo -->
+                        <input type="radio" id="musicvideo" name="tablist_s" />
+                        <div class="tabitem musicvideolist">
+                            <p style="margin:100px 0;text-align:center;color:#bbb;font-size:1rem;">--分类功能暂未上线--</p>
+                        </div>
+                        <!-- playlist -->
+                        <input type="radio" id="playlist" name="tablist_s" />
+                        <div class="tabitem playlist">
+                            <p style="margin:100px 0;text-align:center;color:#bbb;font-size:1rem;">--分类功能暂未上线--</p>
+                        </div>
+                        <!-- songlrc -->
+                        <input type="radio" id="songlrc" name="tablist_s" />
+                        <div class="tabitem songlrclist">
+                            <p style="margin:100px 0;text-align:center;color:#bbb;font-size:1rem;">--分类功能暂未上线--</p>
+                        </div>
+                        <!-- fm -->
+                        <input type="radio" id="fm" name="tablist_s" />
+                        <div class="tabitem fmlist">
+                            <p style="margin:100px 0;text-align:center;color:#bbb;font-size:1rem;">--分类功能暂未上线--</p>
+                        </div>
+                        <!-- user -->
+                        <input type="radio" id="user" name="tablist_s" />
+                        <div class="tabitem userlist">
+                            <p style="margin:100px 0;text-align:center;color:#bbb;font-size:1rem;">--分类功能暂未上线--</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
 </body>
 
