@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html lang="en">
 
 <head>
@@ -7,21 +7,21 @@
 	<link rel="icon" type="image/ico" href="./src/images/format.ico" />
 	<link rel="stylesheet" type="text/css" href="./src/css/font-awesome.min.css" />
 	<link rel="stylesheet" type="text/css" href="./src/css/index.css" />
-    <link rel="stylesheet" type="text/css" href="./src/css/reset.css" />
-    <link rel="stylesheet" type="text/css" href="./src/css/scorll.css" />
-    <link rel="stylesheet" type="text/css" href="./src/css/slide.css" />
+    <link rel="stylesheet" type="text/css" href="./src/css/g=2018.css" />
+    <link rel="stylesheet" type="text/css" href="./src/css/g=2018csslist.css" />
+    <link rel="stylesheet" type="text/css" href="./src/css/main&f=recommend.css" />
+
 
    
 	<script type="text/javascript" src="./src/libs/jquery-3.1.1.min.js"></script>
-    <script type="text/javascript" src="./src/js/slide.min.js"></script>
 	<script type="text/javascript" src="./src/js/index.js"></script>
 	<script type="text/javascript" src="./src/js/lyricScroll.js"></script>
     <script type="text/javascript" src="./src/js/qwebchannel.js"></script>
+
+    <script type="text/javascript" src="./src/js/main&f=slide.js,recommend.js"></script>
+    <script type="text/javascript" src="./src/js/g=2018function.js"></script>
+
     
-
-   
-
-
      <script type="text/javascript">
 
         //网页需要和C++交互 服务端需要导入qwebchannel.js 这个js文件
@@ -82,24 +82,6 @@
             $("#search_count").find(".count").html(listLen);
         }
        
-        //scorll img
-        $(function () {
-            //3d
-            $('#slide3d').slideCarsousel({ slideType: '3d', indicatorEvent: 'mouseover' });
-            //2d
-            var sliderDescArr = [], i = 0, len = 10;
-            for (; i < len; i++) {
-                sliderDescArr.push(new Array(10).join('' + i));
-            }
-            $('#sliderDesc').text(sliderDescArr[0]);
-            $('#slide2d').slideCarsousel({
-                callbackFunc: function (index) {
-                    $('#sliderDesc1').text(sliderDescArr[index]);
-                }
-            });
-        });
-
-
         </script>
 
 </head>
@@ -134,148 +116,339 @@
     </div>
     <!-- page_main 主页 -->
     <div class="page_main R_page" id="pageMain">
-        <!--首先是滚动窗口-->
-            <div id="slide3d" class="slide-carousel slide-3d">
-                <ul class="item-list clearfix">
-                    <li class="item0">
-                        <div class="item-content">
-                            <a href="javascript:void(0);">
-                                <img class="cover-img" src="./src/images/pic_01.png" alt="">
-                            </a>
+
+        <div id="useScroll" style="position: relative; overflow: hidden;">
+            <div class="scroll_wrap" style="position:relative;top:0;">
+                <div class="sectionBox clearfix">
+                    <!-- banner begin -->
+                    <div class="bannerWrapper fl" id="focusImg">
+                        <ul class="banner_con" style="width: 4352px; left: -1088px;">
+                            <li data-code="6" style="position: static; left: 4352px;"><img src="./src/images/pic_1.jpg" alt="" /></li>
+                            <li data-code="6"><img src="./src/images/pic_2.jpg" alt="" /></li>
+                            <li data-code="6"><img src="./src/images/pic_3.jpg" alt="" /></li>
+                            <li data-code="7"><img src="./src/images/pic_4.jpg" alt="" /></li>
+                            <li data-code="6"><img src="./src/images/pic_5.jpg" alt="" /></li>
+                            <li data-code="6"><img src="./src/images/pic_6.jpg" alt="" /></li>
+                            <li data-code="6"><img src="./src/images/pic_7.jpg" alt="" /></li>
+                            <li data-code="6"><img src="./src/images/pic_8.jpg" alt="" /></li>
+                        </ul>
+                        <div class="banner_num">
+
+                            <a class="prev_btn prev_next png" style="display: none;"></a>
+                            <a class="next_btn prev_next png" style="display: none;"></a>
                         </div>
-                    </li>
-                    <li class="item1">
-                        <div class="item-content">
-                            <a href="javascript:void(0);">
-                                <img class="cover-img" src="./src/images/pic_02.png" alt="">
-                            </a>
-                        </div>
-                    </li>
-                    <li class="item2">
-                        <div class="item-content">
-                            <a href="javascript:void(0);">
-                                <img class="cover-img" src="./src/images/pic_03.png" alt="">
-                            </a>
-                        </div>
-                    </li>
-                    <li class="item3">
-                        <div class="item-content">
-                            <a href="javascript:void(0);">
-                                <img class="cover-img" src="./src/images/pic_04.png" alt="">
-                            </a>
-                        </div>
-                    </li>
-                    <li class="item4">
-                        <div class="item-content">
-                            <a href="javascript:void(0);">
-                                <img class="cover-img" src="./src/images/pic_05.png" alt="">
-                            </a>
-                        </div>
-                    </li>
-                </ul>
-                <div class="indicator-list">
-                    <a href="javascript:void(0);" data-slide-index="0" class="selected"></a>
-                    <a href="javascript:void(0);" data-slide-index="1" class=""></a>
-                    <a href="javascript:void(0);" data-slide-index="2" class=""></a>
-                    <a href="javascript:void(0);" data-slide-index="3" class=""></a>
-                    <a href="javascript:void(0);" data-slide-index="4" class=""></a>
-                </div>
-                <div class="controls">
-                    <a class="item-prev glyphicon glyphicon-menu-left" href="javascript:void(0);"></a>
-                    <a class="item-next glyphicon glyphicon-menu-right" href="javascript:void(0);"></a>
+                    </div>
+                    <!-- banner end   -->
+                    <div class="sideBox fr" id="newPlayRadio" style="background:url(&#34;./src/images/bg1.png&#34;)">
+                        <img src="./src/images/more_dt.png" usemap="#more_link" id="radioPic" style="display: block;" />
+                        <map name="more_link" id="more_link">
+                            <area shape="polygon" coords="0 0,29 0,57 29,57 57" alt="更多电台" id="jumptoRadio" />
+                        </map>
+                    </div>
+
                 </div>
             </div>
+         
+            <!-- 热门榜单start -->
+            <div class="sectionWrapper bangdanWrapper clearfix">
+                <div class="section_title_box">
+                    <h3>热门榜单</h3>
+                    <a class="more_btn" id="moreBdLink">更多</a>
+                </div>
+                <!-- 新歌榜start -->
+                <div class="bangdan_con new_con fl">
+                    <div class="bangdan_title event_main_table_btn">
+                        <a class="play_icon png play_btn event_play_all_bd" title="播放列表中全部歌曲"></a>
+                        <a class="linkB" data-code="1">完整榜单</a>
+                    </div>
+                    <div id="rcBangdanTable" class="main_table_wrap" oncontextmenu="return false" onselectstart="return false">
+                        <table class="rc_bangdan_table left_table main_table">
 
-     </div>
+                            <tbody>
+                                <tr data-song="{&quot;song_id&quot;:&quot;604392760&quot;,&quot;song_title&quot;:&quot;\u5982\u6cb3&quot;,&quot;artist_id&quot;:&quot;77&quot;,&quot;song_artist&quot;:&quot;\u5f20\u97f6\u6db5&quot;,&quot;album_id&quot;:&quot;604392757&quot;,&quot;album_title&quot;:&quot;\u5982\u6cb3\uff08\u7535\u5f71\u300a\u60b2\u4f24\u9006\u6d41\u6210\u6cb3\u300b\u4e3b\u9898\u66f2\uff09&quot;,&quot;album_image_url&quot;:&quot;http:\/\/qukufile2.qianqian.com\/data2\/pic\/8d7f69cc3337b2eaf7e7f0c9646d0dce\/604392758\/604392758.jpg@s_1,w_90,h_90&quot;,&quot;album_relate_status&quot;:1,&quot;copy_type&quot;:&quot;1&quot;,&quot;has_mv&quot;:1,&quot;rank_change&quot;:&quot;0&quot;,&quot;icon&quot;:2,&quot;del_status&quot;:&quot;0&quot;,&quot;biaoshi&quot;:&quot;first,lossless&quot;}" class="" data-copytype="1">
+                                    <th><i class="n1"></i></th>
+                                    <td class="s_title">
+                                        <span class="s_title_txt s_title_icon_2" title="如河">如河</span>
+                                        <a href="javascript:;" class="mv_icon"></a>                                <a class="biaoshi first"></a>
+                                        <a class="biaoshi lossless"></a>
+                                    </td>
+                                    <td class="fct"><div class="fct_btn"><a href="javascript:;" data-page="recommend_new" class="play" title="播放"></a><a href="javascript:;" class="more" data-action="more" data-page="recommend_new" title="更多"></a></div></td>
+                                    <td class="u_title"><a href="javascript:;" class="artist" title="张韶涵" data-artistid="77" data-uid="0">张韶涵</a></td>
+                                </tr>
 
+                                <tr data-song="{&quot;song_id&quot;:&quot;604341499&quot;,&quot;song_title&quot;:&quot;\u4e0d\u54ed&quot;,&quot;artist_id&quot;:&quot;604341495&quot;,&quot;song_artist&quot;:&quot;\u706b\u7bad\u5c11\u5973101Sunnee&quot;,&quot;album_id&quot;:&quot;604341496&quot;,&quot;album_title&quot;:&quot;\u4e0d\u54ed\uff08\u300a\u60b2\u4f24\u9006\u6d41\u6210\u6cb3\u300b\u7535\u5f71\u63a8\u5e7f\u66f2\uff09&quot;,&quot;album_image_url&quot;:&quot;http:\/\/qukufile2.qianqian.com\/data2\/pic\/5b0c34ec03e6ab6718cee5f35471b49c\/604341497\/604341497.jpg@s_1,w_90,h_90&quot;,&quot;album_relate_status&quot;:1,&quot;copy_type&quot;:&quot;1&quot;,&quot;has_mv&quot;:1,&quot;rank_change&quot;:&quot;0&quot;,&quot;icon&quot;:2,&quot;del_status&quot;:&quot;0&quot;,&quot;biaoshi&quot;:&quot;first,lossless&quot;}" class="" data-copytype="1">
+                                    <th><i class="n2"></i></th>
+                                    <td class="s_title">
+                                        <span class="s_title_txt s_title_icon_2" title="不哭">不哭</span>
+                                        <a href="javascript:;" class="mv_icon"></a>                                <a class="biaoshi first"></a>
+                                        <a class="biaoshi lossless"></a>
+                                    </td>
+                                    <td class="fct"><div class="fct_btn"><a href="javascript:;" data-page="recommend_new" class="play" title="播放"></a><a href="javascript:;" class="more" data-action="more" data-page="recommend_new" title="更多"></a></div></td>
+                                    <td class="u_title"><a href="javascript:;" class="artist" title="火箭少女101Sunnee" data-artistid="604341495" data-uid="0">火箭少女101Sunnee</a></td>
+                                </tr>
 
-        <!-- page_search 搜索页 -->
-        <div class="page_search R_page" id="pageSearch" style="display:none;">
-            <div class="main_container">
-                <div class="listcontainer">
-                    <p style="margin:0px 40px;color:#bbb;" id="search_count">
-                        <!--搜索 "<span class="input" style="color:#0b75c3;">STRING</span>"-->共搜到
-                        <span class="count">0</span> 条结果，本页最多显示 40 条结果
-                    </p>
-                    <div class="listtab">
-                        <div class="tabbtns clearfix">
-                            <label class="label_btn active" for="song">单曲</label>
-                            <label class="label_btn" for="singer">歌手</label>
-                            <label class="label_btn" for="album">专辑</label>
-                            <label class="label_btn" for="musicvideo">MV</label>
-                            <label class="label_btn" for="playlist">歌单</label>
-                            <label class="label_btn" for="songlrc">歌词</label>
-                            <label class="label_btn" for="user">用户</label>
-                        </div>
-                        <!-- song -->
-                        <input type="radio" id="song" name="tablist_s" checked="" />
-                        <div class="tabitem musiclist">
-                            <table>
-                                <thead>
-                                    <tr>
-                                        <th>&nbsp;&nbsp;</th>
-                                        <th>操作</th>
-                                        <th>音乐标题</th>
-                                        <th>歌手</th>
-                                        <th>专辑</th>
-                                        <th>时长</th>
-                                    </tr>
-                                </thead>
-                                <tbody class="infolist" id="infoList_search">
-                                    <!--								<tr>
-                                                                        <td class="index">01</td>
-                                                                        <td><i class="fa fa-heart-o" aria-hidden="true"></i>&nbsp;
-                                                                            <i class="fa fa-download" aria-hidden="true"></i>
-                                                                        </td>
-                                                                        <td>-SONGNAME-</td>
-                                                                        <td>-SINGER-</td>
-                                                                        <td>-ALBUM-</td>
-                                                                        <td>00:00</td>
-                                                                    </tr>-->
-                                </tbody>
-                                </tfoot>
-                            </table>
-                        </div>
-                        <!-- singer -->
-                        <input type="radio" id="singer" name="tablist_s" />
-                        <div class="tabitem singerlist">
-                            <p style="margin:100px 0;text-align:center;color:#bbb;font-size:1rem;">--分类功能暂未上线--</p>
-                        </div>
-                        <!-- album -->
-                        <input type="radio" id="album" name="tablist_s" />
-                        <div class="tabitem albumlist">
-                            <p style="margin:100px 0;text-align:center;color:#bbb;font-size:1rem;">--分类功能暂未上线--</p>
-                        </div>
-                        <!-- musicvideo -->
-                        <input type="radio" id="musicvideo" name="tablist_s" />
-                        <div class="tabitem musicvideolist">
-                            <p style="margin:100px 0;text-align:center;color:#bbb;font-size:1rem;">--分类功能暂未上线--</p>
-                        </div>
-                        <!-- playlist -->
-                        <input type="radio" id="playlist" name="tablist_s" />
-                        <div class="tabitem playlist">
-                            <p style="margin:100px 0;text-align:center;color:#bbb;font-size:1rem;">--分类功能暂未上线--</p>
-                        </div>
-                        <!-- songlrc -->
-                        <input type="radio" id="songlrc" name="tablist_s" />
-                        <div class="tabitem songlrclist">
-                            <p style="margin:100px 0;text-align:center;color:#bbb;font-size:1rem;">--分类功能暂未上线--</p>
-                        </div>
-                        <!-- fm -->
-                        <input type="radio" id="fm" name="tablist_s" />
-                        <div class="tabitem fmlist">
-                            <p style="margin:100px 0;text-align:center;color:#bbb;font-size:1rem;">--分类功能暂未上线--</p>
-                        </div>
-                        <!-- user -->
-                        <input type="radio" id="user" name="tablist_s" />
-                        <div class="tabitem userlist">
-                            <p style="margin:100px 0;text-align:center;color:#bbb;font-size:1rem;">--分类功能暂未上线--</p>
+                                <tr data-song="{&quot;song_id&quot;:&quot;604150445&quot;,&quot;song_title&quot;:&quot;\u53cb\u60c5\u5c81\u6708\uff08\u7535\u5f71\u300a\u9ec4\u91d1\u5144\u5f1f\u300b\u63d2\u66f2\uff09&quot;,&quot;artist_id&quot;:&quot;137&quot;,&quot;song_artist&quot;:&quot;\u90d1\u4f0a\u5065,\u9648\u5c0f\u6625,\u8c22\u5929\u534e,\u94b1\u5609\u4e50,\u6797\u6653\u5cf0&quot;,&quot;album_id&quot;:&quot;604150432&quot;,&quot;album_title&quot;:&quot;\u53cb\u60c5\u5c81\u6708\uff08\u7535\u5f71\u300a\u9ec4\u91d1\u5144\u5f1f\u300b\u63d2\u66f2\uff09&quot;,&quot;album_image_url&quot;:&quot;http:\/\/qukufile2.qianqian.com\/data2\/pic\/369a3859e6527a604b17fcd57fb54e2e\/604150441\/604150441.jpg@s_1,w_90,h_90&quot;,&quot;album_relate_status&quot;:1,&quot;copy_type&quot;:&quot;1&quot;,&quot;has_mv&quot;:1,&quot;rank_change&quot;:&quot;0&quot;,&quot;icon&quot;:1,&quot;del_status&quot;:&quot;0&quot;,&quot;biaoshi&quot;:&quot;first,lossless&quot;}" class="" data-copytype="1">
+                                    <th><i class="n3"></i></th>
+                                    <td class="s_title">
+                                        <span class="s_title_txt s_title_icon_2" title="友情岁月（电影《黄金兄弟》插曲）">友情岁月（电影《黄金兄弟》插曲）</span>
+                                        <a href="javascript:;" class="mv_icon"></a>                                <a class="biaoshi first"></a>
+                                        <a class="biaoshi lossless"></a>
+                                    </td>
+                                    <td class="fct"><div class="fct_btn"><a href="javascript:;" data-page="recommend_new" class="play" title="播放"></a><a href="javascript:;" class="more" data-action="more" data-page="recommend_new" title="更多"></a></div></td>
+                                    <td class="u_title"><a href="javascript:;" class="artist" title="郑伊健" data-artistid="137" data-uid="0">郑伊健</a>,<a href="javascript:;" class="artist" title="陈小春" data-artistid="150" data-uid="0">陈小春</a>,<a href="javascript:;" class="artist" title="谢天华" data-artistid="607" data-uid="0">谢天华</a>,<a href="javascript:;" class="artist" title="钱嘉乐" data-artistid="23193535" data-uid="0">钱嘉乐</a>,<a href="javascript:;" class="artist" title="林晓峰" data-artistid="539" data-uid="0">林晓峰</a></td>
+                                </tr>
+
+                                <tr data-song="{&quot;song_id&quot;:&quot;604383128&quot;,&quot;song_title&quot;:&quot;\u5531\u4e00\u9996\u60c5\u6b4c&quot;,&quot;artist_id&quot;:&quot;762&quot;,&quot;song_artist&quot;:&quot;\u9f99\u6885\u5b50,\u51b7\u6f20&quot;,&quot;album_id&quot;:&quot;604383123&quot;,&quot;album_title&quot;:&quot;\u5531\u4e00\u9996\u60c5\u6b4c&quot;,&quot;album_image_url&quot;:&quot;http:\/\/qukufile2.qianqian.com\/data2\/pic\/0201315b2edd9a7ab54b2244d801ba46\/604383124\/604383124.jpg@s_1,w_90,h_90&quot;,&quot;album_relate_status&quot;:1,&quot;copy_type&quot;:&quot;1&quot;,&quot;has_mv&quot;:0,&quot;rank_change&quot;:&quot;1&quot;,&quot;icon&quot;:2,&quot;del_status&quot;:&quot;0&quot;,&quot;biaoshi&quot;:&quot;first,lossless&quot;}" class="" data-copytype="1">
+                                    <th><i class="n4"></i></th>
+                                    <td class="s_title">
+                                        <span class="s_title_txt s_title_icon_2" title="唱一首情歌">唱一首情歌</span>
+                                        <a class="biaoshi first"></a>
+                                        <a class="biaoshi lossless"></a>
+                                    </td>
+                                    <td class="fct"><div class="fct_btn"><a href="javascript:;" data-page="recommend_new" class="play" title="播放"></a><a href="javascript:;" class="more" data-action="more" data-page="recommend_new" title="更多"></a></div></td>
+                                    <td class="u_title"><a href="javascript:;" class="artist" title="龙梅子" data-artistid="762" data-uid="0">龙梅子</a>,<a href="javascript:;" class="artist" title="冷漠" data-artistid="1842" data-uid="0">冷漠</a></td>
+                                </tr>
+
+                                <tr data-song="{&quot;song_id&quot;:&quot;604520222&quot;,&quot;song_title&quot;:&quot;\u65e0\u8651\uff08\u5317\u9547\u6587\u5316\u4e3b\u9898\u66f2\uff09&quot;,&quot;artist_id&quot;:&quot;119680493&quot;,&quot;song_artist&quot;:&quot;\u5218\u73c2\u77e3&quot;,&quot;album_id&quot;:&quot;604520219&quot;,&quot;album_title&quot;:&quot;\u65e0\u8651\uff08\u5317\u9547\u6587\u5316\u4e3b\u9898\u66f2\uff09&quot;,&quot;album_image_url&quot;:&quot;http:\/\/qukufile2.qianqian.com\/data2\/pic\/7f6b9cf8096946b39868dd2b6f7a74c8\/604520220\/604520220.jpg@s_1,w_90,h_90&quot;,&quot;album_relate_status&quot;:1,&quot;copy_type&quot;:&quot;1&quot;,&quot;has_mv&quot;:1,&quot;rank_change&quot;:&quot;1&quot;,&quot;icon&quot;:2,&quot;del_status&quot;:&quot;0&quot;,&quot;biaoshi&quot;:&quot;first,lossless,vip&quot;}" class="" data-copytype="1">
+                                    <th><i class="n5"></i></th>
+                                    <td class="s_title">
+                                        <span class="s_title_txt s_title_icon_2" title="无虑（北镇文化主题曲）">无虑（北镇文化主题曲）</span>
+                                        <a href="javascript:;" class="mv_icon"></a>                                <a class="biaoshi first"></a>
+                                        <a class="biaoshi lossless"></a>
+                                    </td>
+                                    <td class="fct"><div class="fct_btn"><a href="javascript:;" data-page="recommend_new" class="play" title="播放"></a><a href="javascript:;" class="more" data-action="more" data-page="recommend_new" title="更多"></a></div></td>
+                                    <td class="u_title"><a href="javascript:;" class="artist" title="刘珂矣" data-artistid="119680493" data-uid="0">刘珂矣</a></td>
+                                </tr>
+
+                                <tr data-song="{&quot;song_id&quot;:&quot;604085578&quot;,&quot;song_title&quot;:&quot;\u6211\u56de\u5230\u90a3\u4e2a\u540d\u53eb\u7231\u60c5\u7684\u5730\u65b9&quot;,&quot;artist_id&quot;:&quot;159&quot;,&quot;song_artist&quot;:&quot;\u6c99\u5b9d\u4eae&quot;,&quot;album_id&quot;:&quot;604085574&quot;,&quot;album_title&quot;:&quot;\u6211\u56de\u5230\u90a3\u4e2a\u540d\u53eb\u7231\u60c5\u7684\u5730\u65b9&quot;,&quot;album_image_url&quot;:&quot;http:\/\/qukufile2.qianqian.com\/data2\/pic\/fd74baad236bffe590970f27eb5f8795\/604085575\/604085575.jpg@s_1,w_90,h_90&quot;,&quot;album_relate_status&quot;:1,&quot;copy_type&quot;:&quot;1&quot;,&quot;has_mv&quot;:0,&quot;rank_change&quot;:&quot;-2&quot;,&quot;icon&quot;:2,&quot;del_status&quot;:&quot;0&quot;,&quot;biaoshi&quot;:&quot;first,lossless&quot;}" class="" data-copytype="1">
+                                    <th><i class="n6"></i></th>
+                                    <td class="s_title">
+                                        <span class="s_title_txt s_title_icon_2" title="我回到那个名叫爱情的地方">我回到那个名叫爱情的地方</span>
+                                        <a class="biaoshi first"></a>
+                                        <a class="biaoshi lossless"></a>
+                                    </td>
+                                    <td class="fct"><div class="fct_btn"><a href="javascript:;" data-page="recommend_new" class="play" title="播放"></a><a href="javascript:;" class="more" data-action="more" data-page="recommend_new" title="更多"></a></div></td>
+                                    <td class="u_title"><a href="javascript:;" class="artist" title="沙宝亮" data-artistid="159" data-uid="0">沙宝亮</a></td>
+                                </tr>
+
+                                <tr data-song="{&quot;song_id&quot;:&quot;603899391&quot;,&quot;song_title&quot;:&quot;\u6700\u597d\u7684\u5e74\u7eaa&quot;,&quot;artist_id&quot;:&quot;1413&quot;,&quot;song_artist&quot;:&quot;\u9648\u6d01\u4eea&quot;,&quot;album_id&quot;:&quot;603899387&quot;,&quot;album_title&quot;:&quot;\u6700\u597d\u7684\u5e74\u7eaa&quot;,&quot;album_image_url&quot;:&quot;http:\/\/qukufile2.qianqian.com\/data2\/pic\/d33134b1e28b33062ac63b72956f8178\/603899388\/603899388.jpg@s_1,w_90,h_90&quot;,&quot;album_relate_status&quot;:1,&quot;copy_type&quot;:&quot;1&quot;,&quot;has_mv&quot;:1,&quot;rank_change&quot;:&quot;0&quot;,&quot;icon&quot;:2,&quot;del_status&quot;:&quot;0&quot;,&quot;biaoshi&quot;:&quot;first,lossless,vip&quot;}" class="" data-copytype="1">
+                                    <th><i class="n7"></i></th>
+                                    <td class="s_title">
+                                        <span class="s_title_txt s_title_icon_2" title="最好的年纪">最好的年纪</span>
+                                        <a href="javascript:;" class="mv_icon"></a>                                <a class="biaoshi first"></a>
+                                        <a class="biaoshi lossless"></a>
+                                    </td>
+                                    <td class="fct"><div class="fct_btn"><a href="javascript:;" data-page="recommend_new" class="play" title="播放"></a><a href="javascript:;" class="more" data-action="more" data-page="recommend_new" title="更多"></a></div></td>
+                                    <td class="u_title"><a href="javascript:;" class="artist" title="陈洁仪" data-artistid="1413" data-uid="0">陈洁仪</a></td>
+                                </tr>
+
+                                <tr data-song="{&quot;song_id&quot;:&quot;602980311&quot;,&quot;song_title&quot;:&quot;\u81f3\u5c11\u8fd8\u6709\u4f60\u7231\u6211&quot;,&quot;artist_id&quot;:&quot;762&quot;,&quot;song_artist&quot;:&quot;\u9f99\u6885\u5b50,\u738b\u5a1c&quot;,&quot;album_id&quot;:&quot;602980305&quot;,&quot;album_title&quot;:&quot;\u81f3\u5c11\u8fd8\u6709\u4f60\u7231\u6211&quot;,&quot;album_image_url&quot;:&quot;http:\/\/qukufile2.qianqian.com\/data2\/pic\/015c6c99e1ced5261f624ef20cd7912f\/602980306\/602980306.jpg@s_1,w_90,h_90&quot;,&quot;album_relate_status&quot;:1,&quot;copy_type&quot;:&quot;1&quot;,&quot;has_mv&quot;:0,&quot;rank_change&quot;:&quot;0&quot;,&quot;icon&quot;:2,&quot;del_status&quot;:&quot;0&quot;,&quot;biaoshi&quot;:&quot;lossless&quot;}" class="" data-copytype="1">
+                                    <th><i class="n8"></i></th>
+                                    <td class="s_title">
+                                        <span class="s_title_txt s_title_icon_1" title="至少还有你爱我">至少还有你爱我</span>
+                                        <a class="biaoshi lossless"></a>
+                                    </td>
+                                    <td class="fct"><div class="fct_btn"><a href="javascript:;" data-page="recommend_new" class="play" title="播放"></a><a href="javascript:;" class="more" data-action="more" data-page="recommend_new" title="更多"></a></div></td>
+                                    <td class="u_title"><a href="javascript:;" class="artist" title="龙梅子" data-artistid="762" data-uid="0">龙梅子</a>,<a href="javascript:;" class="artist" title="王娜" data-artistid="603080618" data-uid="0">王娜</a></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <!-- 新歌榜end -->
+                <!-- 热歌榜start -->
+                <div class="bangdan_con hot_con fr">
+                    <div class="bangdan_title event_main_table_btn">
+                        <a class="play_icon png play_btn event_play_all_bd"></a>
+                        <a class="linkB" data-code="2">完整榜单</a>
+                    </div>
+                    <div id="hotBangdan" class="main_table_wrap" oncontextmenu="return false" onselectstart="return false">
+                        <table class="rc_bangdan_table left_table main_table">
+
+                            <tbody>
+                                <tr data-song="{&quot;song_id&quot;:&quot;601427388&quot;,&quot;song_title&quot;:&quot;\u5361\u8def\u91cc\uff08\u7535\u5f71\u300a\u897f\u8679\u5e02\u9996\u5bcc\u300b\u63d2\u66f2\uff09&quot;,&quot;artist_id&quot;:&quot;601427383&quot;,&quot;song_artist&quot;:&quot;\u706b\u7bad\u5c11\u5973101&quot;,&quot;album_id&quot;:&quot;601427384&quot;,&quot;album_title&quot;:&quot;\u5361\u8def\u91cc\uff08\u7535\u5f71\u300a\u897f\u8679\u5e02\u9996\u5bcc\u300b\u63d2\u66f2\uff09&quot;,&quot;album_image_url&quot;:&quot;http:\/\/qukufile2.qianqian.com\/data2\/pic\/8d356491f24692ff802cc49c80f51fee\/601427385\/601427385.jpg@s_1,w_90,h_90&quot;,&quot;album_relate_status&quot;:1,&quot;copy_type&quot;:&quot;1&quot;,&quot;has_mv&quot;:1,&quot;rank_change&quot;:&quot;0&quot;,&quot;icon&quot;:1,&quot;del_status&quot;:&quot;0&quot;,&quot;biaoshi&quot;:&quot;lossless&quot;}" class="" data-copytype="1">
+                                    <th><i class="n1"></i></th>
+                                    <td class="s_title">
+                                        <span class="s_title_txt s_title_icon_1" title="卡路里（电影《西虹市首富》插曲）">卡路里（电影《西虹市首富》插曲）</span>
+                                        <a href="javascript:;" class="mv_icon"></a>                                <a class="biaoshi lossless"></a>
+                                    </td>
+                                    <td class="fct"><div class="fct_btn"><a href="javascript:;" class="play" data-page="recommend_hot" title="播放"></a><a href="javascript:;" class="more" data-page="recommend_hot" data-action="more"></a></div></td>
+                                    <td class="u_title"><a href="javascript:;" class="artist" title="火箭少女101" data-artistid="601427383" data-uid="0">火箭少女101</a></td>
+                                </tr>
+
+                                <tr data-song="{&quot;song_id&quot;:&quot;602870189&quot;,&quot;song_title&quot;:&quot;\u6211\u7684\u7231\uff08\u6155\u601d\u300a\u89c9\/\u9192\u300b\u89c6\u9891\u4e3b\u9898\u66f2\uff09&quot;,&quot;artist_id&quot;:&quot;371&quot;,&quot;song_artist&quot;:&quot;\u8bb8\u5dcd&quot;,&quot;album_id&quot;:&quot;602870186&quot;,&quot;album_title&quot;:&quot;\u6211\u7684\u7231\uff08\u6155\u601d\u300a\u89c9\/\u9192\u300b\u89c6\u9891\u4e3b\u9898\u66f2\uff09&quot;,&quot;album_image_url&quot;:&quot;http:\/\/qukufile2.qianqian.com\/data2\/pic\/d3856609aa6068f9ae90002cc9cd321e\/602870187\/602870187.jpg@s_1,w_90,h_90&quot;,&quot;album_relate_status&quot;:1,&quot;copy_type&quot;:&quot;1&quot;,&quot;has_mv&quot;:1,&quot;rank_change&quot;:&quot;0&quot;,&quot;icon&quot;:2,&quot;del_status&quot;:&quot;0&quot;,&quot;biaoshi&quot;:&quot;lossless&quot;}" class="" data-copytype="1">
+                                    <th><i class="n2"></i></th>
+                                    <td class="s_title">
+                                        <span class="s_title_txt s_title_icon_1" title="我的爱（慕思《觉/醒》视频主题曲）">我的爱（慕思《觉/醒》视频主题曲）</span>
+                                        <a href="javascript:;" class="mv_icon"></a>                                <a class="biaoshi lossless"></a>
+                                    </td>
+                                    <td class="fct"><div class="fct_btn"><a href="javascript:;" class="play" data-page="recommend_hot" title="播放"></a><a href="javascript:;" class="more" data-page="recommend_hot" data-action="more"></a></div></td>
+                                    <td class="u_title"><a href="javascript:;" class="artist" title="许巍" data-artistid="371" data-uid="0">许巍</a></td>
+                                </tr>
+
+                                <tr data-song="{&quot;song_id&quot;:&quot;598740690&quot;,&quot;song_title&quot;:&quot;\u53ea\u8981\u5e73\u51e1&quot;,&quot;artist_id&quot;:&quot;14&quot;,&quot;song_artist&quot;:&quot;\u5f20\u6770,\u5f20\u78a7\u6668&quot;,&quot;album_id&quot;:&quot;598740686&quot;,&quot;album_title&quot;:&quot;\u53ea\u8981\u5e73\u51e1&quot;,&quot;album_image_url&quot;:&quot;http:\/\/qukufile2.qianqian.com\/data2\/pic\/2854c6d30aab478cec599a174c911eea\/598740687\/598740687.jpg@s_1,w_90,h_90&quot;,&quot;album_relate_status&quot;:1,&quot;copy_type&quot;:&quot;1&quot;,&quot;has_mv&quot;:0,&quot;rank_change&quot;:&quot;0&quot;,&quot;icon&quot;:2,&quot;del_status&quot;:&quot;0&quot;,&quot;biaoshi&quot;:&quot;lossless&quot;}" class="" data-copytype="1">
+                                    <th><i class="n3"></i></th>
+                                    <td class="s_title">
+                                        <span class="s_title_txt s_title_icon_1" title="只要平凡">只要平凡</span>
+                                        <a class="biaoshi lossless"></a>
+                                    </td>
+                                    <td class="fct"><div class="fct_btn"><a href="javascript:;" class="play" data-page="recommend_hot" title="播放"></a><a href="javascript:;" class="more" data-page="recommend_hot" data-action="more"></a></div></td>
+                                    <td class="u_title"><a href="javascript:;" class="artist" title="张杰" data-artistid="14" data-uid="0">张杰</a>,<a href="javascript:;" class="artist" title="张碧晨" data-artistid="123339593" data-uid="0">张碧晨</a></td>
+                                </tr>
+
+                                <tr data-song="{&quot;song_id&quot;:&quot;569080829&quot;,&quot;song_title&quot;:&quot;\u65e0\u95ee\u897f\u4e1c&quot;,&quot;artist_id&quot;:&quot;15&quot;,&quot;song_artist&quot;:&quot;\u738b\u83f2&quot;,&quot;album_id&quot;:&quot;569080827&quot;,&quot;album_title&quot;:&quot;\u65e0\u95ee\u897f\u4e1c&quot;,&quot;album_image_url&quot;:&quot;http:\/\/qukufile2.qianqian.com\/data2\/pic\/4865939a77b87edc79789df87b6f22d8\/569080825\/569080825.png@s_1,w_90,h_90&quot;,&quot;album_relate_status&quot;:1,&quot;copy_type&quot;:&quot;3&quot;,&quot;has_mv&quot;:0,&quot;rank_change&quot;:&quot;0&quot;,&quot;icon&quot;:2,&quot;del_status&quot;:&quot;0&quot;,&quot;biaoshi&quot;:&quot;first,lossless&quot;}" class="" data-copytype="3">
+                                    <th><i class="n4"></i></th>
+                                    <td class="s_title">
+                                        <span class="s_title_txt s_title_icon_2" title="无问西东">无问西东</span>
+                                        <a class="biaoshi first"></a>
+                                        <a class="biaoshi lossless"></a>
+                                    </td>
+                                    <td class="fct"><div class="fct_btn"><a href="javascript:;" class="play" data-page="recommend_hot" title="播放"></a><a href="javascript:;" class="more" data-page="recommend_hot" data-action="more"></a></div></td>
+                                    <td class="u_title"><a href="javascript:;" class="artist" title="王菲" data-artistid="15" data-uid="0">王菲</a></td>
+                                </tr>
+
+                                <tr data-song="{&quot;song_id&quot;:&quot;602980311&quot;,&quot;song_title&quot;:&quot;\u81f3\u5c11\u8fd8\u6709\u4f60\u7231\u6211&quot;,&quot;artist_id&quot;:&quot;762&quot;,&quot;song_artist&quot;:&quot;\u9f99\u6885\u5b50,\u738b\u5a1c&quot;,&quot;album_id&quot;:&quot;602980305&quot;,&quot;album_title&quot;:&quot;\u81f3\u5c11\u8fd8\u6709\u4f60\u7231\u6211&quot;,&quot;album_image_url&quot;:&quot;http:\/\/qukufile2.qianqian.com\/data2\/pic\/015c6c99e1ced5261f624ef20cd7912f\/602980306\/602980306.jpg@s_1,w_90,h_90&quot;,&quot;album_relate_status&quot;:1,&quot;copy_type&quot;:&quot;1&quot;,&quot;has_mv&quot;:0,&quot;rank_change&quot;:&quot;0&quot;,&quot;icon&quot;:2,&quot;del_status&quot;:&quot;0&quot;,&quot;biaoshi&quot;:&quot;lossless&quot;}" class="" data-copytype="1">
+                                    <th><i class="n5"></i></th>
+                                    <td class="s_title">
+                                        <span class="s_title_txt s_title_icon_1" title="至少还有你爱我">至少还有你爱我</span>
+                                        <a class="biaoshi lossless"></a>
+                                    </td>
+                                    <td class="fct"><div class="fct_btn"><a href="javascript:;" class="play" data-page="recommend_hot" title="播放"></a><a href="javascript:;" class="more" data-page="recommend_hot" data-action="more"></a></div></td>
+                                    <td class="u_title"><a href="javascript:;" class="artist" title="龙梅子" data-artistid="762" data-uid="0">龙梅子</a>,<a href="javascript:;" class="artist" title="王娜" data-artistid="603080618" data-uid="0">王娜</a></td>
+                                </tr>
+
+                                <tr data-song="{&quot;song_id&quot;:&quot;121353608&quot;,&quot;song_title&quot;:&quot;\u534a\u58f6\u7eb1&quot;,&quot;artist_id&quot;:&quot;119680493&quot;,&quot;song_artist&quot;:&quot;\u5218\u73c2\u77e3&quot;,&quot;album_id&quot;:&quot;121353611&quot;,&quot;album_title&quot;:&quot;\u534a\u58f6\u7eb1&quot;,&quot;album_image_url&quot;:&quot;http:\/\/qukufile2.qianqian.com\/data2\/pic\/260983575\/260983575.jpg@s_1,w_90,h_90&quot;,&quot;album_relate_status&quot;:1,&quot;copy_type&quot;:&quot;1&quot;,&quot;has_mv&quot;:1,&quot;rank_change&quot;:&quot;0&quot;,&quot;icon&quot;:2,&quot;del_status&quot;:&quot;0&quot;,&quot;biaoshi&quot;:&quot;lossless,vip&quot;}" class="" data-copytype="1">
+                                    <th><i class="n6"></i></th>
+                                    <td class="s_title">
+                                        <span class="s_title_txt s_title_icon_1" title="半壶纱">半壶纱</span>
+                                        <a href="javascript:;" class="mv_icon"></a>                                <a class="biaoshi lossless"></a>
+                                    </td>
+                                    <td class="fct"><div class="fct_btn"><a href="javascript:;" class="play" data-page="recommend_hot" title="播放"></a><a href="javascript:;" class="more" data-page="recommend_hot" data-action="more"></a></div></td>
+                                    <td class="u_title"><a href="javascript:;" class="artist" title="刘珂矣" data-artistid="119680493" data-uid="0">刘珂矣</a></td>
+                                </tr>
+
+                                <tr data-song="{&quot;song_id&quot;:&quot;124415468&quot;,&quot;song_title&quot;:&quot;\u4e00\u767e\u4e07\u4e2a\u53ef\u80fd&quot;,&quot;artist_id&quot;:&quot;14969532&quot;,&quot;song_artist&quot;:&quot;Christine Welch&quot;,&quot;album_id&quot;:&quot;124415578&quot;,&quot;album_title&quot;:&quot;\u4e00\u767e\u4e07\u4e2a\u53ef\u80fd&quot;,&quot;album_image_url&quot;:&quot;http:\/\/qukufile2.qianqian.com\/data2\/pic\/124415522\/124415522.jpg@s_0,w_90&quot;,&quot;album_relate_status&quot;:1,&quot;copy_type&quot;:&quot;1&quot;,&quot;has_mv&quot;:0,&quot;rank_change&quot;:&quot;0&quot;,&quot;icon&quot;:2,&quot;del_status&quot;:&quot;0&quot;,&quot;biaoshi&quot;:&quot;lossless&quot;}" class="" data-copytype="1">
+                                    <th><i class="n7"></i></th>
+                                    <td class="s_title">
+                                        <span class="s_title_txt s_title_icon_1" title="一百万个可能">一百万个可能</span>
+                                        <a class="biaoshi lossless"></a>
+                                    </td>
+                                    <td class="fct"><div class="fct_btn"><a href="javascript:;" class="play" data-page="recommend_hot" title="播放"></a><a href="javascript:;" class="more" data-page="recommend_hot" data-action="more"></a></div></td>
+                                    <td class="u_title"><a href="javascript:;" class="artist" title="Christine Welch" data-artistid="14969532" data-uid="0">Christine Welch</a></td>
+                                </tr>
+
+                                <tr data-song="{&quot;song_id&quot;:&quot;242078437&quot;,&quot;song_title&quot;:&quot;\u6f14\u5458&quot;,&quot;artist_id&quot;:&quot;88&quot;,&quot;song_artist&quot;:&quot;\u859b\u4e4b\u8c26&quot;,&quot;album_id&quot;:&quot;241838068&quot;,&quot;album_title&quot;:&quot;\u521d\u5b66\u8005&quot;,&quot;album_image_url&quot;:&quot;http:\/\/qukufile2.qianqian.com\/data2\/pic\/49e6161afb13e3eda9d1cb4e304561a2\/584551506\/584551506.jpg@s_1,w_90,h_90&quot;,&quot;album_relate_status&quot;:1,&quot;copy_type&quot;:&quot;1&quot;,&quot;has_mv&quot;:0,&quot;rank_change&quot;:&quot;0&quot;,&quot;icon&quot;:2,&quot;del_status&quot;:&quot;0&quot;,&quot;biaoshi&quot;:&quot;lossless&quot;}" class="" data-copytype="1">
+                                    <th><i class="n8"></i></th>
+                                    <td class="s_title">
+                                        <span class="s_title_txt s_title_icon_1" title="演员">演员</span>
+                                        <a class="biaoshi lossless"></a>
+                                    </td>
+                                    <td class="fct"><div class="fct_btn"><a href="javascript:;" class="play" data-page="recommend_hot" title="播放"></a><a href="javascript:;" class="more" data-page="recommend_hot" data-action="more"></a></div></td>
+                                    <td class="u_title"><a href="javascript:;" class="artist" title="薛之谦" data-artistid="88" data-uid="0">薛之谦</a></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <!-- 热歌榜end -->
+            </div>
+            <!-- 热门榜单end -->
+        
+        
+
+        
+        
+        </div>
+
+            <!-- page_search 搜索页 -->
+            <div class="page_search R_page" id="pageSearch" style="display:none;">
+                <div class="main_container">
+                    <div class="listcontainer">
+                        <p style="margin:0px 40px;color:#bbb;" id="search_count">
+                            <!--搜索 "<span class="input" style="color:#0b75c3;">STRING</span>"-->共搜到
+                            <span class="count">0</span> 条结果，本页最多显示 40 条结果
+                        </p>
+                        <div class="listtab">
+                            <div class="tabbtns clearfix">
+                                <label class="label_btn active" for="song">单曲</label>
+                                <label class="label_btn" for="singer">歌手</label>
+                                <label class="label_btn" for="album">专辑</label>
+                                <label class="label_btn" for="musicvideo">MV</label>
+                                <label class="label_btn" for="playlist">歌单</label>
+                                <label class="label_btn" for="songlrc">歌词</label>
+                                <label class="label_btn" for="user">用户</label>
+                            </div>
+                            <!-- song -->
+                            <input type="radio" id="song" name="tablist_s" checked="" />
+                            <div class="tabitem musiclist">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>&nbsp;&nbsp;</th>
+                                            <th>操作</th>
+                                            <th>音乐标题</th>
+                                            <th>歌手</th>
+                                            <th>专辑</th>
+                                            <th>时长</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="infolist" id="infoList_search">
+                                        <!--								<tr>
+                                                                            <td class="index">01</td>
+                                                                            <td><i class="fa fa-heart-o" aria-hidden="true"></i>&nbsp;
+                                                                                <i class="fa fa-download" aria-hidden="true"></i>
+                                                                            </td>
+                                                                            <td>-SONGNAME-</td>
+                                                                            <td>-SINGER-</td>
+                                                                            <td>-ALBUM-</td>
+                                                                            <td>00:00</td>
+                                                                        </tr>-->
+                                    </tbody>
+                                    </tfoot>
+                                </table>
+                            </div>
+                            <!-- singer -->
+                            <input type="radio" id="singer" name="tablist_s" />
+                            <div class="tabitem singerlist">
+                                <p style="margin:100px 0;text-align:center;color:#bbb;font-size:1rem;">--分类功能暂未上线--</p>
+                            </div>
+                            <!-- album -->
+                            <input type="radio" id="album" name="tablist_s" />
+                            <div class="tabitem albumlist">
+                                <p style="margin:100px 0;text-align:center;color:#bbb;font-size:1rem;">--分类功能暂未上线--</p>
+                            </div>
+                            <!-- musicvideo -->
+                            <input type="radio" id="musicvideo" name="tablist_s" />
+                            <div class="tabitem musicvideolist">
+                                <p style="margin:100px 0;text-align:center;color:#bbb;font-size:1rem;">--分类功能暂未上线--</p>
+                            </div>
+                            <!-- playlist -->
+                            <input type="radio" id="playlist" name="tablist_s" />
+                            <div class="tabitem playlist">
+                                <p style="margin:100px 0;text-align:center;color:#bbb;font-size:1rem;">--分类功能暂未上线--</p>
+                            </div>
+                            <!-- songlrc -->
+                            <input type="radio" id="songlrc" name="tablist_s" />
+                            <div class="tabitem songlrclist">
+                                <p style="margin:100px 0;text-align:center;color:#bbb;font-size:1rem;">--分类功能暂未上线--</p>
+                            </div>
+                            <!-- fm -->
+                            <input type="radio" id="fm" name="tablist_s" />
+                            <div class="tabitem fmlist">
+                                <p style="margin:100px 0;text-align:center;color:#bbb;font-size:1rem;">--分类功能暂未上线--</p>
+                            </div>
+                            <!-- user -->
+                            <input type="radio" id="user" name="tablist_s" />
+                            <div class="tabitem userlist">
+                                <p style="margin:100px 0;text-align:center;color:#bbb;font-size:1rem;">--分类功能暂未上线--</p>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
+
         </div>
 
-</body>
+    </div></body>
 
 </html>

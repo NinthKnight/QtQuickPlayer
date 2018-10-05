@@ -26,6 +26,7 @@ Rectangle {
     WebEngineView {
              anchors.fill: parent
              url: "qrc:/res/index.html"
+             //url:"http://musicmini.qianqian.com/2018/static/recommend/recommend.html"
              webChannel:searchChannel
     }
 

@@ -271,9 +271,42 @@
         <file>res/src/images/pic_03.png</file>
         <file>res/src/images/pic_04.png</file>
         <file>res/src/images/pic_05.png</file>
-        <file>res/src/js/slide.min.js</file>
         <file>res/src/css/reset.css</file>
         <file>res/src/css/scorll.css</file>
         <file>res/src/css/slide.css</file>
+        <file>res/src/js/dailyRCInterface.js</file>
+        <file>res/src/js/g=2018function.js</file>
+        <file>res/src/js/main&amp;f=slide.js,recommend.js</file>
+        <file>res/src/css/g=2018.css</file>
+        <file>res/src/css/g=2018csslist.css</file>
+        <file>res/src/css/main&amp;f=recommend.css</file>
+        <file>res/src/images/banner_arrow_bg.png</file>
+        <file>res/src/images/btn_1_ie6_2.png</file>
+        <file>res/src/images/banner_dot_bg.png</file>
+        <file>res/src/images/banner_dot_bg_ie6.png</file>
+        <file>res/src/images/icon_2.png</file>
+        <file>res/src/images/icon_2_ie6.png</file>
+        <file>res/src/images/pic_1.jpg</file>
+        <file>res/src/images/pic_2.jpg</file>
+        <file>res/src/images/pic_3.jpg</file>
+        <file>res/src/images/pic_4.jpg</file>
+        <file>res/src/images/pic_5.jpg</file>
+        <file>res/src/images/pic_6.jpg</file>
+        <file>res/src/images/pic_7.jpg</file>
+        <file>res/src/images/pic_8.jpg</file>
+        <file>res/src/images/more_dt.png</file>
+        <file>res/src/images/bg1.png</file>
+        <file>res/src/images/bg2.png</file>
+        <file>res/src/images/bg3.png</file>
+        <file>res/src/images/btn_7.png</file>
+        <file>res/src/images/btn_7_ie6_2.png</file>
+        <file>res/src/images/icon_15.png</file>
+        <file>res/src/images/icon_15_ie6.png</file>
+        <file>res/src/images/icon1.png</file>
+        <file>res/src/images/new_hot_song_bg.png</file>
+        <file>res/src/images/new_new_song_bg.png</file>
+        <file>res/src/images/nums_icons.png</file>
+        <file>res/src/images/more_dt_hover.png</file>
+        <file>res/src/images/btn_5_2.png</file>
     </qresource>
 </RCC>
