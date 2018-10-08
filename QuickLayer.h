@@ -171,6 +171,9 @@ public slots:
     void slot_CurrentMediaFinished();
 
 	void slot_requestSong(const ItemResult&, SearchStatus);
+	void slot_requestNewSong(QString song);
+	void slot_requestHotSong(QString song);
+
 	void slot_positionChange(qint64);
 	void slot_setVolumn(int nValue);
 

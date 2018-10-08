@@ -7,6 +7,7 @@
 #include<QDebug>
 #include <QCoreApplication>
 #include <QDir>
+#include <QJsonDocument>
 
 //play method
 //http://m.kugou.com/app/i/getSongInfo.php?cmd=playInfo&hash=
@@ -32,6 +33,11 @@
 
 
 #define LRYIC_URL "http://www.kugou.com/yy/index.php?r=play/getdata&hash=%1"
+
+#define NEWSONG_URL "http://m.kugou.com/?json=true"
+
+#define HOTSONG_URL "http://m.kugou.com/rank/info/?rankid=8888&page=1&json=true"
+
 /*
  *  a new API =====>    http://s.music.163.com/search/get/?type=1&s=  ∏Ë«˙√˚/∏Ë ÷√˚  &limit=5000
  *  a new API too-----> http://api.itwusun.com/music/search/wy/2?format=json&keyword=≥¬ﬁ»—∏&sign=a5cc0a8797539d3a1a4f7aeca5b695b9
@@ -232,6 +238,75 @@ QString MyNetWork::requestLyric(const QString &strSongHash)
 	reply->deleteLater();
 
 	return Item.strSongLyric;
+}
+
+
+//«Î«Û–¬∏Ë∞Ò
+void  MyNetWork::requestNewSong() {
+	ItemResult Item = { 0 };
+
+	QString strTemp(NEWSONG_URL);
+
+	QNetworkRequest request;
+	QNetworkAccessManager manger;
+	request.setUrl(strTemp);
+	QNetworkReply *reply = manger.get(request);
+
+	QEventLoop loop;
+	connect(&manger, SIGNAL(finished(QNetworkReply*)), &loop, SLOT(quit()));
+	loop.exec();
+
+	if (reply->error() == QNetworkReply::NoError)
+	{
+		QByteArray bytTemp = reply->readAll();
+		reply->deleteLater();
+		QJsonDocument doc0 = QJsonDocument::fromJson(bytTemp);
+		QJsonObject objTemp = doc0.object();
+		//objTemp = objTemp.value("data").toObject();
+		QJsonArray array0 = objTemp.value("data").toArray();
+
+		int nCount = array0.size();
+		QJSEngine JS;
+		QJSValue array = JS.newArray(nCount);
+
+		for (int i = 0; i<array0.size(); ++i)
+		{
+			objTemp = array0.at(i).toObject();
+
+			QString strFullName = objTemp.value("filename").toString();
+			QString strHash = objTemp.value("hash").toString();
+			QString strSinger;
+			QString strMusicName;
+
+			QStringList ls = strFullName.split("-");
+			if (ls.size() >= 2) {
+				strSinger = ls[0];
+				strMusicName = ls[1];
+			}
+
+			QJSValue item = JS.newObject();
+			item.setProperty("songName", strMusicName);
+			item.setProperty("songer", strSinger);
+			item.setProperty("songHash", strHash);
+
+			array.setProperty(i, item);
+		}
+
+
+		QJsonDocument jsonDoc = QJsonDocument::fromVariant(array.toVariant());
+		//qDebug() << "json[" << jsonDoc.toJson() << "]";
+
+		emit sig_reqNewSongStatus(jsonDoc.toJson());
+
+	}
+	reply->deleteLater();
+
+}
+
+//«Î«Û»»∏Ë∞Ò
+void  MyNetWork::requestHotSong() {
+
+
 }
 
 

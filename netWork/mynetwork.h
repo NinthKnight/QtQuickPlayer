@@ -8,6 +8,8 @@
 #include<Qimage>
 #include<QPixmap>
 #include <QFile>
+#include <QJSEngine>
+#include <QJSValue>
 
 struct ItemResult
 {
@@ -44,6 +46,10 @@ signals:
     void setpic(const QString&strPath,const QString&strName);
     void sig_setBgpix(const QStringList&,const QString& author);
 
+	void sig_reqNewSongStatus(QString song);
+	void sig_reqHotSongStatus(QString song);
+
+
 public slots:
     void requestMv(const QString&);
 	void downloadMv(const QString&);
@@ -53,6 +59,10 @@ public slots:
     void requestSongNextPage();
     void requestlrc(const QString &name,qint64 totaltime,const QString &saveloaction,const QString &strHash="");
     void requestBgPic(const QString &author);
+
+	void requestNewSong();
+
+	void requestHotSong();
 
 	QString requestLyric(const QString &strSongHash);
 

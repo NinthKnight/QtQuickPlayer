@@ -11,6 +11,10 @@ CQuickLayer::CQuickLayer()
 	//≤•∑≈“Ù¿÷&mv
 	connect(&m_net, SIGNAL(sig_reqSongStatus(ItemResult, SearchStatus)), this, SLOT(slot_requestSong(ItemResult, SearchStatus)));
 
+	connect(&m_net, SIGNAL(sig_reqNewSongStatus(QString)), this, SLOT(slot_requestNewSong(QString)));
+
+	connect(&m_net, SIGNAL(sig_reqHotSongStatus(QString)), this, SLOT(slot_requestHotSong(QString)));
+
 	// ±≥§
 	connect(&m_ffplayer, SIGNAL(sig_PositionChange(qint64)), this, SLOT(slot_positionChange(qint64)));
 
@@ -26,6 +30,8 @@ CQuickLayer::CQuickLayer()
 	
 
 	m_playStatus = PLAYSTATUS_START;
+
+	m_net.requestNewSong();
 }
 
 CQuickLayer::~CQuickLayer()
@@ -87,6 +93,16 @@ void CQuickLayer::slot_requestSong(const ItemResult &result, SearchStatus status
 			songLstModel.sig_SendToQml(jsonDoc.toJson());
 		}
 	}
+}
+
+void CQuickLayer::slot_requestNewSong(QString song)
+{
+	songLstModel.sig_SetNewSongLst(song);
+}
+
+void CQuickLayer::slot_requestHotSong(QString song)
+{
+	songLstModel.sig_SetHotSongLst(song);
 }
 
 void CQuickLayer::slot_positionChange(qint64 length)

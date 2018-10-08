@@ -1,4 +1,414 @@
 jQuery.fn.extend({
+      table : function(sCheckBox) {
+        var checkBoxFlag = true;
+        if (typeof sCheckBox == "undefined")
+            checkBoxFlag = false;
+        var $rcBangdan_trMark = $(".main_table tr.on");
+        var rcBangdan_shiftIndex = $rcBangdan_trMark.index($rcBangdan_trMark.eq(0));
+        var btnHidden = true;
+        $(".main_table").delegate('tr', {
+            hover: function() {
+                $(this).unbind('mousedown');
+            },
+            mousemove: function() {
+                $(this).addClass('tr_hover');
+                if ($(this).hasClass('offline')) {
+                    return false;
+                }
+                $(".fct .fct_btn", this).css("display", "block");
+            },
+            mouseout: function() {
+                $(this).removeClass('tr_hover');
+                $(".fct .fct_btn", this).css("display", "none");
+            },
+            mousedown: function(event) {
+                event.stopPropagation ? event.stopPropagation() : (event.cancelBubble = true);
+                var $rcBangdan_trMark_not = $();
+                var $rcBangdan_trMark_add = $();
+                var index = $(".main_table tr").index(this);
+                var thisFlag = $rcBangdan_trMark.index(this) > -1 ? true : false;
+                if (event.which == 1) {
+                    if (event.shiftKey == 1) {
+                        if (rcBangdan_shiftIndex < 0) {
+                            $rcBangdan_trMark_add = $(this);
+                            rcBangdan_shiftIndex = index;
+                        } else {
+                            var begin = rcBangdan_shiftIndex < index ? rcBangdan_shiftIndex : index;
+                            var end = (rcBangdan_shiftIndex > index ? rcBangdan_shiftIndex : index) + 1;
+                            var $trMark = $(".main_table tr").slice(begin, end);
+                            $rcBangdan_trMark_not = $rcBangdan_trMark.not($trMark);
+                            $rcBangdan_trMark_add = $trMark.not($rcBangdan_trMark);
+                        }
+                    } else if (event.ctrlKey == 1) {
+                        if (thisFlag) {
+                            $rcBangdan_trMark_not = $(this);
+                            btnHidden = false;
+                        } else {
+                            $rcBangdan_trMark_add = $(this);
+                        }
+                        rcBangdan_shiftIndex = index;
+                    } else {
+                        $rcBangdan_trMark_not = $rcBangdan_trMark;
+                        if (thisFlag) {
+                            $rcBangdan_trMark_not = $rcBangdan_trMark_not.not(this);
+                        } else {
+                            $rcBangdan_trMark_add = $(this);
+                        }
+                        rcBangdan_shiftIndex = index;
+                    }
+                } else if (event.which == 3) {
+                    if ($(this).hasClass('offline')) {
+                        return false;
+                    }
+                    if (thisFlag) {
+                        tableMouseRightEvent(event);
+                    } else {
+                        $rcBangdan_trMark_not = $rcBangdan_trMark;
+                        $rcBangdan_trMark_add = $(this);
+                        rcBangdan_shiftIndex = index;
+                        tableMouseRightEvent(event);
+                    }
+                    $.ClickMonkey({
+                        type: "click",
+                        act: "musicwindowmore",
+                        pos: "musicwindowmore_right"
+                    });
+                }
+                doTrMark($rcBangdan_trMark_not, $rcBangdan_trMark_add, btnHidden);
+            },
+            dblclick: function() {
+                var $tr = $(this);
+                if ($(this).hasClass('offline') && $(this).data('copytype') != '0') {
+                    Common_Layer.init_tip('addSuccess', "该歌曲已下线~", "icon2");
+                    return false;
+                }
+                if ($(this).data('copytype') == '0') {
+                    Common_Layer.init_tip('addSuccess', "应版权方要求，该歌曲暂时无法播放", "icon2");
+                    return false;
+                }
+                if ($(this).data('copytype') == '2') {
+                    Common_Layer.init_tip('addSuccess', "您好，应版权方要求，该歌曲下载后，即可播放哦~", "icon3");
+                    return false;
+                }
+                var song = $tr.data("song");
+                playSong(song);
+                return false;
+            }
+        })
+        if (checkBoxFlag) {
+            $("#selectAll").unbind('click').click(function() {
+                var $rcBangdan_trMark_not = $();
+                var $rcBangdan_trMark_add = $();
+                if ($(this).attr("checked")) {
+                    $rcBangdan_trMark_add = $(".main_table tr").not($rcBangdan_trMark)
+                } else {
+                    $rcBangdan_trMark_not = $rcBangdan_trMark;
+                }
+                doTrMark($rcBangdan_trMark_not, $rcBangdan_trMark_add, btnHidden);
+            });
+            $(sCheckBox, ".main_table tr").unbind('mousedown').mousedown(function(event) {
+                if (event.which == 1) {
+                    event.stopPropagation ? event.stopPropagation() : (event.cancelBubble = true);
+                    var $rcBangdan_trMark_not = $();
+                    var $rcBangdan_trMark_add = $();
+                    var $thisTr = $(this).parents("tr").eq(0);
+                    if ($(this).attr("checked")) {
+                        $rcBangdan_trMark_not = $thisTr;
+                        $(sCheckBox, $thisTr).removeClass("visited_hover");
+                        btnHidden = false;
+                    } else {
+                        $rcBangdan_trMark_add = $thisTr;
+                        $(sCheckBox, $thisTr).addClass("visited_hover");
+                    }
+                    doTrMark($rcBangdan_trMark_not, $rcBangdan_trMark_add, btnHidden);
+                }
+            }).dblclick(function() {
+                event.stopPropagation ? event.stopPropagation() : (event.cancelBubble = true);
+                return false;
+            });
+        }
+        function doTrMark($rcBangdan_trMark_not, $rcBangdan_trMark_add, btnHidden) {
+            if ($rcBangdan_trMark_not.length > 0) {
+                $rcBangdan_trMark_not.removeClass("on");
+                if (checkBoxFlag) {
+                    $(sCheckBox, $rcBangdan_trMark_not).attr("checked", false).removeClass("visited");
+                }
+                $rcBangdan_trMark = $rcBangdan_trMark.not($rcBangdan_trMark_not);
+            }
+            if ($rcBangdan_trMark_add.length > 0) {
+                $rcBangdan_trMark_add.addClass("on");
+                if (checkBoxFlag) {
+                    $(sCheckBox, $rcBangdan_trMark_add).attr("checked", true).addClass("visited");
+                }
+                $rcBangdan_trMark = $rcBangdan_trMark.add($rcBangdan_trMark_add);
+            }
+            if (checkBoxFlag) {
+                var allFlag = ($rcBangdan_trMark.length == $(".main_table tr").length);
+                if (allFlag)
+                    $("#selectAll").addClass("visited").attr("checked", true);
+                else
+                    $("#selectAll").removeClass("visited").attr("checked", false);
+            }
+        }
+        $(".main_table").delegate('.u_title a.artist', 'click', function() {
+            $(this).unbind();
+            var artist_id = $(this).data("artistid");
+            var uid = $(this).data("uid");
+            globalLinks.singerPerson(artist_id, uid);
+            return false;
+        });
+        $(".main_table .u_title a.search").unbind().click(function() {
+            var query = $(this).data("query");
+            globalLinks.searchSongs(query);
+            return false;
+        });
+        $(".main_table").delegate('.a_title a', 'click', function() {
+            $(this).unbind();
+            var album_id = $(this).data("albumid");
+            globalLinks.album(album_id);
+            return false;
+        });
+        $(".main_table").delegate('.fct_btn .play', 'click', function() {
+            $(this).unbind();
+            var $tr = $(this).parents("tr").eq(0);
+            var copy_type = $tr.data('copytype');
+            if (copy_type == 2) {
+                Common_Layer.init_tip('addSuccess', "您好，应版权方要求，该歌曲下载后，即可播放哦~", "icon3");
+                return false;
+            }
+            var song = $tr.data("song");
+            playSong(song);
+            if ($(this).data('page') == 'recommend_new') {
+                $.ClickMonkey({
+                    "page": "recommend",
+                    "pos": "xhot_list",
+                    "sub": "play"
+                });
+            } else if ($(this).data('page') == 'recommend_hot') {
+                $.ClickMonkey({
+                    "page": "recommend",
+                    "pos": "rhot_list",
+                    "sub": "play"
+                });
+            }
+            return false;
+        });
+        $(".main_table").delegate('.fct_btn .phone', 'click', function() {
+            $(this).unbind();
+            if (!$(this).hasClass('disable')) {
+                var $tr = $(this).parents("tr").eq(0);
+                var song = $tr.data("song");
+                if (client.sucess)
+                    client.sendPhone(new Array(song));
+            }
+            $.ClickMonkey({
+                type: "click",
+                act: "mutil_toapp"
+            });
+            return false;
+        });
+        $(".main_table").delegate('.fct_btn .more', {
+            mouseup: function(event) {
+                $(this).unbind()
+                event.stopPropagation ? event.stopPropagation() : (event.cancelBubble = true);
+            },
+            click: function(event) {
+                $(this).unbind()
+                tableMouseRightEvent(event);
+                if ($(this).data('page') == 'recommend_new') {
+                    $.ClickMonkey({
+                        "page": "recommend",
+                        "pos": "xhot_list",
+                        "sub": "moreinfo"
+                    });
+                } else if ($(this).data('page') == 'recommend_hot') {
+                    $.ClickMonkey({
+                        "page": "recommend",
+                        "pos": "rhot_list",
+                        "sub": "moreinfo"
+                    });
+                } else {
+                    $.ClickMonkey({
+                        type: "click",
+                        act: "musicwindowmore",
+                        pos: "musicwindowmore_left"
+                    });
+                }
+                return false;
+            }
+        });
+        $(".main_table").delegate('.lossless', 'click', function() {
+            var $tr = $(this).parents("tr").eq(0);
+            if ($tr.hasClass('offline')) {
+                return false;
+            }
+            var song = $tr.data("song");
+            downloadSong(song);
+            return false;
+        });
+        $(".main_table").delegate('.mv_icon', 'click', function() {
+            var $tr = $(this).parents("tr").eq(0);
+            var song = $tr.data("song");
+            playMV(song);
+            return false;
+        });
+        $('.event_main_table_btn,.event_ugc_main_btn').delegate('.event_play_all', 'click', function() {
+            var $trs = $(".main_table tr");
+            var songs = [];
+            $.each($trs, function() {
+                song = $(this).data("song");
+                songs.push(song);
+            });
+            playSongs(songs);
+            return false;
+        });
+        $('.event_main_table_btn,.event_ugc_main_btn').delegate('.event_add_all', 'click', function() {
+            var $trs = $(".main_table tr");
+            var songs = [];
+            $.each($trs, function() {
+                song = $(this).data("song");
+                if (!$(this).hasClass('offline')) {
+                    songs.push(song);
+                }
+            });
+            if (songs.length > 1) {
+                addSongs(songs);
+            } else if (songs.length == 1) {
+                addSong(songs[0]);
+            }
+            return false;
+        });
+        function downTextByVersion() {
+            var downName = "";
+            if (checkVersionGt('10.2.2') && (checkVersionLt('11.0.3'))) {
+                downNameTxt = '缓存';
+            } else {
+                downNameTxt = '下载';
+            }
+            $('.event_main_table_btn .event_download_all,.event_ugc_main_btn .event_download_all').attr('title', downNameTxt + '列表中全部歌曲');
+            $('.event_main_table_btn .event_download_all i,.event_ugc_main_btn .event_download_all i').html(downNameTxt + '全部');
+        }
+        downTextByVersion();
+        $('.event_main_table_btn,.event_ugc_main_btn').delegate('.event_download_all', 'click', function() {
+            if ($(this).hasClass('isSingle')) {
+                Common_Layer.init_tip('addSuccess', "应版权方要求，该歌曲暂时无法下载", "icon2");
+            } else {
+                var $trs = $(".main_table tr");
+                var songs = [];
+                var tencent_counter = 0;
+                $.each($trs, function() {
+                    if (!$(this).hasClass('offline')) {
+                        song = $(this).data("song");
+                        songs.push(song);
+                    }
+                });
+                if (tencent_counter > 0 && songs.length < 1) {
+                    Common_Layer.init_tip('addSuccess', "您好，应版权方要求，全部歌曲仅供播放，不能下载哦~", "icon3");
+                    return false;
+                }
+                if (songs.length > 1) {
+                    openDownloadPage(songs);
+                } else {
+                    downloadSong(songs[0]);
+                }
+            }
+            return false;
+        });
+        $('.event_main_table_btn,.event_ugc_main_btn').delegate('.event_phone_all', 'click', function() {
+            var $trs = $(".main_table tr");
+            var songs = [];
+            $.each($trs, function() {
+                if (!$(this).hasClass('offline')) {
+                    song = $(this).data("song");
+                    songs.push(song);
+                }
+            });
+            if (client.sucess)
+                client.sendPhone(songs);
+            return false;
+        });
+        $('.event_main_table_btn,.event_ugc_main_btn').delegate('.event_save_list', 'click', function() {
+            var _self = $(this);
+            var $trs = $(".main_table tr");
+            var songs = [];
+            $.each($trs, function() {
+                song = $(this).data("song");
+                songs.push(song);
+            });
+            songs = linkEmptyData(songs, "");
+            var title = $(this).data("title");
+            title = encodeURIComponent(title);
+            if (client.sucess) {
+                if (checkVersionGt('10.1.0')) {
+                    var gedanObj = new DiyInterface()
+                      , list_id = $(this).data('id')
+                      , type = $(this).data('type');
+                    var data = {
+                        "list_id": list_id,
+                        "source": type
+                    };
+                    var iscollect = $(this).data('iscollect');
+                    var This = this;
+                    if (iscollect == 0) {
+                        gedanObj.addFavoriteDiy(data).done(function(jsondata) {
+                            var error_code = jsondata.error_code;
+                            if (error_code == 22000) {
+                                client.ugcCollectSongs(list_id, title, type, 1);
+                                $(This).addClass('collect_all').removeClass('no_collect_all');
+                                Common_Layer.init_tip('addSuccess', "收藏成功");
+                                $(This).data('iscollect', '1');
+                                var current_nums = parseInt($(This).find('i').text());
+                                if (!$.isNumeric(current_nums)) {
+                                    current_nums = 0;
+                                }
+                                var nums = current_nums + 1;
+                                $(This).find('i').text(nums);
+                            } else if (error_code == 22713) {
+                                Common_Layer.init_tip('addSuccess', "收藏成功");
+                            } else {
+                                Common_Layer.init_tip('addSuccess', "收藏失败", "icon2");
+                            }
+                        });
+                    } else if (iscollect == 1) {
+                        gedanObj.deleteFavoriteDiy(data).done(function(jsondata) {
+                            var error_code = jsondata.error_code;
+                            if (error_code == 22000) {
+                                client.ugcCollectSongs(list_id, title, type, 0);
+                                $(This).addClass('no_collect_all').removeClass('collect_all');
+                                $(This).data('iscollect', '0');
+                                Common_Layer.init_tip('addSuccess', "取消成功");
+                                var current_nums = parseInt($(This).find('i').text());
+                                if (!$.isNumeric(current_nums)) {
+                                    current_nums = 0;
+                                }
+                                var nums = current_nums - 1;
+                                nums = (nums == 0) ? '收藏' : nums;
+                                $(This).find('i').text(nums);
+                            } else {
+                                Common_Layer.init_tip('addSuccess', "取消失败", "icon2");
+                            }
+                        });
+                    }
+                } else {
+                    if (_self.hasClass('gedan_collect_btn')) {
+                        client.newSongList(1, songs, 4, title, false);
+                    } else {
+                        client.newSongList(1, songs, 4, title);
+                    }
+                }
+            }
+            return false;
+        });
+    },
+
+
+
+
+
+
+
+
+	
     slideFocus: function() {
         $This = $(this);
         var imgWidth = $(this).width(), len = $(this).find('ul li').length, index = 0, index2 = 0, timer;
@@ -225,6 +635,7 @@ jQuery.fn.extend({
     }
 });
 ;$(function() {
+	
 	$('#focusImg').slideFocus();
     $('#section_scroll_wrap1').slideScroll({
         "type": "1_1"
@@ -242,6 +653,8 @@ jQuery.fn.extend({
         "type": "1_2",
         "per_num": "6"
     });
+	
+	$(".bangdan_list").table();
 	
     var upgrade_cookie = getCookies("qianqian_guide_upgrade");
     if (upgrade_cookie == "") {
@@ -772,4 +1185,8 @@ jQuery.fn.extend({
             "sub": "more"
         });
     });
-})
+}
+
+)
+
+

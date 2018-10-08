@@ -37,10 +37,24 @@ Rectangle {
 
         signal signal_setSonglst(string strSong);
 
+        signal signal_setNewSongLst(string strSong); //设置新歌榜
+
+        signal signal_setHotSongLst(string strSong); //设置热歌榜
+
+
         //c++ -->Qml
         onSignalSendToQml: {
             //console.log(strSong);
             signal_setSonglst(strSong);
+        }
+
+        onSignalSetNewSongLst: {
+            signal_setNewSongLst(strSong);
+        }
+
+        onSignalSetHotSongLst: {
+            //console.log(strSong);
+            signal_setHotSongLst(strSong);
         }
 
 
