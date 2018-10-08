@@ -305,7 +305,63 @@ void  MyNetWork::requestNewSong() {
 
 //ÇëÇóÈÈ¸è°ñ
 void  MyNetWork::requestHotSong() {
+	ItemResult Item = { 0 };
 
+	QString strTemp(HOTSONG_URL);
+
+	QNetworkRequest request;
+	QNetworkAccessManager manger;
+	request.setUrl(strTemp);
+	QNetworkReply *reply = manger.get(request);
+
+	QEventLoop loop;
+	connect(&manger, SIGNAL(finished(QNetworkReply*)), &loop, SLOT(quit()));
+	loop.exec();
+
+	if (reply->error() == QNetworkReply::NoError)
+	{
+		QByteArray bytTemp = reply->readAll();
+		reply->deleteLater();
+		QJsonDocument doc0 = QJsonDocument::fromJson(bytTemp);
+		QJsonObject objTemp = doc0.object();
+		objTemp = objTemp.value("songs").toObject();
+		QJsonArray array0 = objTemp.value("list").toArray();
+
+		int nCount = array0.size();
+		QJSEngine JS;
+		QJSValue array = JS.newArray(nCount);
+
+		for (int i = 0; i<array0.size(); ++i)
+		{
+			objTemp = array0.at(i).toObject();
+
+			QString strFullName = objTemp.value("filename").toString();
+			QString strHash = objTemp.value("hash").toString();
+			QString strSinger;
+			QString strMusicName;
+
+			QStringList ls = strFullName.split("-");
+			if (ls.size() >= 2) {
+				strSinger = ls[0];
+				strMusicName = ls[1];
+			}
+
+			QJSValue item = JS.newObject();
+			item.setProperty("songName", strMusicName);
+			item.setProperty("songer", strSinger);
+			item.setProperty("songHash", strHash);
+
+			array.setProperty(i, item);
+		}
+
+
+		QJsonDocument jsonDoc = QJsonDocument::fromVariant(array.toVariant());
+		//qDebug() << "json[" << jsonDoc.toJson() << "]";
+
+		emit sig_reqHotSongStatus(jsonDoc.toJson());
+
+	}
+	reply->deleteLater();
 
 }
 

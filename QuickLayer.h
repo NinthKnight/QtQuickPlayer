@@ -182,6 +182,8 @@ public slots:
 	void slot_playSong();
 	void slot_setPlayList(int nIndex);
 
+	void setList();
+
 
 public:
 	virtual ~CQuickLayer();

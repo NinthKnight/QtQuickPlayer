@@ -27,11 +27,12 @@ CQuickLayer::CQuickLayer()
 
 	//≤•∑≈“Ù¿÷
 	connect(&songLstModel, SIGNAL(sig_PlaySong(int)), this, SLOT(playSong(int)));
+
+	//…Ë÷√∞Òµ•
+	connect(&songLstModel, SIGNAL(sig_SetList()), this, SLOT(setList()));
 	
 
 	m_playStatus = PLAYSTATUS_START;
-
-	m_net.requestNewSong();
 }
 
 CQuickLayer::~CQuickLayer()
@@ -195,4 +196,9 @@ void CQuickLayer::slot_CurrentMediaFinished() {
 
 void CQuickLayer::slot_setPlayList(int nIndex) {
 	emit setPlayList(nIndex);
+}
+
+void CQuickLayer::setList() {
+	m_net.requestNewSong();
+	m_net.requestHotSong();
 }

@@ -20,6 +20,10 @@ signals:
 
 	void sig_PlaySong(int nIndex);
 
+	void sig_SetList();
+
+
+
 public:
 
 	//∏Ë¥ …Ë÷√

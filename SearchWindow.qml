@@ -66,6 +66,13 @@ Rectangle {
         }
 
 
+        function setList(){
+            console.log("setList");
+            var d = songLstModel.sig_SetList();
+            return d
+        }
+
+
     }
 
 
