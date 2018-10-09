@@ -17,6 +17,21 @@ Rectangle {
     width:843;
     height: 624;
 
+    function back(){
+        console.log("back");
+        mainHtml.goBack();
+    }
+
+    function forward(){
+        console.log("forward");
+        mainHtml.goForward();
+    }
+
+    function reload(){
+        console.log("reload");
+        mainHtml.reload();
+    }
+
     //需要注册一个WebChannel对象
     WebChannel{
         id:searchChannel
@@ -24,10 +39,16 @@ Rectangle {
     }
 
     WebEngineView {
+             id:mainHtml
              anchors.fill: parent
              url: "qrc:/res/index.html"
              //url:"http://musicmini.qianqian.com/2018/static/recommend/recommend.html"
-             webChannel:searchChannel
+             webChannel:searchChannel;
+
+             Component.onCompleted: {
+                   setContextMenuPolicy(NoContextMenu);
+             }
+
     }
 
 

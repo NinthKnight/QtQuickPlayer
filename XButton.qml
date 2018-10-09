@@ -68,6 +68,7 @@ Item {
                 {
                     xButton.clicked();
                     //xbuttonImage.source = buttonPressImage;
+                    console.log("xButton.clicked()");
                 }
             }
 

@@ -69,7 +69,7 @@ Window {
             id: searchRect;
             anchors.left:  logoRect.right;
             anchors.top:   parent.top;
-            anchors.leftMargin: 10;
+            anchors.leftMargin: 60;
             anchors.topMargin: 15;
             width: 200;
             height: 25;
@@ -172,6 +172,84 @@ Window {
         }
 
         Loader {
+            id: preBrowserBtn;
+            anchors.left: logoRect.left;
+            anchors.leftMargin: 150;
+            anchors.top: parent.top;
+            anchors.topMargin: 15;
+            source: "XButton.qml";
+
+            onLoaded: {
+
+                item.buttonNormalImage = "qrc:/res/buttonImage/btn_browser_pre_normal.png";
+                item.buttonPressImage = "qrc:/res/buttonImage/btn_browser_pre_hover.png";
+                item.buttonHoverImage = "qrc:/res/buttonImage/btn_browser_pre_hover.png";
+                item.buttonDisableImage = "qrc:/res/buttonImage/btn_browser_pre_normal.png";
+                item.width = 20;
+                item.height = 20;
+            }
+
+            Connections {
+                target: preBrowserBtn.item;
+                onClicked: {
+                    stackView.currentItem.back();
+                }
+            }
+
+        }
+
+        Loader {
+            id: nextBrowserBtn;
+            anchors.left: preBrowserBtn.left;
+            anchors.leftMargin: 30;
+            anchors.top: parent.top;
+            anchors.topMargin: 15;
+            source: "XButton.qml";
+
+            onLoaded: {
+                item.buttonNormalImage = "qrc:/res/buttonImage/btn_browser_next_normal.png";
+                item.buttonPressImage = "qrc:/res/buttonImage/btn_browser_next_normal.png";
+                item.buttonHoverImage = "qrc:/res/buttonImage/btn_browser_next_hover.png";
+                item.buttonDisableImage = "qrc:/res/buttonImage/btn_browser_next_normal.png";
+                item.width = 20;
+                item.height = 20;
+            }
+
+            Connections {
+                target: nextBrowserBtn.item;
+                onClicked: {
+                    stackView.currentItem.forward();
+                }
+            }
+        }
+
+        Loader {
+            id: radBrowserBtn;
+            anchors.left: nextBrowserBtn.left;
+            anchors.leftMargin: 30;
+            anchors.top: parent.top;
+            anchors.topMargin: 15;
+            source: "XButton.qml";
+
+            onLoaded: {
+                item.buttonNormalImage = "qrc:/res/buttonImage/btn_browser_rad_normal.png";
+                item.buttonPressImage = "qrc:/res/buttonImage/btn_browser_rad_normal.png";
+                item.buttonHoverImage = "qrc:/res/buttonImage/btn_browser_rad_hover.png";
+                item.buttonDisableImage = "qrc:/res/buttonImage/btn_browser_rad_normal.png";
+                item.width = 20;
+                item.height = 20;
+            }
+
+            Connections {
+                target: radBrowserBtn.item;
+                onClicked: {
+                    stackView.currentItem.reload();
+                }
+            }
+        }
+
+
+        Loader {
             id: closeButtonLoader;
             anchors.right: parent.right;
             anchors.rightMargin: 10;
@@ -258,6 +336,29 @@ Window {
              visible: true;
 
              initialItem: "qrc:/SearchWindow.qml";
+
+             //切换动画
+             delegate: StackViewDelegate {
+                       function transitionFinished(properties)
+                       {
+                           properties.exitItem.opacity = 1
+                       }
+
+                       pushTransition: StackViewTransition {
+                           PropertyAnimation {
+                               target: enterItem
+                               property: "opacity"
+                               from: 0
+                               to: 1
+                           }
+                           PropertyAnimation {
+                               target: exitItem
+                               property: "opacity"
+                               from: 1
+                               to: 0
+                           }
+                       }
+                   }
          }
 
     }
@@ -794,13 +895,14 @@ Window {
                     target: lyricLoader.item;
                     onClicked: {
                         if (lyricControl.bLyric){
-                            stackView.clear()
+                            //stackView.clear()
                             stackView.push("qrc:/LyricWindow.qml")
                             lyricControl.bLyric = false;
                         }
                         else{
-                            stackView.clear()
-                            stackView.push("qrc:/SearchWindow.qml")
+                            stackView.pop();
+                            //stackView.clear()
+                            //stackView.push("qrc:/SearchWindow.qml")
                             lyricControl.bLyric = true;
                         }
 

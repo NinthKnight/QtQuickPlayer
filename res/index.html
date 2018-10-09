@@ -60,6 +60,10 @@
 
         //设置搜索的歌曲信息
         function SetSongLst(songInfo) {
+
+            $("#pageMain").css("display", "none");
+            $("#pageSearch").css("display", "block");
+
             //获取json格式的数据
             //console.log(songInfo);
             var songs = $.parseJSON(songInfo);
@@ -179,7 +183,7 @@
         </div>
     </div>
     <!-- page_main 主页 -->
-    <div class="page_main R_page main_container" id="pageMain">
+    <div class="page_main R_page main_container" id="pageMain" style="display:block;">
         <!--<div id="useScroll" style="position: relative; overflow: hidden;">-->
         <div class="main_container">
             <div class="scroll_wrap" style="position:relative;top:0;">
