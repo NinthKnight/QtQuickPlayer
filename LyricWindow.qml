@@ -27,6 +27,10 @@ Rectangle {
              anchors.fill: parent
              url: "qrc:/res/lyric.html"
              webChannel:changedId
+
+             onContextMenuRequested: function(request) {
+                   request.accepted = true
+             }
     }
 
     MLyric{

@@ -315,5 +315,8 @@
         <file>res/buttonImage/btn_browser_rad_hover.png</file>
         <file>res/buttonImage/btn_browser_rad_normal.png</file>
         <file>res/buttonImage/btn_browser_pre_normal.png</file>
+        <file>res/left.html</file>
+        <file>res/main.html</file>
+        <file>res/search.html</file>
     </qresource>
 </RCC>

@@ -392,7 +392,7 @@ table,td,th{
 
 /* ------------------------R_page page_right------------------------------- */
 .R_page{
-	padding:10px 0 0px 240px;
+	padding:10px 0 0px 20px;
 	height:100%;
 	box-sizing:border-box;
 }
@@ -400,6 +400,16 @@ table,td,th{
 	height:100%;
 	overflow-y:scroll;
 }
+
+.page_search{
+	height:100%;
+	box-sizing:border-box;
+}
+.page_search>.main_container{
+	height:100%;
+	overflow-y:scroll;
+}
+
 .listcontainer{
 	width:100%;
 	/*overflow:hidden;*/

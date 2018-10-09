@@ -32,23 +32,63 @@ Rectangle {
         mainHtml.reload();
     }
 
-    //需要注册一个WebChannel对象
-    WebChannel{
-        id:searchChannel
-        registeredObjects:[songLst]
+
+    Rectangle{
+       id:left_mainUIRectangle;
+       color: "#F5F5F7";
+       visible: true;
+       width: 200;
+       height: parent.height;
+       anchors.top:  parent.top;
+       anchors.left:  parent.left;
+
+
+
+       WebEngineView {
+                id:leftHtml
+                anchors.fill: parent
+                url: "qrc:/res/left.html"
+
+                //禁用右键菜单
+                onContextMenuRequested: function(request) {
+                      request.accepted = true
+                }
+       }
+
     }
 
-    WebEngineView {
-             id:mainHtml
-             anchors.fill: parent
-             url: "qrc:/res/index.html"
-             //url:"http://musicmini.qianqian.com/2018/static/recommend/recommend.html"
-             webChannel:searchChannel;
 
-             Component.onCompleted: {
-                   setContextMenuPolicy(NoContextMenu);
-             }
+    //右边是table
+    Rectangle{
+       id:right_mainUIRectangle;
 
+       anchors.top:  parent.top;
+       anchors.left:  left_mainUIRectangle.right;
+
+       visible: true;
+       width: parent.width - left_mainUIRectangle.width;
+       height: parent.height;
+
+
+        //需要注册一个WebChannel对象
+        WebChannel{
+            id:searchChannel
+            registeredObjects:[songLst]
+        }
+
+        WebEngineView {
+                 id:mainHtml
+                 anchors.fill: parent
+                 url: "qrc:/res/main.html"
+                 //url:"http://musicmini.qianqian.com/2018/static/recommend/recommend.html"
+                 webChannel:searchChannel;
+
+                 //禁用右键菜单
+                 onContextMenuRequested: function(request) {
+                       request.accepted = true
+                 }
+
+        }
     }
 
 
@@ -63,10 +103,14 @@ Rectangle {
         signal signal_setHotSongLst(string strSong); //设置热歌榜
 
 
+        property string curSearchString: "";
+
         //c++ -->Qml
         onSignalSendToQml: {
-            //console.log(strSong);
-            signal_setSonglst(strSong);
+            console.log(strSong);
+            curSearchString = strSong;
+            mainHtml.url = "qrc:/res/search.html"
+
         }
 
         onSignalSetNewSongLst: {
@@ -91,6 +135,12 @@ Rectangle {
             console.log("setList");
             var d = songLstModel.sig_SetList();
             return d
+        }
+
+        function setSearchList(){
+            console.log("setSearchList");
+
+            signal_setSonglst(curSearchString)
         }
 
 

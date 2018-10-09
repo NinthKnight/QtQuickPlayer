@@ -57,42 +57,6 @@
             });
         }
 
-
-        //设置搜索的歌曲信息
-        function SetSongLst(songInfo) {
-
-            //$("#pageMain").css("display", "none");
-            //$("#pageSearch").css("display", "block");
-
-            //获取json格式的数据
-            //console.log(songInfo);
-            var songs = $.parseJSON(songInfo);
-            //console.log(songs[0]['songHash']);
-            var listLen = songs.length;
-            var listHtml = '';
-
-            for (var i = 0; i < listLen; i++) {
-                listHtml += `
-							<tr data-index= "`+ i + `"  data-id= "` + songs[i]['songId'] + `" data-song-name= "` + songs[i]['songName'] + `" data-duration= "` + songs[i]['Duration'] + `" data-audio= "` + songs[i]['songHash'] + `" data-album-name= "` + songs[i]['AlbumName'] + `" data-singer-name= "` + songs[i]['songer'] + `" >
-								<td class="index" data-num="`+ ((+i + 1) < 10 ? "0" + (+i + 1) : (+i + 1)) + `">` + ((+i + 1) < 10 ? "0" + (+i + 1) : (+i + 1)) + `</td>
-								<td><i class="fa fa-heart-o" aria-hidden="true"></i>&nbsp;
-                                    <i class="fa fa-download" aria-hidden="true"></i></td>
-								<td> `+ songs[i]['songName'] + ` </td>
-								<td> `+ songs[i]['songer'] + ` </td>
-								<td> `+ songs[i]['AlbumName'] + ` </td>
-								<td> `+ songs[i]['Duration'] + ` </td>
-							</tr>
-						`;
-            }
-
-            //// refreshDOM
-            $("#infoList_search").html(listHtml);
-
-            // render search count
-            //$("#search_count").find(".input").html(str);
-            $("#search_count").find(".count").html(listLen);
-        }
-
         //设置新歌榜
         function SetNewSongLst(songInfo) {
             //获取json格式的数据
@@ -157,31 +121,6 @@
 </head>
 <body>
 
-    <!-- page_list 页面左侧歌单 -->
-    <div class="page_list">
-        <div class="list_container" id="listContainer">
-            <div class="list list_recommend">
-                <p class="title">推荐</p>
-                <div class="btngroups">
-                    <p class="btn find"><i class="fa fa-music" aria-hidden="true"></i>&nbsp;&nbsp;发现音乐</p>
-                    <p class="btn fm"><i class="fa fa-bullseye" aria-hidden="true"></i>&nbsp;&nbsp;私人FM</p>
-                    <p class="btn mv"><i class="fa fa-youtube-play" aria-hidden="true"></i>&nbsp;&nbsp;MV</p>
-                    <p class="btn friends"><i class="fa fa-user-plus" aria-hidden="true"></i>&nbsp;&nbsp;我的朋友</p>
-                </div>
-            </div>
-            <div class="list list_me">
-                <p class="title">我的音乐</p>
-                <div class="btngroups">
-                    <p class="btn local"><i class="fa fa-music" aria-hidden="true"></i>&nbsp;&nbsp;本地音乐</p>
-                    <p class="btn download"><i class="fa fa-download" aria-hidden="true"></i>&nbsp;&nbsp;下载管理</p>
-                    <p class="btn cloud"><i class="fa fa-cloud" aria-hidden="true"></i>&nbsp;&nbsp;我的音乐云盘</p>
-                    <p class="btn singers"><i class="fa fa-user-plus" aria-hidden="true"></i>&nbsp;&nbsp;我的歌手</p>
-                    <p class="btn me_mv"><i class="fa fa-youtube-play" aria-hidden="true"></i>&nbsp;&nbsp;我的MV</p>
-                    <p class="btn me_fm"><i class="fa fa-bullseye" aria-hidden="true"></i>&nbsp;&nbsp;我的电台</p>
-                </div>
-            </div>
-        </div>
-    </div>
     <!-- page_main 主页 -->
     <div class="page_main R_page main_container" id="pageMain" style="display:block;">
         <!--<div id="useScroll" style="position: relative; overflow: hidden;">-->
@@ -255,92 +194,7 @@
             <!-- 热门榜单end -->
         </div>
       </div>
-        <!-- page_search 搜索页 -->
-        <div class="page_search R_page" id="pageSearch" style="display:none;">
-            <div class="main_container">
-                <div class="listcontainer">
-                    <p style="margin:0px 40px;color:#bbb;" id="search_count">
-                        <!--搜索 "<span class="input" style="color:#0b75c3;">STRING</span>"-->共搜到
-                        <span class="count">0</span> 条结果，本页最多显示 40 条结果
-                    </p>
-                    <div class="listtab">
-                        <div class="tabbtns clearfix">
-                            <label class="label_btn active" for="song">单曲</label>
-                            <label class="label_btn" for="singer">歌手</label>
-                            <label class="label_btn" for="album">专辑</label>
-                            <label class="label_btn" for="musicvideo">MV</label>
-                            <label class="label_btn" for="playlist">歌单</label>
-                            <label class="label_btn" for="songlrc">歌词</label>
-                            <label class="label_btn" for="user">用户</label>
-                        </div>
-                        <!-- song -->
-                        <input type="radio" id="song" name="tablist_s" checked="" />
-                        <div class="tabitem musiclist">
-                            <table>
-                                <thead>
-                                    <tr>
-                                        <th>&nbsp;&nbsp;</th>
-                                        <th>操作</th>
-                                        <th>音乐标题</th>
-                                        <th>歌手</th>
-                                        <th>专辑</th>
-                                        <th>时长</th>
-                                    </tr>
-                                </thead>
-                                <tbody class="infolist" id="infoList_search">
-                                    <!--								<tr>
-                                                                        <td class="index">01</td>
-                                                                        <td><i class="fa fa-heart-o" aria-hidden="true"></i>&nbsp;
-                                                                            <i class="fa fa-download" aria-hidden="true"></i>
-                                                                        </td>
-                                                                        <td>-SONGNAME-</td>
-                                                                        <td>-SINGER-</td>
-                                                                        <td>-ALBUM-</td>
-                                                                        <td>00:00</td>
-                                                                    </tr>-->
-                                </tbody>
-                                </tfoot>
-                            </table>
-                        </div>
-                        <!-- singer -->
-                        <input type="radio" id="singer" name="tablist_s" />
-                        <div class="tabitem singerlist">
-                            <p style="margin:100px 0;text-align:center;color:#bbb;font-size:1rem;">--分类功能暂未上线--</p>
-                        </div>
-                        <!-- album -->
-                        <input type="radio" id="album" name="tablist_s" />
-                        <div class="tabitem albumlist">
-                            <p style="margin:100px 0;text-align:center;color:#bbb;font-size:1rem;">--分类功能暂未上线--</p>
-                        </div>
-                        <!-- musicvideo -->
-                        <input type="radio" id="musicvideo" name="tablist_s" />
-                        <div class="tabitem musicvideolist">
-                            <p style="margin:100px 0;text-align:center;color:#bbb;font-size:1rem;">--分类功能暂未上线--</p>
-                        </div>
-                        <!-- playlist -->
-                        <input type="radio" id="playlist" name="tablist_s" />
-                        <div class="tabitem playlist">
-                            <p style="margin:100px 0;text-align:center;color:#bbb;font-size:1rem;">--分类功能暂未上线--</p>
-                        </div>
-                        <!-- songlrc -->
-                        <input type="radio" id="songlrc" name="tablist_s" />
-                        <div class="tabitem songlrclist">
-                            <p style="margin:100px 0;text-align:center;color:#bbb;font-size:1rem;">--分类功能暂未上线--</p>
-                        </div>
-                        <!-- fm -->
-                        <input type="radio" id="fm" name="tablist_s" />
-                        <div class="tabitem fmlist">
-                            <p style="margin:100px 0;text-align:center;color:#bbb;font-size:1rem;">--分类功能暂未上线--</p>
-                        </div>
-                        <!-- user -->
-                        <input type="radio" id="user" name="tablist_s" />
-                        <div class="tabitem userlist">
-                            <p style="margin:100px 0;text-align:center;color:#bbb;font-size:1rem;">--分类功能暂未上线--</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+       
 
 </body>
 </html>

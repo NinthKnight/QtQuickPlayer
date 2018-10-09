@@ -1,0 +1,177 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>网易云音乐</title>
+    <link rel="icon" type="image/ico" href="./src/images/format.ico" />
+    <link rel="stylesheet" type="text/css" href="./src/css/font-awesome.min.css" />
+    <link rel="stylesheet" type="text/css" href="./src/css/index.css" />
+    <link rel="stylesheet" type="text/css" href="./src/css/g=2018.css" />
+    <link rel="stylesheet" type="text/css" href="./src/css/g=2018csslist.css" />
+    <link rel="stylesheet" type="text/css" href="./src/css/main&f=recommend.css" />
+
+
+    <script type="text/javascript" src="./src/libs/jquery-3.1.1.min.js"></script>
+    <script type="text/javascript" src="./src/js/index.js"></script>
+    <script type="text/javascript" src="./src/js/lyricScroll.js"></script>
+    <script type="text/javascript" src="./src/js/qwebchannel.js"></script>
+    <script type="text/javascript" src="./src/js/main&f=slide.js,recommend.js"></script>
+    <script type="text/javascript" src="./src/js/g=2018function.js"></script>
+
+    <script type="text/javascript">
+
+        //网页需要和C++交互 服务端需要导入qwebchannel.js 这个js文件
+        window.onload = function() {
+            //初始化时候需要实例QWebChannel，
+            if (typeof qt != 'undefined') new QWebChannel(qt.webChannelTransport, function(channel) {
+                window.mSonglst = channel.objects.mSonglst;
+
+                // 接受来自mPlayer的信号连上本地的一个方法进行信息输出
+                window.mSonglst.signal_setSonglst.connect(function (message) {
+                    SetSongLst(message);
+                    //console.log(message);
+                });
+
+                window.mSonglst.setSearchList();
+
+                // 双击搜索列表tr播放
+                $infoList_search = $("#infoList_search"),// 搜索列表
+                $infoList_search.on("dblclick", "tr", function () {
+                    //playMusic($infoList_search.find("tr"), this);
+                    //console.log($infoList_search.find("tr"));
+
+                    window.mSonglst.playSong(this.dataset.id);
+
+                });
+
+            });
+        }
+
+
+        //设置搜索的歌曲信息
+        function SetSongLst(songInfo) {
+
+            $("#pageMain").css("display", "none");
+            $("#pageSearch").css("display", "block");
+
+            //获取json格式的数据
+            //console.log(songInfo);
+            var songs = $.parseJSON(songInfo);
+            //console.log(songs[0]['songHash']);
+            var listLen = songs.length;
+            var listHtml = '';
+
+            for (var i = 0; i < listLen; i++) {
+                listHtml += `
+							<tr data-index= "`+ i + `"  data-id= "` + songs[i]['songId'] + `" data-song-name= "` + songs[i]['songName'] + `" data-duration= "` + songs[i]['Duration'] + `" data-audio= "` + songs[i]['songHash'] + `" data-album-name= "` + songs[i]['AlbumName'] + `" data-singer-name= "` + songs[i]['songer'] + `" >
+								<td class="index" data-num="`+ ((+i + 1) < 10 ? "0" + (+i + 1) : (+i + 1)) + `">` + ((+i + 1) < 10 ? "0" + (+i + 1) : (+i + 1)) + `</td>
+								<td><i class="fa fa-heart-o" aria-hidden="true"></i>&nbsp;
+                                    <i class="fa fa-download" aria-hidden="true"></i></td>
+								<td> `+ songs[i]['songName'] + ` </td>
+								<td> `+ songs[i]['songer'] + ` </td>
+								<td> `+ songs[i]['AlbumName'] + ` </td>
+								<td> `+ songs[i]['Duration'] + ` </td>
+							</tr>
+						`;
+            }
+
+            //// refreshDOM
+            $("#infoList_search").html(listHtml);
+
+            // render search count
+            //$("#search_count").find(".input").html(str);
+            $("#search_count").find(".count").html(listLen);
+        }
+    </script>
+</head>
+<body>
+
+        <!-- page_search 搜索页 -->
+        <div class="page_search  id="pageSearch" style="display:block;">
+            <div class="main_container">
+                <div class="listcontainer">
+                    <p style="margin:0px 40px;color:#bbb;" id="search_count">
+                        <!--搜索 "<span class="input" style="color:#0b75c3;">STRING</span>"-->共搜到
+                        <span class="count">0</span> 条结果，本页最多显示 40 条结果
+                    </p>
+                    <div class="listtab">
+                        <div class="tabbtns clearfix">
+                            <label class="label_btn active" for="song">单曲</label>
+                            <label class="label_btn" for="singer">歌手</label>
+                            <label class="label_btn" for="album">专辑</label>
+                            <label class="label_btn" for="musicvideo">MV</label>
+                            <label class="label_btn" for="playlist">歌单</label>
+                            <label class="label_btn" for="songlrc">歌词</label>
+                            <label class="label_btn" for="user">用户</label>
+                        </div>
+                        <!-- song -->
+                        <input type="radio" id="song" name="tablist_s" checked="" />
+                        <div class="tabitem musiclist">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>&nbsp;&nbsp;</th>
+                                        <th>操作</th>
+                                        <th>音乐标题</th>
+                                        <th>歌手</th>
+                                        <th>专辑</th>
+                                        <th>时长</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="infolist" id="infoList_search">
+                                    <!--								<tr>
+                                                                        <td class="index">01</td>
+                                                                        <td><i class="fa fa-heart-o" aria-hidden="true"></i>&nbsp;
+                                                                            <i class="fa fa-download" aria-hidden="true"></i>
+                                                                        </td>
+                                                                        <td>-SONGNAME-</td>
+                                                                        <td>-SINGER-</td>
+                                                                        <td>-ALBUM-</td>
+                                                                        <td>00:00</td>
+                                                                    </tr>-->
+                                </tbody>
+                                </tfoot>
+                            </table>
+                        </div>
+                        <!-- singer -->
+                        <input type="radio" id="singer" name="tablist_s" />
+                        <div class="tabitem singerlist">
+                            <p style="margin:100px 0;text-align:center;color:#bbb;font-size:1rem;">--分类功能暂未上线--</p>
+                        </div>
+                        <!-- album -->
+                        <input type="radio" id="album" name="tablist_s" />
+                        <div class="tabitem albumlist">
+                            <p style="margin:100px 0;text-align:center;color:#bbb;font-size:1rem;">--分类功能暂未上线--</p>
+                        </div>
+                        <!-- musicvideo -->
+                        <input type="radio" id="musicvideo" name="tablist_s" />
+                        <div class="tabitem musicvideolist">
+                            <p style="margin:100px 0;text-align:center;color:#bbb;font-size:1rem;">--分类功能暂未上线--</p>
+                        </div>
+                        <!-- playlist -->
+                        <input type="radio" id="playlist" name="tablist_s" />
+                        <div class="tabitem playlist">
+                            <p style="margin:100px 0;text-align:center;color:#bbb;font-size:1rem;">--分类功能暂未上线--</p>
+                        </div>
+                        <!-- songlrc -->
+                        <input type="radio" id="songlrc" name="tablist_s" />
+                        <div class="tabitem songlrclist">
+                            <p style="margin:100px 0;text-align:center;color:#bbb;font-size:1rem;">--分类功能暂未上线--</p>
+                        </div>
+                        <!-- fm -->
+                        <input type="radio" id="fm" name="tablist_s" />
+                        <div class="tabitem fmlist">
+                            <p style="margin:100px 0;text-align:center;color:#bbb;font-size:1rem;">--分类功能暂未上线--</p>
+                        </div>
+                        <!-- user -->
+                        <input type="radio" id="user" name="tablist_s" />
+                        <div class="tabitem userlist">
+                            <p style="margin:100px 0;text-align:center;color:#bbb;font-size:1rem;">--分类功能暂未上线--</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+</body>
+</html>
