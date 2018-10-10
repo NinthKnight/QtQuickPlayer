@@ -9,6 +9,8 @@
 #include <QDir>
 #include <QJsonDocument>
 
+#include "model.h"
+
 //play method
 //http://m.kugou.com/app/i/getSongInfo.php?cmd=playInfo&hash=
 //http://www.kugou.com/yy/index.php?r=play/getdata&hash
@@ -43,92 +45,9 @@
  *  a new API too-----> http://api.itwusun.com/music/search/wy/2?format=json&keyword=≥¬ﬁ»—∏&sign=a5cc0a8797539d3a1a4f7aeca5b695b9
 */
 
-/*{"SongName":"∏Ê∞◊∆¯«Ú",
-"OwnerCount":1874763,
-"MvType":2,
-"SQFailProcess":4,
-"Source":"",
-"Bitrate":128,
-"HQExtName":"mp3",
-"SQFileSize":25058814,
-"ResFileSize":43915053,
-"SuperExtName":"",
-"MvTrac":3,
-"SQDuration":215,
-"ExtName":"mp3",
-"Auxiliary":"",
-"SQPkgPrice":1,
-"Scid":22084042,
-"FailProcess":4,
-"HQPkgPrice":1,
-"HQBitrate":320,
-"HiFiQuality":3,
-"Grp":{},
-"AlbumPrivilege":8,
-"AlbumID":"1645030",
-"SuperFileHash":"",
-"ASQPrivilege":10,
-"M4aSize":887266,
-"AlbumName":"÷‹Ω‹¬◊µƒ¥≤±ﬂπ  ¬",
-"Privilege":8,
-"ResBitrate":1632,
-"FileHash":"3C3D93A5615FB42486CAB22024945264",
-"SQPayType":3,
-"HQPrice":200,
-"SourceID":0,
-"FileName":"÷‹Ω‹¬◊ - ∏Ê∞◊∆¯«Ú",
-"ID":"9dba44e08f30315c565a0fb773289dea",
-"SuperFileSize":0,
-"QualityLevel":3,
-"SQFileHash":"B2C0A23919EEE8B47831FFAA2604107F",
-"HQPrivilege":10,
-"SuperBitrate":0,
-"SuperDuration":0,
-"ResFileHash":"05CCCE134338BD3B2AAB176218FCB0F9",
-"PublishAge":255,
-"HQFileHash":"4C285C68EBEFAD7D8602D2D14D48F725",
-"A320Privilege":10,
-"HQPayType":3,
-"TopicUrl":"",
-"PayType":3,
-"PkgPrice":1,
-"SongLabel":"",
-"Accompany":1,
-"HQFileSize":8624568,
-"FileSize":3449934,
-"SQPrice":200,
-"ResDuration":215,
-"SQExtName":"flac",
-"Price":200,
-"AudioCdn":100,
-"SingerName":"÷‹Ω‹¬◊",
-"SQBitrate":931,
-"MvHash":"AFF3B6219C15D030F957B82FF50AA91E",
-"SQPrivilege":10,
-"HQDuration":215,
-"OtherName":"",
-"HasAlbum":1,
-"HQFailProcess":4,
-"Duration":216}
 
-
-check this out===>http://trackercdn.kugou.com/i/v2/?cmd=24
-&hash=3c3d93a5615fb42486cab22024945264
-&key=0b8d4d681d6cd4403ea2a47907935ae0
-&pid=1
-&vipToken=
-&appid=1001
-&version=8100
-&token=
-&vipType=0
-&userid=312986171
-&behavior=play
-&module=locallist
-&album_id=1645030
-&cdnBackup=1
-&mid=716e60e8f13d81666d8515da60a4313b
-
-*/
+extern SongModel newLstModel;
+extern SongModel hotLstModel;
 
 MyNetWork::MyNetWork(QObject *parent) : QObject(parent)
 {
@@ -258,6 +177,7 @@ void  MyNetWork::requestNewSong() {
 
 	if (reply->error() == QNetworkReply::NoError)
 	{
+		newLstModel.m_Lst.clear();
 		QByteArray bytTemp = reply->readAll();
 		reply->deleteLater();
 		QJsonDocument doc0 = QJsonDocument::fromJson(bytTemp);
@@ -290,11 +210,17 @@ void  MyNetWork::requestNewSong() {
 			item.setProperty("songHash", strHash);
 
 			array.setProperty(i, item);
+
+
+			Song s;
+			s.m_songer = strSinger;
+			s.m_SongHash = strHash;
+			s.m_songName = strMusicName;
+			newLstModel.addSong(s);
 		}
 
 
 		QJsonDocument jsonDoc = QJsonDocument::fromVariant(array.toVariant());
-		//qDebug() << "json[" << jsonDoc.toJson() << "]";
 
 		emit sig_reqNewSongStatus(jsonDoc.toJson());
 
@@ -320,6 +246,7 @@ void  MyNetWork::requestHotSong() {
 
 	if (reply->error() == QNetworkReply::NoError)
 	{
+		hotLstModel.m_Lst.clear();
 		QByteArray bytTemp = reply->readAll();
 		reply->deleteLater();
 		QJsonDocument doc0 = QJsonDocument::fromJson(bytTemp);
@@ -352,6 +279,12 @@ void  MyNetWork::requestHotSong() {
 			item.setProperty("songHash", strHash);
 
 			array.setProperty(i, item);
+
+			Song s;
+			s.m_songer = strSinger;
+			s.m_SongHash = strHash;
+			s.m_songName = strMusicName;
+			hotLstModel.addSong(s);
 		}
 
 
@@ -436,6 +369,36 @@ void MyNetWork::requestSong(const QString &strReq)//«Î«Û∏Ë«˙
 	QJsonArray array0= obj01.value("lists").toArray();
 	QJsonObject obj02= array0.at(0).toObject();
 	QString hash= obj02.value("FileHash").toString();*/
+}
+
+QString MyNetWork::requestSongUrlbyHash(const QString& hash)
+{
+	QString strTemp(URL_KGPLAY);
+	QNetworkRequest request;
+	QNetworkAccessManager manger;
+	QString url;
+	QByteArray bytTemp;
+	QJsonObject objTemp;
+	QEventLoop loop;
+	
+
+	strTemp = strTemp.arg(hash);
+	request.setUrl(strTemp);
+
+	QNetworkReply *reply = manger.get(request);
+	connect(&manger, SIGNAL(finished(QNetworkReply*)), &loop, SLOT(quit()));
+	loop.exec();
+
+	if (reply->error() == QNetworkReply::NoError)
+	{
+		bytTemp = reply->readAll();
+		QJsonDocument doc0 = QJsonDocument::fromJson(bytTemp);
+		objTemp = doc0.object();
+		url = objTemp.value("url").toString();
+	}
+	reply->deleteLater();
+
+	return url;
 }
 
 void MyNetWork::requestNewMv(const QString &mvname)//«Î«ÛMv

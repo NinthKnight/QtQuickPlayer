@@ -14,6 +14,8 @@ public:
 signals:
 	void sig_SendToQml(int nTime);
 
+	void sig_ReloadLyric();
+
 public:
 
 	//∏Ë¥ …Ë÷√
@@ -23,6 +25,10 @@ public:
 
 	Q_INVOKABLE QString getLyric() {
 		return m_lyric;
+	}
+
+	Q_INVOKABLE void hideLyric() {
+	
 	}
 
 	//∏Ë ÷…Ë÷√
@@ -68,16 +74,25 @@ public:
 	CLyricLayer() {
 	
 		connect(&lyricModel, SIGNAL(sig_SendToQml(int)), this, SLOT(slotSendToQml(int)));
+
+		connect(&lyricModel, SIGNAL(sig_ReloadLyric()), this, SLOT(slotReloadLyric()));
 	};
 
 	~CLyricLayer() {};
 
 signals:
 	void signalSendToQml(int nTime);
+	void signalReloadLyric();
+
 
 	public slots:
 	void slotSendToQml(int nTime) {
 		emit signalSendToQml(nTime);
 	}
+
+	void slotReloadLyric() {
+		emit signalReloadLyric();
+	}
+
 
 };

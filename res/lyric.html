@@ -26,6 +26,12 @@
                     SetScroll(message);
                 });
             });
+
+           $btnCompressPlayBox = $("#btnCompressPlayBox"),
+           $btnCompressPlayBox.click(function () {
+               window.mPlayer.hideLyric();
+           });
+
         }
         
         //滚动初始化

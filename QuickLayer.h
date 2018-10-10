@@ -11,6 +11,9 @@
 #include "model.h"
 #include "LyricModel.h"
 
+extern SongModel newLstModel;
+extern SongModel hotLstModel;
+
 extern SongModel model;
 extern PlayListModel playModel;
 extern CLyricModel lyricModel;
@@ -63,6 +66,42 @@ public:
 		slot_playSong();
 	}
 
+	//响应新歌榜音乐播放
+	Q_INVOKABLE  void playNewSong()
+	{
+		//将歌曲添加到播放列表中
+		int nCurCount = playModel.getCount();
+		QList<Song>::iterator it;
+		for (it = newLstModel.m_Lst.begin(); it != newLstModel.m_Lst.end(); it++) {
+			playModel.addSong((*it));
+		}
+
+		emit setPlayListCount(QString::number(playModel.getCount()));
+
+		playModel.setCurentSongIndex(nCurCount);
+
+		slot_playSong();
+	}
+
+	//响应热歌榜音乐播放
+	Q_INVOKABLE  void playHotSong()
+	{
+
+		//将歌曲添加到播放列表中
+		int nCurCount = playModel.getCount();
+		QList<Song>::iterator it;
+		for (it = hotLstModel.m_Lst.begin(); it != hotLstModel.m_Lst.end(); it++) {
+			playModel.addSong((*it));
+		}
+
+		emit setPlayListCount(QString::number(playModel.getCount()));
+
+		playModel.setCurentSongIndex(nCurCount);
+
+		slot_playSong();
+	}
+
+
 	//响应播放列表的双击
 	Q_INVOKABLE  void playListSong(int nRow)
 	{
@@ -89,7 +128,7 @@ public:
 		slot_playSong();
 	}
 	
-	Q_INVOKABLE  void playNextSong() {
+	  Q_INVOKABLE  void playNextSong() {
 		qDebug() << "playNextSong" << endl;
 
 		if (playModel.getCount() < 0) {

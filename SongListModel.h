@@ -20,6 +20,9 @@ signals:
 
 	void sig_PlaySong(int nIndex);
 
+	void sig_PlayNewSong();
+	void sig_PlayHotSong();
+
 	void sig_SetList();
 
 

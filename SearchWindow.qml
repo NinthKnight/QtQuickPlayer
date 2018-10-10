@@ -130,6 +130,16 @@ Rectangle {
             return d
         }
 
+        function playNewSong(){
+            console.log("playNewSong");
+            songLstModel.sig_PlayNewSong();
+        }
+
+        function playHotSong(){
+            console.log("playHotSong");
+            songLstModel.sig_PlayHotSong();
+        }
+
 
         function setList(){
             console.log("setList");

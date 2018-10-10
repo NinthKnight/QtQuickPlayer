@@ -17,6 +17,11 @@ Rectangle {
     width:843;
     height: 624;
 
+    function reload(){
+        console.log("reload");
+        mainHtml.reload();
+    }
+
     //需要注册一个WebChannel对象
     WebChannel{
         id:changedId
@@ -24,6 +29,7 @@ Rectangle {
     }
 
     WebEngineView {
+             id:mainHtml
              anchors.fill: parent
              url: "qrc:/res/lyric.html"
              webChannel:changedId
@@ -45,7 +51,18 @@ Rectangle {
             signal_setScorll(nTime);
         }
 
+        //c++ -->Qml
+        onSignalReloadLyric: {
+            console.log("onSignalReloadLyric");
+            myLyricWindow.reload();
+        }
+
         //扩展的函数
+        function hideLyric(){
+            console.log("hideLyric");
+            lyricModel.hideLyric();
+        }
+
         function getLyric(){
             console.log("getLyric1234");
             var d = lyricModel.getLyric();

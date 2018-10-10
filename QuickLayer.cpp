@@ -28,6 +28,12 @@ CQuickLayer::CQuickLayer()
 	//播放音乐
 	connect(&songLstModel, SIGNAL(sig_PlaySong(int)), this, SLOT(playSong(int)));
 
+	//播放音乐
+	connect(&songLstModel, SIGNAL(sig_PlayNewSong()), this, SLOT(playNewSong()));
+
+	//播放音乐
+	connect(&songLstModel, SIGNAL(sig_PlayHotSong()), this, SLOT(playHotSong()));
+
 	//设置榜单
 	connect(&songLstModel, SIGNAL(sig_SetList()), this, SLOT(setList()));
 	
@@ -181,6 +187,9 @@ void CQuickLayer::slot_playSong() {
 			lyricModel.setSonger(playModel.GetSonger(nPlayListIndex));
 			lyricModel.setAlbumName(playModel.GetAlbumName(nPlayListIndex));
 			lyricModel.setSongName(playModel.GetSongName(nPlayListIndex));
+
+			//通知qml重新加载歌词
+			emit lyricModel.sig_ReloadLyric();
 		}
 	}
 }

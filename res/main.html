@@ -51,7 +51,18 @@
                     //console.log($infoList_search.find("tr"));
 
                     window.mSonglst.playSong(this.dataset.id);
+                });
 
+
+                $newTablePlay = $("#newTablePlay"),
+                $newTablePlay.click(function () {
+                    console.log("#newTablePlay");
+                    window.mSonglst.playNewSong();
+                });
+
+                $hotTablePlay = $("#hotTablePlay"),
+                $hotTablePlay.click(function () {
+                    window.mSonglst.playHotSong();
                 });
 
             });
@@ -76,7 +87,7 @@
 	                            <span class ="s_title_txt s_title_icon_2" title= "` + songs[i]['songName'] + `" > ` + songs[i]['songName'] + ` </span>
                             </td>
                             <td class ="fct"><div class ="fct_btn"><a href="javascript:;" data-page="recommend_new" class ="play" title="播放"></a></div></td>
-                            <td class ="u_title"><a href="javascript:;" class ="artist" title= "`+ songs[i]['songer'] + `"> `+ songs[i]['songer'] + ` </a></td>
+                            <td class ="u_title"> `+ songs[i]['songer'] + ` </td>
                             </tr>
 						`;
             }
@@ -106,7 +117,7 @@
 		                            <span class ="s_title_txt s_title_icon_1" title= "` + songs[i]['songName'] + `" > ` + songs[i]['songName'] + ` </span>
 	                            </td>
 	                            <td class ="fct"><div class ="fct_btn"><a href="javascript:;" class ="play" data-page="recommend_hot" title="播放"></a></div></td>
-	                            <td class ="u_title"><a href="javascript:;" class ="artist" title= "`+ songs[i]['songer'] + `"> `+ songs[i]['songer'] + ` </a></td>
+	                            <td class ="u_title"> `+ songs[i]['songer'] + ` </td>
                             </tr>
 						`;
             }
@@ -163,7 +174,7 @@
                 <!-- 新歌榜start -->
                 <div class="bangdan_con new_con fl">
                     <div class="bangdan_title event_main_table_btn">
-                        <a class="play_icon png play_btn event_play_all_bd" title="播放列表中全部歌曲"></a>
+                        <div id="newTablePlay"><a class="play_icon png play_btn event_play_all_bd" title="播放列表中全部歌曲" ></a></div>
                         <a class="linkB" data-code="1">完整榜单</a>
                     </div>
                     <div id="rcBangdanTable" class="main_table_wrap" oncontextmenu="return false" onselectstart="return false">
@@ -178,9 +189,9 @@
                 <!-- 热歌榜start -->
                 <div class="bangdan_con hot_con fr">
                     <div class="bangdan_title event_main_table_btn">
-                        <a class="play_icon png play_btn event_play_all_bd"></a>
-                        <a class="linkB" data-code="2">完整榜单</a>
-                    </div>
+                        <div id="hotTablePlay"><a class="play_icon png play_btn event_play_all_bd"></a></div>
+                            <a class="linkB" data-code="2">完整榜单</a>
+                        </div>
                     <div id="hotBangdan" class="main_table_wrap" oncontextmenu="return false" onselectstart="return false">
                         <table class="rc_bangdan_table left_table main_table">
                             <tbody id="infoList_hot">

@@ -1,10 +1,12 @@
 #pragma once
 #include <QAbstractListModel>
 #include <QStringList>
-
+#include "netWork\mynetwork.h"
 class Song
 {
 public:
+	friend class MyNetWork;
+	friend class PlayListModel;
 	Song(const QString &songId, 
 		      const QString &songName,
 		      const QString &songer,
@@ -12,6 +14,8 @@ public:
 		      const QString &Duration,
 		      const QString &SongHash,
 		      const QString &SongUrl);
+
+	Song() {};
 
 	QString songId() const;
 	QString songName() const;
@@ -35,6 +39,10 @@ class SongModel : public QAbstractTableModel
 {
 	Q_OBJECT
 public:
+
+	friend class CQuickLayer;
+	friend class MyNetWork;
+
 	enum SongRoles {
 		IdRole = Qt::UserRole + 1,
 		NameRole,
@@ -76,6 +84,8 @@ public:
 	QVariant data(const QModelIndex & index, int role = Qt::DisplayRole) const;
 	QHash<int, QByteArray> roleNames() const;
 
+
+
 private:
 	QList<Song> m_Lst;
 };
@@ -112,7 +122,7 @@ public:
 		m_nPlayMode = (m_nPlayMode + 1)% 4;
 	}
 
-	Song getSong(int nRow) {
+	Song& getSong(int nRow) {
 		return m_Lst[nRow];
 	}
 
@@ -126,8 +136,16 @@ public:
 
 	QString GetSongUrl(int nIndex) {
 
-		if (nIndex >= 0 && nIndex < m_Lst.count())
+		if (nIndex >= 0 && nIndex < m_Lst.count()) {
+			if (m_Lst[nIndex].SongUrl().isEmpty()) {
+				Song& s = getSong(nIndex);
+				MyNetWork m;
+				s.m_songUrl = m.requestSongUrlbyHash(s.SongHash());
+			}
+			
 			return m_Lst[nIndex].SongUrl();
+		}
+			
 		return "";
 	}
 

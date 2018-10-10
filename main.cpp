@@ -14,7 +14,11 @@
 
 #include "QuickLayer.h"
 
+
+SongModel newLstModel;
+SongModel hotLstModel;
 SongModel model;
+
 PlayListModel playModel;
 CLyricModel lyricModel;
 CSongLstModel songLstModel;

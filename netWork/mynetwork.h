@@ -56,6 +56,7 @@ public slots:
 	void requestNewMv(const QString&);
     void requestalbum(const QString &name,const QString &savelocal);
     void requestSong(const QString&);
+	QString requestSongUrlbyHash(const QString&);
     void requestSongNextPage();
     void requestlrc(const QString &name,qint64 totaltime,const QString &saveloaction,const QString &strHash="");
     void requestBgPic(const QString &author);
