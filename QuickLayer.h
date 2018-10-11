@@ -205,6 +205,8 @@ signals:
 
 	void setLyrics(const QString &strLyrics);
 
+	void hideLyric();
+
 public slots:
 
     void slot_CurrentMediaFinished();
@@ -222,6 +224,10 @@ public slots:
 	void slot_setPlayList(int nIndex);
 
 	void setList();
+
+	void slot_HideLyric() {
+		emit hideLyric();
+	}
 
 
 public:

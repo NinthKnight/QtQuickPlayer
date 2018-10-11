@@ -36,6 +36,8 @@ CQuickLayer::CQuickLayer()
 
 	//…Ë÷√∞Òµ•
 	connect(&songLstModel, SIGNAL(sig_SetList()), this, SLOT(setList()));
+
+	connect(&lyricModel, SIGNAL(sig_HideLyric()), this, SLOT(slot_HideLyric()));
 	
 
 	m_playStatus = PLAYSTATUS_START;

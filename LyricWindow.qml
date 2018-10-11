@@ -60,7 +60,7 @@ Rectangle {
         //扩展的函数
         function hideLyric(){
             console.log("hideLyric");
-            lyricModel.hideLyric();
+            lyricModel.sig_HideLyric();
         }
 
         function getLyric(){
@@ -86,8 +86,6 @@ Rectangle {
             var d = lyricModel.getSongName();
             return d
         }
-
-
 
     }
 

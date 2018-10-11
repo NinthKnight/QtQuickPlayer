@@ -2,6 +2,7 @@
 
 #include <QAbstractListModel>
 #include <QStringList>
+#include <qdebug.h>
 
 
 class CLyricModel : public QObject
@@ -16,6 +17,8 @@ signals:
 
 	void sig_ReloadLyric();
 
+	void sig_HideLyric();
+
 public:
 
 	//∏Ë¥ …Ë÷√
@@ -27,16 +30,13 @@ public:
 		return m_lyric;
 	}
 
-	Q_INVOKABLE void hideLyric() {
-	
-	}
-
 	//∏Ë ÷…Ë÷√
 	Q_INVOKABLE void setSonger(QString str) {
 		m_songer = str;
 	}
 
 	Q_INVOKABLE QString getSonger() {
+		qDebug() << "CLyricModel::getSonger" << endl;
 		return m_songer;
 	}
 

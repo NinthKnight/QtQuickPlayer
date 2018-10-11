@@ -873,6 +873,30 @@ Window {
             height: 42;
             property bool bLyric: true;
 
+            function hidelyric(){
+                if (lyricControl.bLyric){
+                    //stackView.clear()
+                    stackView.push("qrc:/LyricWindow.qml")
+                    lyricControl.bLyric = false;
+                }
+                else{
+                    stackView.pop();
+                    //stackView.clear()
+                    //stackView.push("qrc:/SearchWindow.qml")
+                    lyricControl.bLyric = true;
+                }
+            }
+
+            Connections {
+                target: quickLayer;
+                onHideLyric: {
+                    lyricControl.hidelyric();
+                }
+            }
+
+
+
+
             Loader {
                 id: lyricLoader;
                 anchors.left: parent.left;
